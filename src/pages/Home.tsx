@@ -97,9 +97,9 @@ const services = [
     icon: Shield,
     desc: 'Secure your balconies from accidental falls. Made of UV-resistant high-tensile HDPE or transparent monofilament wires. Perfect for high-rise apartment safety.',
     images: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783941368/starchennaisafetynets/balcony_safety_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939811/starchennaisafetynets/balcony_safety_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939814/starchennaisafetynets/balcony_safety_3.jpg'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954795/starchennaisafetynets/balcony_safety_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954797/starchennaisafetynets/balcony_safety_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954798/starchennaisafetynets/balcony_safety_3.jpg'
     ]
   },
   {
@@ -108,9 +108,9 @@ const services = [
     icon: Sparkles,
     desc: 'Keep pigeons and wild sparrows from infesting and nesting in AC vents, pipes, and shafts without harming them. Long-lasting HDPE material.',
     images: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939817/starchennaisafetynets/bird_protection_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939820/starchennaisafetynets/bird_protection_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939823/starchennaisafetynets/bird_protection_3.jpg'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954800/starchennaisafetynets/bird_protection_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954802/starchennaisafetynets/bird_protection_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954805/starchennaisafetynets/bird_protection_3.jpg'
     ]
   },
   {
@@ -119,9 +119,9 @@ const services = [
     icon: Heart,
     desc: 'Specifically designed mesh targets stubborn pigeon flocks. Maintain absolute balcony sanitation with complete transparency and UV protection.',
     images: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939826/starchennaisafetynets/pigeon_safety_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939828/starchennaisafetynets/pigeon_safety_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939831/starchennaisafetynets/pigeon_safety_3.jpg'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954895/starchennaisafetynets/pigeon_safety_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954897/starchennaisafetynets/pigeon_safety_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954898/starchennaisafetynets/pigeon_safety_3.jpg'
     ]
   },
   {
@@ -130,9 +130,9 @@ const services = [
     icon: Users,
     desc: 'Double-mesh robust netting configured near windows, staircases, and open balconies. Tested to support weights of up to 150 kg for complete child safety.',
     images: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939834/starchennaisafetynets/child_safety_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939837/starchennaisafetynets/child_safety_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939840/starchennaisafetynets/child_safety_3.jpg'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954819/starchennaisafetynets/child_safety_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954822/starchennaisafetynets/child_safety_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954824/starchennaisafetynets/child_safety_3.jpg'
     ]
   },
   {
@@ -141,9 +141,9 @@ const services = [
     icon: Award,
     desc: 'Certified industrial-grade fall arrest and dual-layer debris containment nets for multi-storey project sites. Adheres strictly to IS-11057 standards.',
     images: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939843/starchennaisafetynets/construction_safety_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939846/starchennaisafetynets/construction_safety_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939849/starchennaisafetynets/construction_safety_3.jpg'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954840/starchennaisafetynets/construction_safety_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954843/starchennaisafetynets/construction_safety_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954845/starchennaisafetynets/construction_safety_3.jpg'
     ]
   },
   {
@@ -152,9 +152,9 @@ const services = [
     icon: PenTool,
     desc: 'Heavy-duty weather-proof rope nets anchored below tall coconut trees to catch falling fruits safely, protecting pedestrians and properties from impact.',
     images: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939852/starchennaisafetynets/coconut_safety_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939855/starchennaisafetynets/coconut_safety_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939858/starchennaisafetynets/coconut_safety_3.jpg'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954833/starchennaisafetynets/coconut_safety_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954836/starchennaisafetynets/coconut_safety_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954838/starchennaisafetynets/coconut_safety_3.jpg'
     ]
   },
   {
@@ -163,9 +163,9 @@ const services = [
     icon: ShieldCheck,
     desc: 'High-altitude rope nets designed for warehouses, chemical plants, and manufacturing bays. Secure cargo storage and material handling facilities.',
     images: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939861/starchennaisafetynets/industrial_safety_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939864/starchennaisafetynets/industrial_safety_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939867/starchennaisafetynets/industrial_safety_3.jpg'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954879/starchennaisafetynets/industrial_safety_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954881/starchennaisafetynets/industrial_safety_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954883/starchennaisafetynets/industrial_safety_3.jpg'
     ]
   },
   {
@@ -174,9 +174,9 @@ const services = [
     icon: Layers,
     desc: 'Cover narrow plumbing shafts, high-rise building ducts, and open service vents to stop garbage accumulation, birds, or accidental worker drops.',
     images: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939870/starchennaisafetynets/duct_area_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939872/starchennaisafetynets/duct_area_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939872/starchennaisafetynets/duct_area_3.jpg'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954859/starchennaisafetynets/duct_area_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954860/starchennaisafetynets/duct_area_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954864/starchennaisafetynets/duct_area_3.jpg'
     ]
   },
   {
@@ -185,9 +185,9 @@ const services = [
     icon: Flame,
     desc: 'Comprehensive structural safety wraps designed for aging buildings to secure plaster falls, protect surrounding pathways, and contain debris.',
     images: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939872/starchennaisafetynets/building_safety_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939874/starchennaisafetynets/building_safety_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939876/starchennaisafetynets/building_safety_3.jpg'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954813/starchennaisafetynets/building_safety_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954815/starchennaisafetynets/building_safety_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954817/starchennaisafetynets/building_safety_3.jpg'
     ]
   }
 ];
@@ -199,9 +199,9 @@ const invisibleGrillServices = [
     icon: Shield,
     desc: 'Elegant safety barrier for modern high-rise balconies. Strong 316-grade stainless steel cables with nylon coating ensure complete fall protection without blocking views.',
     images: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939877/starchennaisafetynets/invisible_grill_balcony_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939879/starchennaisafetynets/invisible_grill_balcony_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939882/starchennaisafetynets/invisible_grill_balcony_3.jpg'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954788/starchennaisafetynets/invisible_grill_balcony_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954790/starchennaisafetynets/invisible_grill_balcony_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954793/starchennaisafetynets/invisible_grill_balcony_3.jpg'
     ]
   },
   {
@@ -210,9 +210,9 @@ const invisibleGrillServices = [
     icon: Layers,
     desc: 'Ditch ugly iron grates. Window invisible grills feature thin, extremely strong steel wires spaced perfectly to keep kids and pets safe while preserving window breeze and beautiful outside views.',
     images: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939884/starchennaisafetynets/invisible_grill_window_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939885/starchennaisafetynets/invisible_grill_window_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939886/starchennaisafetynets/invisible_grill_window_3.jpg'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954917/starchennaisafetynets/invisible_grill_window_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954920/starchennaisafetynets/invisible_grill_window_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954923/starchennaisafetynets/invisible_grill_window_3.jpg'
     ]
   },
   {
@@ -221,9 +221,9 @@ const invisibleGrillServices = [
     icon: Flame,
     desc: 'Custom vertically stretched high-tension wires alongside open staircase railings. Prevents kids from slipping through gaps while retaining the modern architectural openness of your home.',
     images: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939887/starchennaisafetynets/invisible_grill_staircase_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939889/starchennaisafetynets/invisible_grill_staircase_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939890/starchennaisafetynets/invisible_grill_staircase_3.jpg'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954900/starchennaisafetynets/invisible_grill_staircase_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954902/starchennaisafetynets/invisible_grill_staircase_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954904/starchennaisafetynets/invisible_grill_staircase_3.jpg'
     ]
   },
   {
@@ -232,9 +232,9 @@ const invisibleGrillServices = [
     icon: ShieldCheck,
     desc: 'Ensure absolute safety on rooftop garden edges or open terraces. Provides high-security load-bearing boundaries without obstructing magnificent skyline scenery.',
     images: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939893/starchennaisafetynets/invisible_grill_terrace_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939895/starchennaisafetynets/invisible_grill_terrace_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939896/starchennaisafetynets/invisible_grill_terrace_3.jpg'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954912/starchennaisafetynets/invisible_grill_terrace_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954914/starchennaisafetynets/invisible_grill_terrace_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954916/starchennaisafetynets/invisible_grill_terrace_3.jpg'
     ]
   },
   {
@@ -243,9 +243,9 @@ const invisibleGrillServices = [
     icon: Sparkles,
     desc: 'Minimalist perimeter safety barriers designed for corporate high-rises, commercial office ducts, and luxury showrooms. Offers modern aesthetics with rigid safety certification.',
     images: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939897/starchennaisafetynets/invisible_grill_office_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939898/starchennaisafetynets/invisible_grill_office_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939898/starchennaisafetynets/invisible_grill_office_3.jpg'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954889/starchennaisafetynets/invisible_grill_office_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954891/starchennaisafetynets/invisible_grill_office_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954893/starchennaisafetynets/invisible_grill_office_3.jpg'
     ]
   }
 ];
@@ -257,9 +257,9 @@ const sportsNetServices = [
     icon: Sparkles,
     desc: 'Premium robust sports netting setups for professional cricket clubs, residential terraces, and school grounds. UV-treated nylon nets built to absorb heavy cricket ball impact.',
     images: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939899/starchennaisafetynets/cricket_practice_net_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783940040/starchennaisafetynets/cricket_practice_net_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783940042/starchennaisafetynets/cricket_practice_net_3.jpg'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954849/starchennaisafetynets/cricket_practice_net_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954851/starchennaisafetynets/cricket_practice_net_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954854/starchennaisafetynets/cricket_practice_net_3.jpg'
     ]
   },
   {
@@ -268,9 +268,9 @@ const sportsNetServices = [
     icon: Award,
     desc: 'Custom high-density co-polymer goalpost nets and enclosing fence nets for turf courts and outdoor football grounds. Extreme tear resistance and high-tensile knotting.',
     images: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783940043/starchennaisafetynets/football_net_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783940112/starchennaisafetynets/football_net_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939907/starchennaisafetynets/football_net_3.jpg'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954866/starchennaisafetynets/football_net_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954868/starchennaisafetynets/football_net_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954870/starchennaisafetynets/football_net_3.jpg'
     ]
   },
   {
@@ -279,9 +279,9 @@ const sportsNetServices = [
     icon: Shield,
     desc: 'Heavy-duty tournament-grade tennis nets and perimeter backdrop windbreak netting. Resists continuous outdoor solar wear, wind pressure, and rain.',
     images: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939908/starchennaisafetynets/tennis_court_net_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783940045/starchennaisafetynets/tennis_court_net_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783940045/starchennaisafetynets/tennis_court_net_3.jpg'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954907/starchennaisafetynets/tennis_court_net_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954909/starchennaisafetynets/tennis_court_net_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954911/starchennaisafetynets/tennis_court_net_3.jpg'
     ]
   },
   {
@@ -290,9 +290,9 @@ const sportsNetServices = [
     icon: Heart,
     desc: 'Tight-mesh ultra-durable containment nets that stop golf balls of high-velocity impact. Safely practice drives inside residential spaces, offices, or gardens.',
     images: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939914/starchennaisafetynets/golf_practice_net_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939916/starchennaisafetynets/golf_practice_net_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939917/starchennaisafetynets/golf_practice_net_3.jpg'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954873/starchennaisafetynets/golf_practice_net_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954875/starchennaisafetynets/golf_practice_net_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954877/starchennaisafetynets/golf_practice_net_3.jpg'
     ]
   }
 ];
@@ -304,9 +304,9 @@ const householdServices = [
     icon: Layers,
     desc: 'Space-saving ceiling-mounted pulley cloth drying hangers. High-quality rust-free stainless steel pipes ideal for apartments in Chennai.',
     images: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783953873/starchennaisafetynets/cloth_hanger_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783953922/starchennaisafetynets/cloth_hanger_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783953974/starchennaisafetynets/cloth_hanger_3.jpg'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954825/starchennaisafetynets/cloth_hanger_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954828/starchennaisafetynets/cloth_hanger_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954830/starchennaisafetynets/cloth_hanger_3.jpg'
     ]
   },
   {
@@ -315,9 +315,9 @@ const householdServices = [
     icon: ShieldCheck,
     desc: 'Premium Velcro and pleated mosquito net screens for windows and doors. Durable mesh protection keeping insects away while preserving airflow.',
     images: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954083/starchennaisafetynets/mosquito_net_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954099/starchennaisafetynets/mosquito_net_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954144/starchennaisafetynets/mosquito_net_3.jpg'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954884/starchennaisafetynets/mosquito_net_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954886/starchennaisafetynets/mosquito_net_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954888/starchennaisafetynets/mosquito_net_3.jpg'
     ]
   },
   {
@@ -326,9 +326,9 @@ const householdServices = [
     icon: Sparkles,
     desc: 'Polycarbonate and stainless steel bird spikes. Long-lasting humane deterrents to prevent birds and pigeons from nesting on ledges.',
     images: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954200/starchennaisafetynets/bird_spikes_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954202/starchennaisafetynets/bird_spikes_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954204/starchennaisafetynets/bird_spikes_3.jpg'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954807/starchennaisafetynets/bird_spikes_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954809/starchennaisafetynets/bird_spikes_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954810/starchennaisafetynets/bird_spikes_3.jpg'
     ]
   }
 ];
