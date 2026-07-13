@@ -297,6 +297,42 @@ const sportsNetServices = [
   }
 ];
 
+const householdServices = [
+  {
+    title: 'Cloth Hangers',
+    highlightWord: 'Cloth',
+    icon: Layers,
+    desc: 'Space-saving ceiling-mounted pulley cloth drying hangers. High-quality rust-free stainless steel pipes ideal for apartments in Chennai.',
+    images: [
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783953873/starchennaisafetynets/cloth_hanger_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783953922/starchennaisafetynets/cloth_hanger_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783953974/starchennaisafetynets/cloth_hanger_3.jpg'
+    ]
+  },
+  {
+    title: 'Mosquito Nets',
+    highlightWord: 'Mosquito',
+    icon: ShieldCheck,
+    desc: 'Premium Velcro and pleated mosquito net screens for windows and doors. Durable mesh protection keeping insects away while preserving airflow.',
+    images: [
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954083/starchennaisafetynets/mosquito_net_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954099/starchennaisafetynets/mosquito_net_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954144/starchennaisafetynets/mosquito_net_3.jpg'
+    ]
+  },
+  {
+    title: 'Bird Spikes',
+    highlightWord: 'Bird',
+    icon: Sparkles,
+    desc: 'Polycarbonate and stainless steel bird spikes. Long-lasting humane deterrents to prevent birds and pigeons from nesting on ledges.',
+    images: [
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954200/starchennaisafetynets/bird_spikes_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954202/starchennaisafetynets/bird_spikes_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954204/starchennaisafetynets/bird_spikes_3.jpg'
+    ]
+  }
+];
+
 interface ScrollingServiceRowProps {
   items: typeof services;
   onChangePage: (page: string) => void;
@@ -717,6 +753,22 @@ export default function Home({ onChangePage, onOpenQuoteModal }: HomeProps) {
             </div>
             <ScrollingServiceRow 
               items={sportsNetServices} 
+              onChangePage={onChangePage} 
+              onOpenQuoteModal={onOpenQuoteModal} 
+            />
+          </div>
+
+          {/* ROW 4: HOUSEHOLD ACCESSORIES & BIRD SPIKES */}
+          <div className="mb-2">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="h-6 w-1 bg-accent rounded-full" />
+              <div>
+                <h3 className="text-lg sm:text-xl font-display font-black text-primary">Household Safety & Accessories</h3>
+                <p className="text-xs text-slate-500 font-sans">Premium ceiling cloth hangers, custom window mosquito nets, and polycarbonate/stainless steel bird spikes.</p>
+              </div>
+            </div>
+            <ScrollingServiceRow 
+              items={householdServices} 
               onChangePage={onChangePage} 
               onOpenQuoteModal={onOpenQuoteModal} 
             />
