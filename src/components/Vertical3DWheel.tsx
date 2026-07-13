@@ -11,37 +11,37 @@ interface WheelItem {
 const CAROUSEL_IMAGES: WheelItem[] = [
   {
     id: 1,
-    url: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&q=80&w=600',
+    url: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938511/starchennaisafetynets/chennai_balcony_safety_net.jpg',
     title: 'Balcony Safety Nets',
     desc: 'Heavy-duty 100% UV treated transparent co-polymer safety nets.'
   },
   {
     id: 2,
-    url: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=600',
+    url: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938508/starchennaisafetynets/chennai_hero_backdrop.jpg',
     title: 'Apartment Safety Nets',
     desc: 'Indian high-rise safety nets customized to withstand strong winds.'
   },
   {
     id: 3,
-    url: 'https://images.unsplash.com/photo-1522441815192-d9f04eb0615c?auto=format&fit=crop&q=80&w=600',
+    url: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938515/starchennaisafetynets/chennai_pigeon_safety_net.jpg',
     title: 'Pigeon Safety Nets',
     desc: 'Effective and humane wire-reinforced nylon mesh to keep birds away.'
   },
   {
     id: 4,
-    url: 'https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&q=80&w=600',
+    url: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938515/starchennaisafetynets/chennai_pigeon_safety_net.jpg',
     title: 'Anti-Bird Grills',
     desc: 'Durable nylon bird control barriers for balconies and duct areas.'
   },
   {
     id: 5,
-    url: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=600',
+    url: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938532/starchennaisafetynets/chennai_construction_net.jpg',
     title: 'Construction Safety Nets',
     desc: 'Debris collection and fallback protection nets for industrial sites.'
   },
   {
     id: 6,
-    url: 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&q=80&w=600',
+    url: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938521/starchennaisafetynets/chennai_child_safety_net.jpg',
     title: 'Child Protection Nets',
     desc: 'Maximum strength anchorage ensuring total safety for children and pets.'
   }

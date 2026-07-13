@@ -35,10 +35,10 @@ export default function About({ onOpenQuoteModal }: AboutProps) {
   ];
 
   const galleryImages = [
-    'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80&w=400',
-    'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=400',
-    'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=400',
-    'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=400'
+    'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938511/starchennaisafetynets/chennai_balcony_safety_net.jpg',
+    'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938532/starchennaisafetynets/chennai_construction_net.jpg',
+    'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938537/starchennaisafetynets/chennai_grill_balcony.jpg',
+    'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938508/starchennaisafetynets/chennai_hero_backdrop.jpg'
   ];
 
   return (
@@ -48,7 +48,7 @@ export default function About({ onOpenQuoteModal }: AboutProps) {
       <section className="relative py-24 bg-primary text-white overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=1200" 
+            src="https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938508/starchennaisafetynets/chennai_hero_backdrop.jpg" 
             alt="About Star Safety" 
             referrerPolicy="no-referrer"
             className="w-full h-full object-cover opacity-15 select-none"

@@ -89,7 +89,7 @@ export default function Contact() {
       <section className="relative py-24 bg-primary text-white overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=1200" 
+            src="https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938508/starchennaisafetynets/chennai_hero_backdrop.jpg" 
             alt="Contact Star Safety" 
             referrerPolicy="no-referrer"
             className="w-full h-full object-cover opacity-15 select-none"

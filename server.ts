@@ -1,9 +1,18 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import express, { Request, Response, NextFunction } from 'express';
 import path from 'path';
 import fs from 'fs';
+import { v2 as cloudinary } from 'cloudinary';
 import { createServer as createViteServer } from 'vite';
 import { db } from './src/server/db.js';
 import { Blog, Category, Tag, Inquiry } from './src/types.js';
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME || process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY || process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 const app = express();
 const PORT = 3000;
@@ -708,7 +717,7 @@ app.get('/api/logs', authMiddleware, (req: Request, res: Response): void => {
 
 // ================= IMAGE UPLOAD API =================
 
-app.post('/api/upload', authMiddleware, (req: Request, res: Response): void => {
+app.post('/api/upload', authMiddleware, async (req: Request, res: Response): Promise<void> => {
   const { image, fileName } = req.body; // base64 payload & preferred file name
 
   if (!image) {
@@ -717,7 +726,17 @@ app.post('/api/upload', authMiddleware, (req: Request, res: Response): void => {
   }
 
   try {
-    // Extract format and data
+    // If Cloudinary is configured, upload directly to Cloudinary
+    if (process.env.CLOUDINARY_CLOUD_NAME || process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME) {
+      const uploadResult = await cloudinary.uploader.upload(image, {
+        folder: 'starchennaisafetynets',
+        public_id: `${Date.now()}-${(fileName || 'upload').replace(/[^a-zA-Z0-9]/g, '-')}`
+      });
+      res.status(201).json({ url: uploadResult.secure_url });
+      return;
+    }
+
+    // Fallback to local file upload
     const matches = image.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
     if (!matches || matches.length !== 3) {
       res.status(400).json({ error: 'Invalid image format' });
@@ -735,7 +754,7 @@ app.post('/api/upload', authMiddleware, (req: Request, res: Response): void => {
     res.status(201).json({ url: relativeUrl });
   } catch (err: any) {
     console.error('Upload Error:', err);
-    res.status(500).json({ error: 'Failed to write upload image file: ' + err.message });
+    res.status(500).json({ error: 'Failed to upload image file: ' + err.message });
   }
 });
 

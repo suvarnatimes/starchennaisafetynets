@@ -28,7 +28,7 @@ const serviceDetails: ServiceDetail[] = [
     id: 'balcony-safety-nets',
     title: 'Balcony Safety Nets',
     icon: Shield,
-    image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=800',
+    image: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783941368/starchennaisafetynets/balcony_safety_1.jpg',
     desc: 'Heavy-duty balcony netting solutions engineered to prevent high-rise apartment falls and secure children and pets.',
     longDesc: 'High-rise apartment balconies offer fresh air and scenic views but pose major hazards for families with curious kids or playful pets. Our professional balcony safety nets are custom-fabricated from UV-treated co-polymers and transparent monofilament wires. They provide solid, reliable fall-arrest security up to 150 kg without blocking air circulation or light.',
     benefits: [
@@ -44,8 +44,9 @@ const serviceDetails: ServiceDetail[] = [
       'Fasteners: Rust-proof Solid Stainless Steel (SS304)'
     ],
     gallery: [
-      'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=400',
-      'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=400'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783941368/starchennaisafetynets/balcony_safety_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939811/starchennaisafetynets/balcony_safety_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939814/starchennaisafetynets/balcony_safety_3.jpg'
     ],
     faqs: [
       { q: 'Will the net block my balcony view?', a: 'No, our transparent monofilament safety nets are nearly invisible from a few feet away and do not block light or fresh breeze.' },
@@ -56,7 +57,7 @@ const serviceDetails: ServiceDetail[] = [
     id: 'bird-protection-nets',
     title: 'Bird Protection Nets',
     icon: Sparkles,
-    image: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&q=80&w=800',
+    image: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939817/starchennaisafetynets/bird_protection_1.jpg',
     desc: 'Keep sparrows and pigeons away from your balconies, windows, and AC vents permanently and humanely.',
     longDesc: 'Pigeon and bird infestations are more than a nuisance; their acidic droppings corrode building concrete, destroy AC coils, and spread dangerous respiratory pathogens. Our high-tensile bird protection nets act as a continuous physical barrier. They prevent birds from landing or nesting anywhere on your exterior walls, shafts, or ducts.',
     benefits: [
@@ -72,8 +73,9 @@ const serviceDetails: ServiceDetail[] = [
       'Border: Heavy-duty 1mm wire rope with steel cable loops'
     ],
     gallery: [
-      'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&q=80&w=400',
-      'https://images.unsplash.com/photo-1444464666168-49d633b86797?auto=format&fit=crop&q=80&w=400'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939817/starchennaisafetynets/bird_protection_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939820/starchennaisafetynets/bird_protection_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939823/starchennaisafetynets/bird_protection_3.jpg'
     ],
     faqs: [
       { q: 'Do these nets tear when birds fly into them?', a: 'No. Our bird nets are manufactured from high-tensile HDPE which can absorb sudden impacts without tearing.' },
@@ -84,7 +86,7 @@ const serviceDetails: ServiceDetail[] = [
     id: 'pigeon-safety-nets',
     title: 'Pigeon Safety Nets',
     icon: Heart,
-    image: 'https://images.unsplash.com/photo-1444464666168-49d633b86797?auto=format&fit=crop&q=80&w=800',
+    image: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939826/starchennaisafetynets/pigeon_safety_1.jpg',
     desc: 'Sturdy, small-mesh netting solutions targeting stubborn urban pigeon nesting grounds in open windows and AC ledges.',
     longDesc: 'Pigeons are extremely stubborn nesting creatures that frequently infest AC compressor slabs and service shafts. Our pigeon safety nets use a specialized 35mm to 40mm mesh that stops pigeons of all sizes while maintaining maximum transparency. Our technicians use professional climbing equipment to secure these nets across deep outer ledges safely.',
     benefits: [
@@ -94,14 +96,15 @@ const serviceDetails: ServiceDetail[] = [
       'Weather-proof material that doesn\'t rust or fade.'
     ],
     features: [
-      'Material: 15-ply to 21-ply UV-stabilized co-polymer HDPE',
+      'Material: 15-ply to 21-ply UV-stabilized co-copolymer HDPE',
       'Mesh Size: 35mm to 40mm',
       'Mounting: Stainless Steel wall keyhole loops',
       'Warranty: Up to 5 years certification support'
     ],
     gallery: [
-      'https://images.unsplash.com/photo-1444464666168-49d633b86797?auto=format&fit=crop&q=80&w=400',
-      'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=400'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939826/starchennaisafetynets/pigeon_safety_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939828/starchennaisafetynets/pigeon_safety_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939831/starchennaisafetynets/pigeon_safety_3.jpg'
     ],
     faqs: [
       { q: 'How do you secure the net corners so pigeons do not sneak in?', a: 'We use professional solid steel border framing cables and anchor bolts every 1.5 feet to seal all gaps.' },
@@ -112,7 +115,7 @@ const serviceDetails: ServiceDetail[] = [
     id: 'children-safety-nets',
     title: 'Children\'s Safety Nets',
     icon: Users,
-    image: 'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&q=80&w=800',
+    image: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939834/starchennaisafetynets/child_safety_1.jpg',
     desc: 'Heavy-duty double-knotted safety nets designed to prevent falls and secure children near open windows, staircases, and balconies.',
     longDesc: 'Toddler safety is a priority. Windows and high stairs are high-risk areas in modern duplexes and high-rise apartments. Our children safety nets are made of high-tensile, double-knotted co-polymer material designed to absorb high fall energy. They are anchored with double-reinforced fasteners to ensure extreme stability for active, playful toddlers.',
     benefits: [
@@ -128,8 +131,9 @@ const serviceDetails: ServiceDetail[] = [
       'Warranty: 5 to 10 years certification'
     ],
     gallery: [
-      'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&q=80&w=400',
-      'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=400'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939834/starchennaisafetynets/child_safety_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939837/starchennaisafetynets/child_safety_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939840/starchennaisafetynets/child_safety_3.jpg'
     ],
     faqs: [
       { q: 'Can a child cut these safety nets with scissors?', a: 'Our nets are made of thick, high-tensile multi-ply co-polymer ropes which are extremely hard to break or cut with safety scissors. However, children should be kept away from sharp tools.' },
@@ -140,7 +144,7 @@ const serviceDetails: ServiceDetail[] = [
     id: 'construction-safety-nets',
     title: 'Construction Safety Nets',
     icon: Award,
-    image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80&w=800',
+    image: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939843/starchennaisafetynets/construction_safety_1.jpg',
     desc: 'OSHA & IS certified heavy fall-arrest safety nets and fine debris containment nets for multi-storey builders.',
     longDesc: 'Under Indian Standard IS-11057, construction safety nets are mandatory for tall engineering and real-estate project sites. We supply and install dual-layer construction nets: an outer high-tensile 100mm rope grid to catch falling workers, and an inner fine green mesh layer to contain falling bricks, concrete plaster, and structural debris.',
     benefits: [
@@ -156,8 +160,9 @@ const serviceDetails: ServiceDetail[] = [
       'Standards: Fully complies with IS-11057'
     ],
     gallery: [
-      'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80&w=400',
-      'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=400'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939843/starchennaisafetynets/construction_safety_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939846/starchennaisafetynets/construction_safety_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939849/starchennaisafetynets/construction_safety_3.jpg'
     ],
     faqs: [
       { q: 'Do your construction safety nets have testing certificates?', a: 'Yes. All our industrial and construction safety nets are accompanied by manufacturer test certificates.' },
@@ -168,7 +173,7 @@ const serviceDetails: ServiceDetail[] = [
     id: 'coconut-tree-safety-nets',
     title: 'Coconut Tree Safety Nets',
     icon: Clipboard,
-    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800',
+    image: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939852/starchennaisafetynets/coconut_safety_1.jpg',
     desc: 'Protect pedestrian pathways, parking spaces, and roofs from heavy falling coconuts in tropical yards.',
     longDesc: 'Falling coconuts are a serious safety hazard, capable of causing severe head injuries or destroying car windshields. Our coconut tree safety nets are high-tensile HDPE nets installed horizontally below the tree crown. They catch falling coconuts safely, keeping surrounding pathways and car parks fully secure.',
     benefits: [
@@ -184,8 +189,9 @@ const serviceDetails: ServiceDetail[] = [
       'Warranty: Up to 5 years'
     ],
     gallery: [
-      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=400',
-      'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=400'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939852/starchennaisafetynets/coconut_safety_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939855/starchennaisafetynets/coconut_safety_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783939858/starchennaisafetynets/coconut_safety_3.jpg'
     ],
     faqs: [
       { q: 'Does the net affect the coconut tree growth?', a: 'Not at all. The net is mounted a few feet below the tree crown and does not touch or affect the growth of the tree.' },
@@ -211,7 +217,7 @@ export default function Services({ onOpenQuoteModal, initialService }: ServicesP
       <section className="relative py-24 bg-primary text-white overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=1200" 
+            src="https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938508/starchennaisafetynets/chennai_hero_backdrop.jpg" 
             alt="Star Safety Services" 
             referrerPolicy="no-referrer"
             className="w-full h-full object-cover opacity-15 select-none"
