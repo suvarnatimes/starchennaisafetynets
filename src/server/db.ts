@@ -3,8 +3,9 @@ import path from 'path';
 import crypto from 'crypto';
 import { AdminUser, Category, Tag, Blog, ActivityLog, Inquiry, Session, GalleryImage } from '../types.js';
 
-const DATA_DIR = path.join(process.cwd(), 'data');
-const DB_FILE = path.join(DATA_DIR, 'db.json');
+const isVercel = Boolean(process.env.VERCEL || process.env.VERCEL_ENV);
+const DATA_DIR = isVercel ? '/tmp' : path.join(process.cwd(), 'data');
+const DB_FILE = isVercel ? path.join('/tmp', 'db.json') : path.join(DATA_DIR, 'db.json');
 
 interface DatabaseSchema {
   users: (AdminUser & { passwordHash: string; salt: string })[];
@@ -243,6 +244,20 @@ function getDatabase(): DatabaseSchema {
       console.error('Error parsing database file, regenerating...', e);
     }
   }
+
+  // On Vercel cold start, try reading bundled repo data/db.json first
+  const bundledDb = path.join(process.cwd(), 'data', 'db.json');
+  if (isVercel && fs.existsSync(bundledDb)) {
+    try {
+      const content = fs.readFileSync(bundledDb, 'utf-8');
+      const parsed = JSON.parse(content) as DatabaseSchema;
+      saveDatabase(parsed);
+      return parsed;
+    } catch (e) {
+      console.error('Error reading bundled database file:', e);
+    }
+  }
+
 
   // Generate database with seed values
   const adminSalt = generateSalt();

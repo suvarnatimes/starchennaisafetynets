@@ -911,9 +911,15 @@ async function startServer() {
     });
   }
 
-  app.listen(PORT, '0.0.0.0', () => {
-    console.log(`[Star Safety Server] listening on http://localhost:${PORT}`);
-  });
+  if (!process.env.VERCEL && !process.env.VERCEL_ENV) {
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`[Star Safety Server] listening on http://localhost:${PORT}`);
+    });
+  }
 }
 
-startServer();
+if (!process.env.VERCEL && !process.env.VERCEL_ENV) {
+  startServer();
+}
+
+export default app;
