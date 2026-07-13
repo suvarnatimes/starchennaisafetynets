@@ -1,5 +1,6 @@
 import React from 'react';
 import { ShieldCheck, MapPin, Phone, Mail, Clock, MessageSquare } from 'lucide-react';
+import Logo from './Logo.js';
 
 interface FooterProps {
   onChangePage: (page: string) => void;
@@ -32,18 +33,8 @@ export default function Footer({ onChangePage }: FooterProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Column 1: Company Profile */}
           <div className="space-y-6">
-            <div className="flex items-center gap-2 cursor-pointer select-none" onClick={() => handleNavClick('home')}>
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-white shadow">
-                <ShieldCheck className="h-5 w-5" />
-              </div>
-              <div>
-                <span className="font-display font-black text-lg tracking-tight leading-none text-white block">
-                  STAR <span className="text-accent">SAFETY</span>
-                </span>
-                <span className="text-[8px] font-mono tracking-widest text-gray-400 block uppercase">
-                  Enterprises Tamil Nadu
-                </span>
-              </div>
+            <div className="cursor-pointer select-none group" onClick={() => handleNavClick('home')}>
+              <Logo height="36px" />
             </div>
             <p className="text-sm text-gray-400 leading-relaxed font-sans">
               Tamil Nadu's premium and most trusted professional safety net installation service. Providing industrial-grade durability and expert rope-access safety solutions for high-rises, commercial offices, and homes.

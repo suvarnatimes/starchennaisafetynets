@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Phone, ShieldCheck } from 'lucide-react';
+import Logo from './Logo.js';
 
 interface HeaderProps {
   activePage: string;
@@ -49,19 +50,9 @@ export default function Header({ activePage, onChangePage }: HeaderProps) {
           {/* Logo */}
           <div
             onClick={() => handleNavClick('home')}
-            className="flex items-center gap-2 cursor-pointer select-none group"
+            className="cursor-pointer select-none group"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent text-white shadow shadow-accent/20 group-hover:scale-105 transition-all duration-300">
-              <ShieldCheck className="h-6 w-6 animate-pulse" />
-            </div>
-            <div>
-              <span className="font-display font-black text-xl tracking-tight leading-none block">
-                STAR <span className="text-accent">SAFETY</span>
-              </span>
-              <span className="text-[9px] font-mono tracking-widest text-gray-300 block uppercase font-bold">
-                Enterprises Tamil Nadu
-              </span>
-            </div>
+            <Logo height="36px" />
           </div>
 
           {/* Desktop Navigation */}

@@ -192,6 +192,264 @@ const services = [
   }
 ];
 
+const invisibleGrillServices = [
+  {
+    title: 'Balcony Invisible Grill',
+    highlightWord: 'Balcony',
+    icon: Shield,
+    desc: 'Elegant safety barrier for modern high-rise balconies. Strong 316-grade stainless steel cables with nylon coating ensure complete fall protection without blocking views.',
+    images: [
+      'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=600'
+    ]
+  },
+  {
+    title: 'Window Invisible Grill',
+    highlightWord: 'Window',
+    icon: Layers,
+    desc: 'Ditch ugly iron grates. Window invisible grills feature thin, extremely strong steel wires spaced perfectly to keep kids and pets safe while preserving window breeze and beautiful outside views.',
+    images: [
+      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&q=80&w=600'
+    ]
+  },
+  {
+    title: 'Staircase Invisible Grill',
+    highlightWord: 'Staircase',
+    icon: Flame,
+    desc: 'Custom vertically stretched high-tension wires alongside open staircase railings. Prevents kids from slipping through gaps while retaining the modern architectural openness of your home.',
+    images: [
+      'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=600'
+    ]
+  },
+  {
+    title: 'Terrace Invisible Grill',
+    highlightWord: 'Terrace',
+    icon: ShieldCheck,
+    desc: 'Ensure absolute safety on rooftop garden edges or open terraces. Provides high-security load-bearing boundaries without obstructing magnificent skyline scenery.',
+    images: [
+      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&q=80&w=600'
+    ]
+  },
+  {
+    title: 'Office Invisible Grill',
+    highlightWord: 'Office',
+    icon: Sparkles,
+    desc: 'Minimalist perimeter safety barriers designed for corporate high-rises, commercial office ducts, and luxury showrooms. Offers modern aesthetics with rigid safety certification.',
+    images: [
+      'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=600'
+    ]
+  }
+];
+
+const sportsNetServices = [
+  {
+    title: 'Cricket Practice Nets',
+    highlightWord: 'Cricket',
+    icon: Sparkles,
+    desc: 'Premium robust sports netting setups for professional cricket clubs, residential terraces, and school grounds. UV-treated nylon nets built to absorb heavy cricket ball impact.',
+    images: [
+      'https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1544698310-74ea9d1c8258?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=600'
+    ]
+  },
+  {
+    title: 'Football Nets',
+    highlightWord: 'Football',
+    icon: Award,
+    desc: 'Custom high-density co-polymer goalpost nets and enclosing fence nets for turf courts and outdoor football grounds. Extreme tear resistance and high-tensile knotting.',
+    images: [
+      'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1517594422831-0dedfb10429f?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1551958219-acbc608c6377?auto=format&fit=crop&q=80&w=600'
+    ]
+  },
+  {
+    title: 'Tennis Court Nets',
+    highlightWord: 'Tennis',
+    icon: Shield,
+    desc: 'Heavy-duty tournament-grade tennis nets and perimeter backdrop windbreak netting. Resists continuous outdoor solar wear, wind pressure, and rain.',
+    images: [
+      'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1538385869424-3ebd29b827c6?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1622279457486-62dcc4a4b1ca?auto=format&fit=crop&q=80&w=600'
+    ]
+  },
+  {
+    title: 'Golf Practice Nets',
+    highlightWord: 'Golf',
+    icon: Heart,
+    desc: 'Tight-mesh ultra-durable containment nets that stop golf balls of high-velocity impact. Safely practice drives inside residential spaces, offices, or gardens.',
+    images: [
+      'https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?auto=format&fit=crop&q=80&w=600'
+    ]
+  }
+];
+
+interface ScrollingServiceRowProps {
+  items: typeof services;
+  onChangePage: (page: string) => void;
+  onOpenQuoteModal: (service?: string) => void;
+}
+
+function ScrollingServiceRow({ items, onChangePage, onOpenQuoteModal }: ScrollingServiceRowProps) {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  const scrollToIdx = (idx: number) => {
+    if (scrollContainerRef.current) {
+      const firstChild = scrollContainerRef.current.firstElementChild as HTMLElement;
+      const cardWidth = firstChild ? firstChild.offsetWidth + 32 : 380 + 32;
+      scrollContainerRef.current.scrollTo({
+        left: idx * cardWidth,
+        behavior: 'smooth'
+      });
+      setActiveIdx(idx);
+    }
+  };
+
+  const scrollServices = (direction: 'left' | 'right') => {
+    const nextIdx = direction === 'left' 
+      ? (activeIdx - 1 + items.length) % items.length
+      : (activeIdx + 1) % items.length;
+    scrollToIdx(nextIdx);
+  };
+
+  useEffect(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+
+    const handleScroll = () => {
+      const scrollLeft = el.scrollLeft;
+      const firstChild = el.firstElementChild as HTMLElement;
+      const cardWidth = firstChild ? firstChild.offsetWidth + 32 : 380 + 32;
+      const currentIdx = Math.round(scrollLeft / cardWidth);
+      if (currentIdx >= 0 && currentIdx < items.length) {
+        setActiveIdx((prev) => (prev !== currentIdx ? currentIdx : prev));
+      }
+    };
+
+    el.addEventListener('scroll', handleScroll, { passive: true });
+    return () => el.removeEventListener('scroll', handleScroll);
+  }, [items.length]);
+
+  const renderTitle = (title: string, highlight: string) => {
+    const parts = title.split(new RegExp(`(${highlight})`, 'gi'));
+    return (
+      <>
+        {parts.map((part, i) => 
+          part.toLowerCase() === highlight.toLowerCase() 
+            ? <span key={i} className="text-accent font-black">{part}</span> 
+            : part
+        )}
+      </>
+    );
+  };
+
+  return (
+    <div>
+      {/* Horizontal Scrolling Wrapper */}
+      <div 
+        ref={scrollContainerRef}
+        className="flex gap-8 overflow-x-auto pb-8 pt-2 scroll-smooth snap-x snap-mandatory scrollbar-thin scrollbar-thumb-slate-200 scrollbar-track-transparent"
+        style={{ scrollbarWidth: 'thin' }}
+      >
+        {items.map((srv, idx) => {
+          const IconComp = srv.icon;
+          return (
+            <div 
+              key={idx} 
+              className="w-full sm:w-[380px] shrink-0 bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group snap-start"
+            >
+              <div>
+                <div className="h-52 overflow-hidden relative">
+                  <CardImageSlideshow images={srv.images} title={srv.title} />
+                  <div className="absolute top-4 left-4 bg-white/95 backdrop-blur shadow p-2.5 rounded-xl text-accent z-10">
+                    <IconComp className="h-5 w-5" />
+                  </div>
+                </div>
+                <div className="p-6 space-y-3">
+                  <h3 className="font-display font-bold text-lg text-primary group-hover:text-accent transition-colors">
+                    {renderTitle(srv.title, srv.highlightWord)}
+                  </h3>
+                  <p className="text-xs text-slate-500 leading-relaxed h-16 overflow-y-auto scrollbar-none">{srv.desc}</p>
+                </div>
+              </div>
+              <div className="p-6 pt-0 flex gap-3">
+                <button 
+                  onClick={() => onChangePage('services')}
+                  className="group flex-1 text-center bg-slate-50 hover:bg-primary hover:text-white border border-slate-100 hover:border-primary text-xs text-primary font-bold py-2.5 rounded-xl transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95 shadow-sm"
+                >
+                  Learn More
+                </button>
+                <button 
+                  onClick={() => onOpenQuoteModal(srv.title)}
+                  className="group relative overflow-hidden flex-1 text-center bg-accent hover:bg-accent-light text-white text-xs font-bold py-2.5 rounded-xl transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95 shadow shadow-accent/15 hover:shadow-accent/30"
+                >
+                  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 ease-out pointer-events-none" />
+                  <span className="relative z-10">Get Quote</span>
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Centered Modern Floating Navigation Deck */}
+      <div className="flex flex-col items-center mt-3 mb-2">
+        <div className="inline-flex items-center gap-5 bg-white/90 backdrop-blur-md px-6 py-2.5 rounded-2xl border border-slate-200/80 shadow-md shadow-slate-200/20">
+          
+          {/* Left Arrow (Glassmorphic Pill) */}
+          <button
+            onClick={() => scrollServices('left')}
+            className="group h-9 w-9 rounded-full bg-slate-50 hover:bg-accent border border-slate-200/60 hover:border-accent text-slate-600 hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 shadow-xs"
+            aria-label="Previous service"
+          >
+            <ChevronLeft className="h-4.5 w-4.5 group-hover:-translate-x-0.5 transition-transform" />
+          </button>
+
+          {/* Dynamic Pill Indicators */}
+          <div className="flex items-center gap-1.5 px-1">
+            {items.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => scrollToIdx(i)}
+                className={`h-1.5 rounded-full transition-all duration-500 ${
+                  activeIdx === i 
+                    ? 'w-5 bg-accent shadow-[0_0_8px_rgba(var(--color-accent),0.3)]' 
+                    : 'w-1.5 bg-slate-200 hover:bg-slate-300'
+                }`}
+                aria-label={`Go to service ${i + 1}`}
+              />
+            ))}
+          </div>
+
+          {/* Right Arrow (Glassmorphic Pill) */}
+          <button
+            onClick={() => scrollServices('right')}
+            className="group h-9 w-9 rounded-full bg-slate-50 hover:bg-accent border border-slate-200/60 hover:border-accent text-slate-600 hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 shadow-xs"
+            aria-label="Next service"
+          >
+            <ChevronRight className="h-4.5 w-4.5 group-hover:translate-x-0.5 transition-transform" />
+          </button>
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Home({ onChangePage, onOpenQuoteModal }: HomeProps) {
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -404,112 +662,64 @@ export default function Home({ onChangePage, onOpenQuoteModal }: HomeProps) {
       </section>
 
       {/* 3. SERVICES SECTION */}
-      <section className="py-20 bg-slate-50/50 relative overflow-hidden">
+      <section className="py-12 bg-slate-50/50 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-            <div className="text-left space-y-3">
-              <span className="text-xs font-mono font-bold text-accent uppercase tracking-widest block">Premium Safety Solutions</span>
-              <h2 className="text-3xl sm:text-4xl font-display font-black text-primary leading-tight">Professional Safety Nets We Install</h2>
-              <p className="text-sm text-slate-500 leading-relaxed font-sans max-w-2xl">
-                Explore our range of heavy-duty, weather-proof netting options customized specifically for high-rises, residential communities, and industrial complexes in Tamil Nadu.
-              </p>
-            </div>
+          
+          {/* Main Section Header */}
+          <div className="text-center space-y-2 mb-10">
+            <span className="text-xs font-mono font-bold text-accent uppercase tracking-widest block">Comprehensive Protection Catalog</span>
+            <h2 className="text-3xl sm:text-4xl font-display font-black text-primary leading-tight">Our Premium Installation Services</h2>
+            <p className="text-sm text-slate-500 leading-relaxed font-sans max-w-2xl mx-auto">
+              Explore our heavy-duty, weather-proof safety nets, modern high-tensile invisible grills, and professional sports netting customized for homes, clubs, and commercial complexes in Tamil Nadu.
+            </p>
           </div>
 
-          {/* Horizontal Scrolling Wrapper */}
-          <div 
-            ref={scrollContainerRef}
-            className="flex gap-8 overflow-x-auto pb-8 pt-2 scroll-smooth snap-x snap-mandatory scrollbar-thin scrollbar-thumb-slate-200 scrollbar-track-transparent"
-            style={{ scrollbarWidth: 'thin' }}
-          >
-            {services.map((srv, idx) => {
-              const IconComp = srv.icon;
-              return (
-                <div 
-                  key={idx} 
-                  className="w-full sm:w-[380px] shrink-0 bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group snap-start"
-                >
-                  <div>
-                    <div className="h-52 overflow-hidden relative">
-                      <CardImageSlideshow images={srv.images} title={srv.title} />
-                      <div className="absolute top-4 left-4 bg-white/95 backdrop-blur shadow p-2.5 rounded-xl text-accent z-10">
-                        <IconComp className="h-5 w-5" />
-                      </div>
-                    </div>
-                    <div className="p-6 space-y-3">
-                      <h3 className="font-display font-bold text-lg text-primary group-hover:text-accent transition-colors">
-                        {renderTitle(srv.title, srv.highlightWord)}
-                      </h3>
-                      <p className="text-xs text-slate-500 leading-relaxed h-16 overflow-y-auto scrollbar-none">{srv.desc}</p>
-                    </div>
-                  </div>
-                  <div className="p-6 pt-0 flex gap-3">
-                    <button 
-                      onClick={() => onChangePage('services')}
-                      className="group flex-1 text-center bg-slate-50 hover:bg-primary hover:text-white border border-slate-100 hover:border-primary text-xs text-primary font-bold py-2.5 rounded-xl transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95 shadow-sm"
-                    >
-                      Learn More
-                    </button>
-                    <button 
-                      onClick={() => onOpenQuoteModal(srv.title)}
-                      className="group relative overflow-hidden flex-1 text-center bg-accent hover:bg-accent-light text-white text-xs font-bold py-2.5 rounded-xl transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95 shadow shadow-accent/15 hover:shadow-accent/30"
-                    >
-                      <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 ease-out pointer-events-none" />
-                      <span className="relative z-10">Get Quote</span>
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Centered Modern Floating Navigation Deck */}
-          <div className="flex flex-col items-center gap-5 mt-10">
-            <div className="inline-flex items-center gap-5 bg-white/90 backdrop-blur-md px-6 py-3.5 rounded-2xl border border-slate-200/80 shadow-lg shadow-slate-200/30">
-              
-              {/* Left Arrow (Glassmorphic Pill) */}
-              <button
-                onClick={() => scrollServices('left')}
-                className="group h-10 w-10 rounded-full bg-slate-50 hover:bg-accent border border-slate-200/60 hover:border-accent text-slate-600 hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 shadow-xs"
-                aria-label="Previous service"
-              >
-                <ChevronLeft className="h-5 w-5 group-hover:-translate-x-0.5 transition-transform" />
-              </button>
-
-              {/* Dynamic Pill Indicators (The active icon / dot centered) */}
-              <div className="flex items-center gap-2 px-1">
-                {services.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => scrollToIdx(i)}
-                    className={`h-2 rounded-full transition-all duration-500 ${
-                      activeServiceIdx === i 
-                        ? 'w-7 bg-accent shadow-[0_0_10px_rgba(var(--color-accent),0.4)]' 
-                        : 'w-2 bg-slate-200 hover:bg-slate-300'
-                    }`}
-                    aria-label={`Go to service ${i + 1}`}
-                  />
-                ))}
+          {/* ROW 1: SAFETY NETS */}
+          <div className="mb-10">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="h-6 w-1 bg-accent rounded-full" />
+              <div>
+                <h3 className="text-lg sm:text-xl font-display font-black text-primary">Professional Safety Nets</h3>
+                <p className="text-xs text-slate-500 font-sans">Heavy-duty co-polymer & Nylon safety barriers for balconies, children, duct areas, and industries.</p>
               </div>
-
-              {/* Right Arrow (Glassmorphic Pill) */}
-              <button
-                onClick={() => scrollServices('right')}
-                className="group h-10 w-10 rounded-full bg-slate-50 hover:bg-accent border border-slate-200/60 hover:border-accent text-slate-600 hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 shadow-xs"
-                aria-label="Next service"
-              >
-                <ChevronRight className="h-5 w-5 group-hover:translate-x-0.5 transition-transform" />
-              </button>
-
             </div>
+            <ScrollingServiceRow 
+              items={services} 
+              onChangePage={onChangePage} 
+              onOpenQuoteModal={onOpenQuoteModal} 
+            />
+          </div>
 
-            {/* Micro active progress tracker */}
-            <div className="w-36 h-1 bg-slate-200/50 rounded-full overflow-hidden">
-              <div 
-                className="h-full bg-accent transition-all duration-500 rounded-full"
-                style={{ width: `${((activeServiceIdx + 1) / services.length) * 100}%` }}
-              />
+          {/* ROW 2: INVISIBLE GRILLS */}
+          <div className="mb-10">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="h-6 w-1 bg-accent rounded-full" />
+              <div>
+                <h3 className="text-lg sm:text-xl font-display font-black text-primary">Professional Invisible Grills</h3>
+                <p className="text-xs text-slate-500 font-sans">Durable, high-tension 316 stainless steel wires for modern safety with zero view obstruction.</p>
+              </div>
             </div>
+            <ScrollingServiceRow 
+              items={invisibleGrillServices} 
+              onChangePage={onChangePage} 
+              onOpenQuoteModal={onOpenQuoteModal} 
+            />
+          </div>
+
+          {/* ROW 3: SPORTS NETS */}
+          <div className="mb-2">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="h-6 w-1 bg-accent rounded-full" />
+              <div>
+                <h3 className="text-lg sm:text-xl font-display font-black text-primary">Premium Sports Nets</h3>
+                <p className="text-xs text-slate-500 font-sans">Tournament-grade cricket practice nets, football goalpost nets, tennis, and golf practice setups.</p>
+              </div>
+            </div>
+            <ScrollingServiceRow 
+              items={sportsNetServices} 
+              onChangePage={onChangePage} 
+              onOpenQuoteModal={onOpenQuoteModal} 
+            />
           </div>
 
         </div>
