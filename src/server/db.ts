@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
-import { AdminUser, Category, Tag, Blog, ActivityLog, Inquiry, Session } from '../types.js';
+import { AdminUser, Category, Tag, Blog, ActivityLog, Inquiry, Session, GalleryImage } from '../types.js';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 const DB_FILE = path.join(DATA_DIR, 'db.json');
@@ -14,6 +14,7 @@ interface DatabaseSchema {
   inquiries: Inquiry[];
   logs: ActivityLog[];
   sessions: Session[];
+  gallery: GalleryImage[];
 }
 
 // Default Admin Password is AdminPassword123!
@@ -265,7 +266,8 @@ function getDatabase(): DatabaseSchema {
     logs: [
       { id: 'log-1', action: 'SYSTEM_INIT', details: 'Database initialized with initial system and seed content.', user: 'system', timestamp: new Date().toISOString() }
     ],
-    sessions: []
+    sessions: [],
+    gallery: []
   };
 
   saveDatabase(initialDB);
@@ -281,7 +283,12 @@ function saveDatabase(db: DatabaseSchema) {
 
 // DB Instance API
 export const db = {
-  get: () => getDatabase(),
+  get: () => {
+    const data = getDatabase();
+    // Ensure gallery array always exists (for databases created before this field was added)
+    if (!data.gallery) data.gallery = [];
+    return data;
+  },
   save: (data: DatabaseSchema) => saveDatabase(data),
 
   // Auth Operations

@@ -71,6 +71,11 @@ export default function Footer({ onChangePage }: FooterProps) {
                 </button>
               </li>
               <li>
+                <button onClick={() => handleNavClick('gallery')} className="hover:text-accent transition-colors flex items-center gap-1.5 hover:translate-x-1 duration-200">
+                  <span>→</span> Photo Gallery
+                </button>
+              </li>
+              <li>
                 <button onClick={() => handleNavClick('contact')} className="hover:text-accent transition-colors flex items-center gap-1.5 hover:translate-x-1 duration-200">
                   <span>→</span> Contact Us
                 </button>

@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   LayoutDashboard, BookOpen, Layers, Tag, Mail, ClipboardList, LogOut, Plus, 
   Trash2, Edit, Copy, Eye, Search, Filter, ArrowUpDown, Save, CheckCircle, 
   X, AlertCircle, Calendar, Clock, User, Heading, Bold, Italic, Link, 
   List, Table, Image, Video, HelpCircle, ArrowLeft, Upload, FileText,
-  Smartphone, Check, RefreshCw
+  Smartphone, Check, RefreshCw, Images, ZoomIn, ChevronLeft, ChevronRight
 } from 'lucide-react';
-import { Blog, Category, Tag as TagType, Inquiry, ActivityLog } from '../types.js';
+import { Blog, Category, Tag as TagType, Inquiry, ActivityLog, GalleryImage } from '../types.js';
 
 interface AdminLayoutProps {
   token: string;
@@ -14,7 +14,7 @@ interface AdminLayoutProps {
 }
 
 export default function AdminLayout({ token, onLogout }: AdminLayoutProps) {
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'blogs' | 'categories' | 'tags' | 'inquiries' | 'logs'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'blogs' | 'categories' | 'tags' | 'inquiries' | 'logs' | 'gallery'>('dashboard');
   
   // States for DB data
   const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -22,6 +22,17 @@ export default function AdminLayout({ token, onLogout }: AdminLayoutProps) {
   const [tags, setTags] = useState<TagType[]>([]);
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
   const [logs, setLogs] = useState<ActivityLog[]>([]);
+  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
+
+  // Gallery upload state
+  const [galleryUploading, setGalleryUploading] = useState(false);
+  const [galleryDragOver, setGalleryDragOver] = useState(false);
+  const [galleryCaption, setGalleryCaption] = useState('');
+  const [galleryCategory, setGalleryCategory] = useState('General');
+  const [galleryLightbox, setGalleryLightbox] = useState<number | null>(null);
+  const galleryInputRef = useRef<HTMLInputElement>(null);
+  
+  const GALLERY_CATEGORIES = ['General', 'Balcony Safety Nets', 'Invisible Grills', 'Pigeon Nets', 'Bird Spikes', 'Sports Nets', 'Construction Nets', 'Industrial Nets', 'Household'];
   
   // Loading & error states
   const [isLoading, setIsLoading] = useState(false);
@@ -54,12 +65,13 @@ export default function AdminLayout({ token, onLogout }: AdminLayoutProps) {
     try {
       const headers = { 'Authorization': `Bearer ${token}` };
       
-      const [blogsRes, catsRes, tagsRes, inqsRes, logsRes] = await Promise.all([
+      const [blogsRes, catsRes, tagsRes, inqsRes, logsRes, galleryRes] = await Promise.all([
         fetch('/api/blogs', { headers }),
         fetch('/api/categories'),
         fetch('/api/tags'),
         fetch('/api/inquiries', { headers }),
-        fetch('/api/logs', { headers })
+        fetch('/api/logs', { headers }),
+        fetch('/api/gallery')
       ]);
 
       if (blogsRes.ok) setBlogs(await blogsRes.json());
@@ -67,6 +79,7 @@ export default function AdminLayout({ token, onLogout }: AdminLayoutProps) {
       if (tagsRes.ok) setTags(await tagsRes.json());
       if (inqsRes.ok) setInquiries(await inqsRes.json());
       if (logsRes.ok) setLogs(await logsRes.json());
+      if (galleryRes.ok) setGalleryImages(await galleryRes.json());
     } catch (e: any) {
       showError('Failed to fetch admin dashboard data: ' + e.message);
     } finally {
@@ -497,6 +510,18 @@ export default function AdminLayout({ token, onLogout }: AdminLayoutProps) {
             >
               <ClipboardList className="h-4 w-4" />
               Audit Security Logs
+            </button>
+            <button
+              onClick={() => { setActiveTab('gallery'); setIsEditorOpen(false); }}
+              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                activeTab === 'gallery' ? 'bg-accent text-white font-semibold' : 'text-slate-400 hover:bg-slate-900 hover:text-white'
+              }`}
+            >
+              <Images className="h-4 w-4" />
+              Photo Gallery
+              <span className="ml-auto text-[9px] font-bold bg-blue-500/20 text-blue-400 px-1.5 py-0.5 rounded">
+                {galleryImages.length}
+              </span>
             </button>
           </nav>
         </div>
@@ -1807,7 +1832,235 @@ export default function AdminLayout({ token, onLogout }: AdminLayoutProps) {
             </div>
           </div>
         )}
+
+        {/* =================== GALLERY TAB =================== */}
+        {activeTab === 'gallery' && (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-xl font-display font-black text-white tracking-tight">Photo Gallery</h2>
+                <p className="text-xs text-slate-400 mt-1">{galleryImages.length} image{galleryImages.length !== 1 ? 's' : ''} in the public gallery</p>
+              </div>
+            </div>
+
+            {/* Upload Card */}
+            <div className="bg-slate-800 rounded-2xl border border-slate-700 p-6 space-y-4">
+              <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                <Upload className="h-4 w-4 text-blue-400" /> Upload New Images
+              </h3>
+
+              {/* Drag & Drop Zone */}
+              <div
+                className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all ${galleryDragOver ? 'border-blue-400 bg-blue-900/20' : 'border-slate-600 hover:border-slate-400'}`}
+                onDragOver={(e) => { e.preventDefault(); setGalleryDragOver(true); }}
+                onDragLeave={() => setGalleryDragOver(false)}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  setGalleryDragOver(false);
+                  const allFiles = Array.from(e.dataTransfer.files as FileList) as File[];
+                  const files: File[] = allFiles.filter(f => f.type.startsWith('image/'));
+
+                  if (!files.length) return;
+                  // Upload each file
+                  const uploadFile = async (file: File) => {
+                    setGalleryUploading(true);
+                    try {
+                      const reader = new FileReader();
+                      reader.onloadend = async () => {
+                        const base64 = reader.result as string;
+                        const res = await fetch('/api/gallery', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                          body: JSON.stringify({ image: base64, fileName: file.name, caption: galleryCaption, category: galleryCategory })
+                        });
+                        if (res.ok) {
+                          const newImg = await res.json();
+                          setGalleryImages(prev => [newImg, ...prev]);
+                          setGalleryCaption('');
+                          showSuccess('Image uploaded successfully!');
+                        } else {
+                          const err = await res.json();
+                          showError(err.error || 'Upload failed.');
+                        }
+                        setGalleryUploading(false);
+                      };
+                      reader.readAsDataURL(file);
+                    } catch { setGalleryUploading(false); showError('Upload failed.'); }
+                  };
+                  files.forEach(uploadFile);
+                }}
+                onClick={() => galleryInputRef.current?.click()}
+              >
+                <input
+                  ref={galleryInputRef}
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  className="hidden"
+                  onChange={(e) => {
+                    const files: File[] = Array.from(e.target.files || []);
+                    if (!files.length) return;
+                    files.forEach(async (file: File) => {
+                      setGalleryUploading(true);
+                      try {
+                        const reader = new FileReader();
+                        reader.onloadend = async () => {
+                          const base64 = reader.result as string;
+                          const res = await fetch('/api/gallery', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                            body: JSON.stringify({ image: base64, fileName: file.name, caption: galleryCaption, category: galleryCategory })
+                          });
+                          if (res.ok) {
+                            const newImg = await res.json();
+                            setGalleryImages(prev => [newImg, ...prev]);
+                            setGalleryCaption('');
+                            showSuccess('Image uploaded!');
+                          } else {
+                            const err = await res.json();
+                            showError(err.error || 'Upload failed.');
+                          }
+                          setGalleryUploading(false);
+                        };
+                        reader.readAsDataURL(file);
+                      } catch { setGalleryUploading(false); showError('Upload failed.'); }
+                    });
+                    e.target.value = '';
+                  }}
+                />
+                {galleryUploading ? (
+                  <div className="flex flex-col items-center gap-2 text-blue-400">
+                    <RefreshCw className="h-8 w-8 animate-spin" />
+                    <span className="text-sm font-medium">Uploading to Cloudinary...</span>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center gap-2 text-slate-400">
+                    <Images className="h-8 w-8 text-slate-500" />
+                    <span className="text-sm font-medium">Drag & drop images here, or click to browse</span>
+                    <span className="text-xs text-slate-500">Supports JPG, PNG, WEBP — multiple files at once</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Caption + Category inputs */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-1">Caption (Optional)</label>
+                  <input
+                    type="text"
+                    value={galleryCaption}
+                    onChange={e => setGalleryCaption(e.target.value)}
+                    placeholder="e.g. Balcony net installation in Adyar"
+                    className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-blue-400"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-1">Category</label>
+                  <select
+                    value={galleryCategory}
+                    onChange={e => setGalleryCategory(e.target.value)}
+                    className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-blue-400"
+                  >
+                    {GALLERY_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            {/* Gallery Grid */}
+            {galleryImages.length === 0 ? (
+              <div className="bg-slate-800 rounded-2xl border border-slate-700 p-16 text-center text-slate-500 space-y-2">
+                <Images className="h-10 w-10 mx-auto text-slate-600" />
+                <p className="text-sm font-medium">No images in the gallery yet.</p>
+                <p className="text-xs">Upload your first image using the form above.</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+                {galleryImages.map((img, idx) => (
+                  <div key={img.id} className="group relative rounded-xl overflow-hidden bg-slate-800 border border-slate-700 hover:border-blue-500 transition-all shadow-sm hover:shadow-lg">
+                    <div className="aspect-square overflow-hidden cursor-pointer" onClick={() => setGalleryLightbox(idx)}>
+                      <img
+                        src={img.url}
+                        alt={img.caption || 'Gallery'}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+
+                    {/* Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+
+                    {/* Controls */}
+                    <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <button
+                        onClick={() => setGalleryLightbox(idx)}
+                        className="h-7 w-7 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/40 transition-colors"
+                        title="View full size"
+                      >
+                        <ZoomIn className="h-3.5 w-3.5" />
+                      </button>
+                      <button
+                        onClick={async () => {
+                          if (!confirm('Delete this image from the gallery and Cloudinary?')) return;
+                          try {
+                            const res = await fetch(`/api/gallery/${img.id}`, {
+                              method: 'DELETE',
+                              headers: { 'Authorization': `Bearer ${token}` }
+                            });
+                            if (res.ok) {
+                              setGalleryImages(prev => prev.filter(g => g.id !== img.id));
+                              showSuccess('Image deleted.');
+                            } else {
+                              const err = await res.json();
+                              showError(err.error || 'Delete failed.');
+                            }
+                          } catch { showError('Delete failed.'); }
+                        }}
+                        className="h-7 w-7 rounded-lg bg-rose-500/80 flex items-center justify-center text-white hover:bg-rose-600 transition-colors"
+                        title="Delete image"
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </button>
+                    </div>
+
+                    {/* Caption + Category footer */}
+                    <div className="p-2 space-y-1">
+                      {img.caption && <p className="text-[10px] text-white font-medium truncate">{img.caption}</p>}
+                      <span className="inline-block bg-blue-500/20 text-blue-300 text-[9px] font-bold px-1.5 py-0.5 rounded-md uppercase tracking-wide">{img.category || 'General'}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Gallery Lightbox */}
+        {galleryLightbox !== null && galleryImages[galleryLightbox] && (
+          <div
+            className="fixed inset-0 z-50 bg-black/92 backdrop-blur-sm flex items-center justify-center"
+            onClick={() => setGalleryLightbox(null)}
+          >
+            <button className="absolute top-4 right-4 h-10 w-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white z-10" onClick={() => setGalleryLightbox(null)}>
+              <X className="h-5 w-5" />
+            </button>
+            <button className="absolute left-4 h-10 w-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white z-10"
+              onClick={(e) => { e.stopPropagation(); setGalleryLightbox((galleryLightbox - 1 + galleryImages.length) % galleryImages.length); }}>
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <div className="max-w-4xl max-h-[90vh] flex flex-col items-center gap-3 px-16" onClick={e => e.stopPropagation()}>
+              <img src={galleryImages[galleryLightbox].url} alt="" className="max-h-[80vh] max-w-full object-contain rounded-xl shadow-2xl" />
+              {galleryImages[galleryLightbox].caption && <p className="text-white text-sm font-medium">{galleryImages[galleryLightbox].caption}</p>}
+              <p className="text-slate-400 text-xs font-mono">{galleryLightbox + 1} / {galleryImages.length}</p>
+            </div>
+            <button className="absolute right-4 h-10 w-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white z-10"
+              onClick={(e) => { e.stopPropagation(); setGalleryLightbox((galleryLightbox + 1) % galleryImages.length); }}>
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
+        )}
+
       </main>
+
     </div>
   );
 }

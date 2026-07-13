@@ -63,7 +63,29 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction): void =
 
 // ================= AUTH API =================
 
+// Alias for backwards compatibility with the login form in App.tsx
+app.post('/api/login', (req: Request, res: Response): void => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    res.status(400).json({ error: 'Email and password are required' });
+    return;
+  }
+  const user = db.validateUser(email, password);
+  if (!user) {
+    res.status(401).json({ error: 'Invalid email or password' });
+    return;
+  }
+  const token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
+  const data = db.get();
+  data.sessions.push({ id: token, userId: user.id, email: user.email, name: user.name, expiresAt });
+  db.save(data);
+  db.logActivity('LOGIN', `User ${user.email} logged in via /api/login`, user.email);
+  res.json({ token, user: { id: user.id, email: user.email, name: user.name } });
+});
+
 app.post('/api/auth/login', (req: Request, res: Response): void => {
+
   const { email, password } = req.body;
   if (!email || !password) {
     res.status(400).json({ error: 'Email and password are required' });
@@ -757,6 +779,117 @@ app.post('/api/upload', authMiddleware, async (req: Request, res: Response): Pro
     res.status(500).json({ error: 'Failed to upload image file: ' + err.message });
   }
 });
+
+
+// ================= GALLERY API =================
+
+// Get all gallery images (public)
+app.get('/api/gallery', (req: Request, res: Response): void => {
+  const data = db.get();
+  const { category } = req.query;
+  let images = [...(data.gallery || [])];
+  if (category) {
+    images = images.filter(img => img.category === category);
+  }
+  // Return newest first
+  images.sort((a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime());
+  res.json(images);
+});
+
+// Upload image to gallery (Admin only)
+app.post('/api/gallery', authMiddleware, async (req: Request, res: Response): Promise<void> => {
+  const { image, fileName, caption, category } = req.body;
+
+  if (!image) {
+    res.status(400).json({ error: 'No image data provided' });
+    return;
+  }
+
+  try {
+    let url = '';
+    let cloudinaryId = '';
+
+    if (process.env.CLOUDINARY_CLOUD_NAME || process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME) {
+      const publicId = `gallery/${Date.now()}-${(fileName || 'gallery').replace(/[^a-zA-Z0-9]/g, '-')}`;
+      const uploadResult = await cloudinary.uploader.upload(image, {
+        folder: 'starchennaisafetynets',
+        public_id: publicId
+      });
+      url = uploadResult.secure_url;
+      cloudinaryId = uploadResult.public_id;
+    } else {
+      // Fallback local
+      const matches = image.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+      if (!matches || matches.length !== 3) {
+        res.status(400).json({ error: 'Invalid image format' });
+        return;
+      }
+      const imageBuffer = Buffer.from(matches[2], 'base64');
+      const extension = matches[1].split('/')[1] || 'jpg';
+      const cleanFileName = `gallery-${Date.now()}.${extension}`;
+      const filePath = path.join(UPLOADS_DIR, cleanFileName);
+      fs.writeFileSync(filePath, imageBuffer);
+      url = `/api/uploads/${cleanFileName}`;
+      cloudinaryId = cleanFileName;
+    }
+
+    const data = db.get();
+    const newImage = {
+      id: 'gal-' + Math.random().toString(36).substring(2, 9),
+      url,
+      cloudinaryId,
+      caption: caption || '',
+      category: category || 'General',
+      uploadedAt: new Date().toISOString()
+    };
+
+    data.gallery = data.gallery || [];
+    data.gallery.unshift(newImage);
+    db.save(data);
+
+    db.logActivity('UPLOAD_GALLERY', `Uploaded gallery image${caption ? ` "${caption}"` : ''} in category "${newImage.category}"`, (req as any).user.email);
+
+    res.status(201).json(newImage);
+  } catch (err: any) {
+    console.error('Gallery Upload Error:', err);
+    res.status(500).json({ error: 'Failed to upload gallery image: ' + err.message });
+  }
+});
+
+// Delete gallery image (Admin only)
+app.delete('/api/gallery/:id', authMiddleware, async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+  const data = db.get();
+  const image = (data.gallery || []).find(img => img.id === id);
+
+  if (!image) {
+    res.status(404).json({ error: 'Gallery image not found' });
+    return;
+  }
+
+  try {
+    // Delete from Cloudinary if configured and has a cloudinaryId that looks like a Cloudinary public_id
+    if ((process.env.CLOUDINARY_CLOUD_NAME || process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME) && image.cloudinaryId && !image.cloudinaryId.startsWith('gallery-')) {
+      await cloudinary.uploader.destroy(image.cloudinaryId);
+    } else if (!image.url.startsWith('/api/uploads/') === false) {
+      // Cleanup local file if it exists
+      const localFile = path.join(UPLOADS_DIR, image.cloudinaryId);
+      if (fs.existsSync(localFile)) fs.unlinkSync(localFile);
+    }
+  } catch (err) {
+    console.warn('Cloudinary deletion warning:', err);
+    // Continue even if Cloudinary deletion fails
+  }
+
+  data.gallery = (data.gallery || []).filter(img => img.id !== id);
+  db.save(data);
+
+  db.logActivity('DELETE_GALLERY', `Deleted gallery image${image.caption ? ` "${image.caption}"` : ''}`, (req as any).user.email);
+
+  res.json({ success: true });
+});
+
+
 
 
 // ================= VITE DEV SERVER OR STATIC PROD SERVE =================

@@ -7,6 +7,7 @@ import About from './pages/About.js';
 import Services from './pages/Services.js';
 import Contact from './pages/Contact.js';
 import BlogPage from './pages/Blog.js';
+import GalleryPage from './pages/Gallery.js';
 import AdminLayout from './components/AdminLayout.js';
 import { 
   ShieldCheck, Lock, Eye, EyeOff, X, Send, CheckCircle, 
@@ -53,7 +54,7 @@ export default function App() {
         setBlogSlug(null);
         // Match home, about, services, blog, contact
         const page = hash.replace('#/', '');
-        if (['home', 'about', 'services', 'blog', 'contact'].includes(page)) {
+        if (['home', 'about', 'services', 'blog', 'contact', 'gallery'].includes(page)) {
           setActivePage(page);
         } else {
           setActivePage('home');
@@ -290,6 +291,9 @@ export default function App() {
             )}
             {activePage === 'contact' && (
               <Contact />
+            )}
+            {activePage === 'gallery' && (
+              <GalleryPage onOpenQuoteModal={openQuoteModal} />
             )}
           </main>
 

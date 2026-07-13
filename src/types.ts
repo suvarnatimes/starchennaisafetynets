@@ -70,3 +70,13 @@ export interface Session {
   name: string;
   expiresAt: string;
 }
+
+export interface GalleryImage {
+  id: string;
+  url: string;
+  cloudinaryId: string;
+  caption?: string;
+  category?: string;
+  uploadedAt: string;
+}
+

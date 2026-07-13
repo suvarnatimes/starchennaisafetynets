@@ -27,6 +27,7 @@ export default function Header({ activePage, onChangePage }: HeaderProps) {
     { id: 'home', label: 'Home' },
     { id: 'about', label: 'About Us' },
     { id: 'services', label: 'Our Services' },
+    { id: 'gallery', label: 'Gallery' },
     { id: 'blog', label: 'Expert Blog' },
     { id: 'contact', label: 'Contact Us' }
   ];
