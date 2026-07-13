@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   ShieldCheck, Shield, Award, Users, CheckCircle, Truck, 
   HelpCircle, ChevronDown, Phone, MessageSquare, ArrowRight,
-  Sparkles, Calendar, Layers, PenTool, Flame, Heart, FileText, Check
+  Sparkles, Calendar, Layers, PenTool, Flame, Heart, FileText, Check,
+  ChevronLeft, ChevronRight
 } from 'lucide-react';
 import LogoCarousel from '../components/LogoCarousel.js';
 import ReviewSlider from '../components/ReviewSlider.js';
@@ -14,65 +15,247 @@ interface HomeProps {
   onOpenQuoteModal: (service?: string) => void;
 }
 
+interface CardImageSlideshowProps {
+  images: string[];
+  title: string;
+}
+
+function CardImageSlideshow({ images, title }: CardImageSlideshowProps) {
+  const [currentIdx, setCurrentIdx] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIdx((prev) => (prev + 1) % images.length);
+    }, 4000); // Rotate every 4 seconds
+    return () => clearInterval(timer);
+  }, [images]);
+
+  return (
+    <div className="w-full h-full relative overflow-hidden group/slideshow">
+      {/* Slides */}
+      <div 
+        className="flex w-full h-full transition-transform duration-700 ease-out"
+        style={{ transform: `translateX(-${currentIdx * 100}%)` }}
+      >
+        {images.map((img, i) => (
+          <img
+            key={i}
+            src={img}
+            alt={`${title} view ${i + 1}`}
+            referrerPolicy="no-referrer"
+            className="w-full h-full object-cover shrink-0 select-none"
+          />
+        ))}
+      </div>
+
+      {/* Navigation Indicators (Dots) */}
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10 bg-black/30 backdrop-blur-xs py-1 px-2.5 rounded-full">
+        {images.map((_, i) => (
+          <button
+            key={i}
+            onClick={(e) => {
+              e.stopPropagation();
+              setCurrentIdx(i);
+            }}
+            className={`h-1.5 rounded-full transition-all duration-300 ${
+              currentIdx === i ? 'w-4 bg-accent' : 'w-1.5 bg-white/60 hover:bg-white'
+            }`}
+            aria-label={`Go to slide ${i + 1}`}
+          />
+        ))}
+      </div>
+
+      {/* Manual Arrow Buttons on Hover */}
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          setCurrentIdx((prev) => (prev - 1 + images.length) % images.length);
+        }}
+        className="absolute left-2 top-1/2 -translate-y-1/2 h-7 w-7 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center opacity-0 group-hover/slideshow:opacity-100 transition-opacity duration-300 z-10"
+        aria-label="Previous slide"
+      >
+        <ChevronLeft className="h-4 w-4" />
+      </button>
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          setCurrentIdx((prev) => (prev + 1) % images.length);
+        }}
+        className="absolute right-2 top-1/2 -translate-y-1/2 h-7 w-7 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center opacity-0 group-hover/slideshow:opacity-100 transition-opacity duration-300 z-10"
+        aria-label="Next slide"
+      >
+        <ChevronRight className="h-4 w-4" />
+      </button>
+    </div>
+  );
+}
+
+const services = [
+  {
+    title: 'Balcony Safety Nets',
+    highlightWord: 'Balcony',
+    icon: Shield,
+    desc: 'Secure your balconies from accidental falls. Made of UV-resistant high-tensile HDPE or transparent monofilament wires. Perfect for high-rise apartment safety.',
+    images: [
+      'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&q=80&w=600'
+    ]
+  },
+  {
+    title: 'Bird Protection Nets',
+    highlightWord: 'Bird',
+    icon: Sparkles,
+    desc: 'Keep pigeons and wild sparrows from infesting and nesting in AC vents, pipes, and shafts without harming them. Long-lasting HDPE material.',
+    images: [
+      'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=600'
+    ]
+  },
+  {
+    title: 'Pigeon Safety Nets',
+    highlightWord: 'Pigeon',
+    icon: Heart,
+    desc: 'Specifically designed mesh targets stubborn pigeon flocks. Maintain absolute balcony sanitation with complete transparency and UV protection.',
+    images: [
+      'https://images.unsplash.com/photo-1444464666168-49d633b86797?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1518992028580-6d57bd80f2dd?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=600'
+    ]
+  },
+  {
+    title: "Children's Safety Nets",
+    highlightWord: "Children's",
+    icon: Users,
+    desc: 'Double-mesh robust netting configured near windows, staircases, and open balconies. Tested to support weights of up to 150 kg for complete child safety.',
+    images: [
+      'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1471286174890-9c112ffca5b4?auto=format&fit=crop&q=80&w=600'
+    ]
+  },
+  {
+    title: 'Construction Safety Nets',
+    highlightWord: 'Construction',
+    icon: Award,
+    desc: 'Certified industrial-grade fall arrest and dual-layer debris containment nets for multi-storey project sites. Adheres strictly to IS-11057 standards.',
+    images: [
+      'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1590069261209-f8e9b8642343?auto=format&fit=crop&q=80&w=600'
+    ]
+  },
+  {
+    title: 'Coconut Tree Safety Nets',
+    highlightWord: 'Coconut',
+    icon: PenTool,
+    desc: 'Heavy-duty weather-proof rope nets anchored below tall coconut trees to catch falling fruits safely, protecting pedestrians and properties from impact.',
+    images: [
+      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&q=80&w=600'
+    ]
+  },
+  {
+    title: 'Industrial Safety Nets',
+    highlightWord: 'Industrial',
+    icon: ShieldCheck,
+    desc: 'High-altitude rope nets designed for warehouses, chemical plants, and manufacturing bays. Secure cargo storage and material handling facilities.',
+    images: [
+      'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1531834685032-c34bf0d8b939?auto=format&fit=crop&q=80&w=600'
+    ]
+  },
+  {
+    title: 'Duct Area Safety Nets',
+    highlightWord: 'Duct',
+    icon: Layers,
+    desc: 'Cover narrow plumbing shafts, high-rise building ducts, and open service vents to stop garbage accumulation, birds, or accidental worker drops.',
+    images: [
+      'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&q=80&w=600'
+    ]
+  },
+  {
+    title: 'Building Safety Nets',
+    highlightWord: 'Building',
+    icon: Flame,
+    desc: 'Comprehensive structural safety wraps designed for aging buildings to secure plaster falls, protect surrounding pathways, and contain debris.',
+    images: [
+      'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=600',
+      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=600'
+    ]
+  }
+];
+
 export default function Home({ onChangePage, onOpenQuoteModal }: HomeProps) {
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [activeServiceIdx, setActiveServiceIdx] = useState(0);
 
-  const services = [
-    {
-      title: 'Balcony Safety Nets',
-      icon: Shield,
-      desc: 'Secure your balconies from accidental falls. Made of UV-resistant high-tensile HDPE or transparent monofilament wires. Perfect for high-rise apartment safety.',
-      image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=600'
-    },
-    {
-      title: 'Bird Protection Nets',
-      icon: Sparkles,
-      desc: 'Keep pigeons and wild sparrows from infesting and nesting in AC vents, pipes, and shafts without harming them. Long-lasting HDPE material.',
-      image: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&q=80&w=600'
-    },
-    {
-      title: 'Pigeon Safety Nets',
-      icon: Heart,
-      desc: 'Specifically designed mesh targets stubborn pigeon flocks. Maintain absolute balcony sanitation with complete transparency and UV protection.',
-      image: 'https://images.unsplash.com/photo-1444464666168-49d633b86797?auto=format&fit=crop&q=80&w=600'
-    },
-    {
-      title: "Children's Safety Nets",
-      icon: Users,
-      desc: 'Double-mesh robust netting configured near windows, staircases, and open balconies. Tested to support weights of up to 150 kg for complete child safety.',
-      image: 'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&q=80&w=600'
-    },
-    {
-      title: 'Construction Safety Nets',
-      icon: Award,
-      desc: 'Certified industrial-grade fall arrest and dual-layer debris containment nets for multi-storey project sites. Adheres strictly to IS-11057 standards.',
-      image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80&w=600'
-    },
-    {
-      title: 'Coconut Tree Safety Nets',
-      icon: PenTool,
-      desc: 'Heavy-duty weather-proof rope nets anchored below tall coconut trees to catch falling fruits safely, protecting pedestrians and properties from impact.',
-      image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=600'
-    },
-    {
-      title: 'Industrial Safety Nets',
-      icon: ShieldCheck,
-      desc: 'High-altitude rope nets designed for warehouses, chemical plants, and manufacturing bays. Secure cargo storage and material handling facilities.',
-      image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=600'
-    },
-    {
-      title: 'Duct Area Safety Nets',
-      icon: Layers,
-      desc: 'Cover narrow plumbing shafts, high-rise building ducts, and open service vents to stop garbage accumulation, birds, or accidental worker drops.',
-      image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=600'
-    },
-    {
-      title: 'Building Safety Nets',
-      icon: Flame,
-      desc: 'Comprehensive structural safety wraps designed for aging buildings to secure plaster falls, protect surrounding pathways, and contain debris.',
-      image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=600'
+  const scrollToIdx = (idx: number) => {
+    if (scrollContainerRef.current) {
+      const firstChild = scrollContainerRef.current.firstElementChild as HTMLElement;
+      const cardWidth = firstChild ? firstChild.offsetWidth + 32 : 380 + 32;
+      scrollContainerRef.current.scrollTo({
+        left: idx * cardWidth,
+        behavior: 'smooth'
+      });
+      setActiveServiceIdx(idx);
     }
-  ];
+  };
+
+  const scrollServices = (direction: 'left' | 'right') => {
+    const nextIdx = direction === 'left' 
+      ? (activeServiceIdx - 1 + services.length) % services.length
+      : (activeServiceIdx + 1) % services.length;
+    scrollToIdx(nextIdx);
+  };
+
+  // Auto-scroll services every 5 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const nextIdx = (activeServiceIdx + 1) % services.length;
+      scrollToIdx(nextIdx);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [activeServiceIdx]);
+
+  // Handle manual scroll updates (e.g. touch swiping)
+  useEffect(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+
+    const handleScroll = () => {
+      const scrollLeft = el.scrollLeft;
+      const firstChild = el.firstElementChild as HTMLElement;
+      const cardWidth = firstChild ? firstChild.offsetWidth + 32 : 380 + 32;
+      const currentIdx = Math.round(scrollLeft / cardWidth);
+      if (currentIdx >= 0 && currentIdx < services.length) {
+        setActiveServiceIdx((prev) => (prev !== currentIdx ? currentIdx : prev));
+      }
+    };
+
+    el.addEventListener('scroll', handleScroll, { passive: true });
+    return () => el.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const renderTitle = (title: string, highlight: string) => {
+    const parts = title.split(new RegExp(`(${highlight})`, 'gi'));
+    return (
+      <>
+        {parts.map((part, i) => 
+          part.toLowerCase() === highlight.toLowerCase() 
+            ? <span key={i} className="text-accent font-black">{part}</span> 
+            : part
+        )}
+      </>
+    );
+  };
 
   const features = [
     { title: 'Experienced Team', desc: 'Over 12 years of professional rope-access climbing and safety installations across Tamil Nadu.' },
@@ -221,39 +404,43 @@ export default function Home({ onChangePage, onOpenQuoteModal }: HomeProps) {
       </section>
 
       {/* 3. SERVICES SECTION */}
-      <section className="py-20 bg-slate-50/50">
+      <section className="py-20 bg-slate-50/50 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-            <span className="text-xs font-mono font-bold text-accent uppercase tracking-widest block">Premium Safety Solutions</span>
-            <h2 className="text-3xl sm:text-4xl font-display font-black text-primary leading-tight">Professional Safety Nets We Install</h2>
-            <p className="text-sm text-slate-500 leading-relaxed font-sans">
-              Explore our range of heavy-duty, weather-proof netting options customized specifically for high-rises, residential communities, and industrial complexes in Tamil Nadu.
-            </p>
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+            <div className="text-left space-y-3">
+              <span className="text-xs font-mono font-bold text-accent uppercase tracking-widest block">Premium Safety Solutions</span>
+              <h2 className="text-3xl sm:text-4xl font-display font-black text-primary leading-tight">Professional Safety Nets We Install</h2>
+              <p className="text-sm text-slate-500 leading-relaxed font-sans max-w-2xl">
+                Explore our range of heavy-duty, weather-proof netting options customized specifically for high-rises, residential communities, and industrial complexes in Tamil Nadu.
+              </p>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Horizontal Scrolling Wrapper */}
+          <div 
+            ref={scrollContainerRef}
+            className="flex gap-8 overflow-x-auto pb-8 pt-2 scroll-smooth snap-x snap-mandatory scrollbar-thin scrollbar-thumb-slate-200 scrollbar-track-transparent"
+            style={{ scrollbarWidth: 'thin' }}
+          >
             {services.map((srv, idx) => {
               const IconComp = srv.icon;
               return (
                 <div 
                   key={idx} 
-                  className="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+                  className="w-full sm:w-[380px] shrink-0 bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group snap-start"
                 >
                   <div>
-                    <div className="h-48 overflow-hidden relative">
-                      <img 
-                        src={srv.image} 
-                        alt={srv.title} 
-                        referrerPolicy="no-referrer"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute top-4 left-4 bg-white/95 backdrop-blur shadow p-2.5 rounded-xl text-accent">
+                    <div className="h-52 overflow-hidden relative">
+                      <CardImageSlideshow images={srv.images} title={srv.title} />
+                      <div className="absolute top-4 left-4 bg-white/95 backdrop-blur shadow p-2.5 rounded-xl text-accent z-10">
                         <IconComp className="h-5 w-5" />
                       </div>
                     </div>
                     <div className="p-6 space-y-3">
-                      <h3 className="font-display font-bold text-lg text-primary group-hover:text-accent transition-colors">{srv.title}</h3>
-                      <p className="text-xs text-slate-500 leading-relaxed">{srv.desc}</p>
+                      <h3 className="font-display font-bold text-lg text-primary group-hover:text-accent transition-colors">
+                        {renderTitle(srv.title, srv.highlightWord)}
+                      </h3>
+                      <p className="text-xs text-slate-500 leading-relaxed h-16 overflow-y-auto scrollbar-none">{srv.desc}</p>
                     </div>
                   </div>
                   <div className="p-6 pt-0 flex gap-3">
@@ -275,6 +462,56 @@ export default function Home({ onChangePage, onOpenQuoteModal }: HomeProps) {
               );
             })}
           </div>
+
+          {/* Centered Modern Floating Navigation Deck */}
+          <div className="flex flex-col items-center gap-5 mt-10">
+            <div className="inline-flex items-center gap-5 bg-white/90 backdrop-blur-md px-6 py-3.5 rounded-2xl border border-slate-200/80 shadow-lg shadow-slate-200/30">
+              
+              {/* Left Arrow (Glassmorphic Pill) */}
+              <button
+                onClick={() => scrollServices('left')}
+                className="group h-10 w-10 rounded-full bg-slate-50 hover:bg-accent border border-slate-200/60 hover:border-accent text-slate-600 hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 shadow-xs"
+                aria-label="Previous service"
+              >
+                <ChevronLeft className="h-5 w-5 group-hover:-translate-x-0.5 transition-transform" />
+              </button>
+
+              {/* Dynamic Pill Indicators (The active icon / dot centered) */}
+              <div className="flex items-center gap-2 px-1">
+                {services.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => scrollToIdx(i)}
+                    className={`h-2 rounded-full transition-all duration-500 ${
+                      activeServiceIdx === i 
+                        ? 'w-7 bg-accent shadow-[0_0_10px_rgba(var(--color-accent),0.4)]' 
+                        : 'w-2 bg-slate-200 hover:bg-slate-300'
+                    }`}
+                    aria-label={`Go to service ${i + 1}`}
+                  />
+                ))}
+              </div>
+
+              {/* Right Arrow (Glassmorphic Pill) */}
+              <button
+                onClick={() => scrollServices('right')}
+                className="group h-10 w-10 rounded-full bg-slate-50 hover:bg-accent border border-slate-200/60 hover:border-accent text-slate-600 hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 shadow-xs"
+                aria-label="Next service"
+              >
+                <ChevronRight className="h-5 w-5 group-hover:translate-x-0.5 transition-transform" />
+              </button>
+
+            </div>
+
+            {/* Micro active progress tracker */}
+            <div className="w-36 h-1 bg-slate-200/50 rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-accent transition-all duration-500 rounded-full"
+                style={{ width: `${((activeServiceIdx + 1) / services.length) * 100}%` }}
+              />
+            </div>
+          </div>
+
         </div>
       </section>
 
