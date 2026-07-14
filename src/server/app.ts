@@ -3,6 +3,7 @@ dotenv.config();
 import express, { Request, Response, NextFunction } from 'express';
 import path from 'path';
 import fs from 'fs';
+import crypto from 'crypto';
 import { v2 as cloudinary } from 'cloudinary';
 import { db } from './db.js';
 import { Blog, Category, Tag, Inquiry } from '../types.js';
@@ -14,6 +15,53 @@ cloudinary.config({
 });
 
 const app = express();
+
+// ================= STATELESS TOKEN LOGIC =================
+const SESSION_SECRET = process.env.CLOUDINARY_API_SECRET || 'star-safety-nets-secret-key-1837482';
+
+interface TokenPayload {
+  userId: string;
+  email: string;
+  name: string;
+  expiresAt: string;
+}
+
+function generateToken(payload: TokenPayload): string {
+  const payloadStr = JSON.stringify(payload);
+  const payloadBase64 = Buffer.from(payloadStr).toString('base64url');
+  const signature = crypto
+    .createHmac('sha256', SESSION_SECRET)
+    .update(payloadBase64)
+    .digest('base64url');
+  return `${payloadBase64}.${signature}`;
+}
+
+function verifyToken(token: string): TokenPayload | null {
+  try {
+    const parts = token.split('.');
+    if (parts.length !== 2) return null;
+    const [payloadBase64, signature] = parts;
+    const expectedSignature = crypto
+      .createHmac('sha256', SESSION_SECRET)
+      .update(payloadBase64)
+      .digest('base64url');
+    
+    if (signature !== expectedSignature) {
+      return null;
+    }
+
+    const payloadStr = Buffer.from(payloadBase64, 'base64url').toString('utf8');
+    const payload = JSON.parse(payloadStr) as TokenPayload;
+
+    if (new Date(payload.expiresAt) < new Date()) {
+      return null;
+    }
+
+    return payload;
+  } catch (e) {
+    return null;
+  }
+}
 
 // Middleware
 app.use(express.json({ limit: '50mb' })); // support large image base64 uploads
@@ -43,25 +91,15 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction): void =
   }
 
   const token = authHeader.split(' ')[1];
-  const data = db.get();
-  const session = data.sessions.find(s => s.id === token);
+  const payload = verifyToken(token);
 
-  if (!session) {
+  if (!payload) {
     res.status(401).json({ error: 'Unauthorized: Invalid token' });
     return;
   }
 
-  // Check expiration (let sessions last 24 hours)
-  if (new Date(session.expiresAt) < new Date()) {
-    // Remove expired session
-    data.sessions = data.sessions.filter(s => s.id !== token);
-    db.save(data);
-    res.status(401).json({ error: 'Unauthorized: Session expired' });
-    return;
-  }
-
   // Attach session context
-  (req as any).user = session;
+  (req as any).user = payload;
   next();
 };
 
@@ -79,11 +117,14 @@ app.post('/api/login', (req: Request, res: Response): void => {
     res.status(401).json({ error: 'Invalid email or password' });
     return;
   }
-  const token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
   const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
-  const data = db.get();
-  data.sessions.push({ id: token, userId: user.id, email: user.email, name: user.name, expiresAt });
-  db.save(data);
+  const token = generateToken({
+    userId: user.id,
+    email: user.email,
+    name: user.name,
+    expiresAt
+  });
+
   db.logActivity('LOGIN', `User ${user.email} logged in via /api/login`, user.email);
   res.json({ token, user: { id: user.id, email: user.email, name: user.name } });
 });
@@ -102,20 +143,13 @@ app.post('/api/auth/login', (req: Request, res: Response): void => {
   }
 
   // Create a session
-  const token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
   const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(); // 24 hours
-
-  const data = db.get();
-  const newSession = {
-    id: token,
+  const token = generateToken({
     userId: user.id,
     email: user.email,
     name: user.name,
     expiresAt
-  };
-
-  data.sessions.push(newSession);
-  db.save(data);
+  });
 
   db.logActivity('LOGIN', `User ${user.email} logged in successfully.`, user.email);
 
@@ -133,13 +167,10 @@ app.post('/api/auth/logout', (req: Request, res: Response): void => {
   const authHeader = req.headers.authorization;
   if (authHeader && authHeader.startsWith('Bearer ')) {
     const token = authHeader.split(' ')[1];
-    const data = db.get();
-    const session = data.sessions.find(s => s.id === token);
-    if (session) {
-      db.logActivity('LOGOUT', `User ${session.email} logged out.`, session.email);
+    const payload = verifyToken(token);
+    if (payload) {
+      db.logActivity('LOGOUT', `User ${payload.email} logged out.`, payload.email);
     }
-    data.sessions = data.sessions.filter(s => s.id !== token);
-    db.save(data);
   }
   res.json({ success: true });
 });
@@ -176,7 +207,7 @@ app.get('/api/blogs', (req: Request, res: Response): void => {
     let isAdmin = false;
     if (authHeader && authHeader.startsWith('Bearer ')) {
       const token = authHeader.split(' ')[1];
-      if (data.sessions.some(s => s.id === token)) {
+      if (verifyToken(token)) {
         isAdmin = true;
       }
     }
@@ -235,7 +266,7 @@ app.get('/api/blogs/:slug', (req: Request, res: Response): void => {
     let isAdmin = false;
     if (authHeader && authHeader.startsWith('Bearer ')) {
       const token = authHeader.split(' ')[1];
-      if (data.sessions.some(s => s.id === token)) {
+      if (verifyToken(token)) {
         isAdmin = true;
       }
     }
