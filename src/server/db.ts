@@ -232,7 +232,8 @@ const initialInquiries: Inquiry[] = [
 ];
 
 function getDatabase(): DatabaseSchema {
-  if (!fs.existsSync(DATA_DIR)) {
+  // On Vercel, /tmp always exists so skip mkdirSync to avoid permission errors
+  if (!isVercel && !fs.existsSync(DATA_DIR)) {
     fs.mkdirSync(DATA_DIR, { recursive: true });
   }
 
@@ -245,16 +246,24 @@ function getDatabase(): DatabaseSchema {
     }
   }
 
-  // On Vercel cold start, try reading bundled repo data/db.json first
-  const bundledDb = path.join(process.cwd(), 'data', 'db.json');
-  if (isVercel && fs.existsSync(bundledDb)) {
-    try {
-      const content = fs.readFileSync(bundledDb, 'utf-8');
-      const parsed = JSON.parse(content) as DatabaseSchema;
-      saveDatabase(parsed);
-      return parsed;
-    } catch (e) {
-      console.error('Error reading bundled database file:', e);
+  // On Vercel cold start, try reading bundled repo data/db.json from multiple known locations
+  if (isVercel) {
+    const bundledDbPaths = [
+      path.join(process.cwd(), 'data', 'db.json'),
+      path.join(__dirname, '..', '..', 'data', 'db.json'),
+      path.join(__dirname, '..', 'data', 'db.json'),
+    ];
+    for (const bundledDb of bundledDbPaths) {
+      if (fs.existsSync(bundledDb)) {
+        try {
+          const content = fs.readFileSync(bundledDb, 'utf-8');
+          const parsed = JSON.parse(content) as DatabaseSchema;
+          saveDatabase(parsed);
+          return parsed;
+        } catch (e) {
+          console.error('Error reading bundled database file at', bundledDb, ':', e);
+        }
+      }
     }
   }
 
@@ -290,10 +299,15 @@ function getDatabase(): DatabaseSchema {
 }
 
 function saveDatabase(db: DatabaseSchema) {
-  if (!fs.existsSync(DATA_DIR)) {
+  // On Vercel, /tmp always exists and mkdirSync can throw — skip it
+  if (!isVercel && !fs.existsSync(DATA_DIR)) {
     fs.mkdirSync(DATA_DIR, { recursive: true });
   }
-  fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2), 'utf-8');
+  try {
+    fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2), 'utf-8');
+  } catch (e) {
+    console.error('[db] Failed to write database file:', e);
+  }
 }
 
 // DB Instance API

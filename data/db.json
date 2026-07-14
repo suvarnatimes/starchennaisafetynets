@@ -1,0 +1,274 @@
+{
+  "users": [
+    {
+      "id": "usr-1",
+      "email": "admin@starsafety.com",
+      "name": "Administrator",
+      "passwordHash": "34b17bf149e7f5471e7f517abf96e2b2d6290670a4b936a69355a96eaf81e7e6",
+      "salt": "e8a2508e59f09201bdf291b3f4164a4d",
+      "createdAt": "2026-07-14T05:41:28.786Z"
+    }
+  ],
+  "categories": [
+    {
+      "id": "cat-1",
+      "name": "Balcony Safety Nets",
+      "slug": "balcony-safety-nets",
+      "description": "Heavy-duty transparent and nylon nets designed to prevent falls and accidents in apartment balconies.",
+      "createdAt": "2026-07-14T03:30:52.461Z"
+    },
+    {
+      "id": "cat-2",
+      "name": "Bird Protection",
+      "slug": "bird-protection-nets",
+      "description": "Aesthetic and durable netting solutions to stop pigeon infestation and bird nesting.",
+      "createdAt": "2026-07-14T03:30:52.463Z"
+    },
+    {
+      "id": "cat-3",
+      "name": "Child Safety Nets",
+      "slug": "child-safety-nets",
+      "description": "Extra secure double-mesh nets designed to keep playful children safe near windows, balconies, and staircases.",
+      "createdAt": "2026-07-14T03:30:52.463Z"
+    },
+    {
+      "id": "cat-4",
+      "name": "Construction Safety",
+      "slug": "construction-safety-nets",
+      "description": "High-tensile industrial nets built for construction sites to trap falling debris and protect workers.",
+      "createdAt": "2026-07-14T03:30:52.463Z"
+    },
+    {
+      "id": "cat-5",
+      "name": "Coconut Tree Safety",
+      "slug": "coconut-tree-safety-nets",
+      "description": "Sturdy, weather-resistant safety nets to catch falling coconuts and prevent injuries or property damage.",
+      "createdAt": "2026-07-14T03:30:52.463Z"
+    }
+  ],
+  "tags": [
+    {
+      "id": "tag-1",
+      "name": "Balcony",
+      "slug": "balcony",
+      "createdAt": "2026-07-14T03:30:52.463Z"
+    },
+    {
+      "id": "tag-2",
+      "name": "Pigeons",
+      "slug": "pigeons",
+      "createdAt": "2026-07-14T03:30:52.463Z"
+    },
+    {
+      "id": "tag-3",
+      "name": "Child Safety",
+      "slug": "child-safety",
+      "createdAt": "2026-07-14T03:30:52.463Z"
+    },
+    {
+      "id": "tag-4",
+      "name": "Chennai",
+      "slug": "chennai",
+      "createdAt": "2026-07-14T03:30:52.463Z"
+    },
+    {
+      "id": "tag-5",
+      "name": "Coimbatore",
+      "slug": "coimbatore",
+      "createdAt": "2026-07-14T03:30:52.463Z"
+    },
+    {
+      "id": "tag-6",
+      "name": "Installation Tips",
+      "slug": "installation-tips",
+      "createdAt": "2026-07-14T03:30:52.463Z"
+    },
+    {
+      "id": "tag-7",
+      "name": "Industrial Netting",
+      "slug": "industrial-netting",
+      "createdAt": "2026-07-14T03:30:52.463Z"
+    }
+  ],
+  "blogs": [
+    {
+      "id": "blog-1",
+      "title": "How to Choose the Right Balcony Safety Net for Your Apartment",
+      "slug": "how-to-choose-right-balcony-safety-net",
+      "shortDescription": "Unsure which netting material or mesh size is right for your home? Read our complete guide to securing apartment balconies in Chennai, Coimbatore, and other cities.",
+      "content": "## Why Balcony Safety is Essential in High-Rise Apartments\n\nLiving in high-rise apartments in busy cities like **Chennai** and **Coimbatore** offers beautiful views, but it also brings safety risks—especially if you have curious toddlers, pets, or frequent bird visitations. Installing a premium balcony safety net is the most reliable, cost-effective solution to secure your home without blocking the fresh air or natural light.\n\nIn this guide, we will break down the essential factors you must consider before purchasing a balcony safety net.\n\n---\n\n### 1. Material Types: HDPE vs. Nylon\n\nChoosing the right material ensures durability, strength, and longevity. The two most popular choices are:\n\n*   **HDPE (High-Density Polyethylene) Safety Nets:** These are highly durable, UV-resistant, and weather-proof. They do not stretch over time and are perfect for open balconies exposed to heavy sunlight and rain in Tamil Nadu.\n*   **Nylon Monofilament Nets:** These are nearly transparent, maintaining your balcony's aesthetics while providing high tensile strength. They are an ideal choice if you want maximum safety with minimal visual impact.\n\n### 2. Understanding Mesh Size\n\nMesh size determines what the net protects against:\n*   **25mm to 30mm Mesh:** Excellent for stopping smaller birds, sparrows, and preventing small items from slipping through.\n*   **40mm to 50mm Mesh:** Standard size for pigeon protection and child safety. Strong, heavy-duty, and lets in maximum air and light.\n\n### 3. Professional Installation vs. DIY\n\nWhile DIY kits exist, **professional installation** is highly recommended. Here is why:\n1.  **Industrial-Grade Anchors:** Professional teams use stainless steel keyhole anchors or solid fasteners that do not rust.\n2.  **Tension Calibration:** A saggy net is unsafe. Professionals ensure uniform high tension across all corners.\n3.  **Height Access:** High-rise balcony borders are risky to work around. Professional installers have safety harnesses and equipment to complete the job hazard-free.\n\n---\n\n### Our Recommendation for Tamil Nadu Homes\n\nFor typical apartments in major cities across Tamil Nadu, we recommend **0.7mm transparent Nylon nets** or **15-ply HDPE nets** with a **50mm mesh size**. They offer the perfect balance of view preservation, heavy child safety, and reliable bird resistance.\n\nAt **Star Safety Enterprises**, we provide free on-site inspections in Chennai, Coimbatore, Trichy, Salem, and Madurai to help you pick the exact configuration for your home. Contact us today!",
+      "featuredImage": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=800",
+      "galleryImages": [
+        "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=800"
+      ],
+      "categories": [
+        "cat-1",
+        "cat-3"
+      ],
+      "tags": [
+        "tag-1",
+        "tag-3",
+        "tag-4",
+        "tag-6"
+      ],
+      "status": "published",
+      "publishDate": "2026-07-09T03:30:52.463Z",
+      "author": "S. Rajkumar",
+      "readingTime": "5 min read",
+      "metaTitle": "Choose the Best Balcony Safety Net in Tamil Nadu | Star Safety",
+      "metaDescription": "Learn about HDPE vs Nylon balcony safety nets, choosing mesh sizes, and professional installation services in Chennai, Coimbatore, and across Tamil Nadu.",
+      "faqs": [
+        {
+          "question": "What is the lifespan of HDPE safety nets?",
+          "answer": "Our premium HDPE safety nets are UV-stabilized and last up to 5 to 8 years under standard tropical weather conditions in Tamil Nadu."
+        },
+        {
+          "question": "Do transparent monofilament nets block the view?",
+          "answer": "No, monofilament transparent safety nets are nearly invisible from a short distance and maintain 98% of your open view and airflow."
+        },
+        {
+          "question": "Is the site inspection free?",
+          "answer": "Yes, Star Safety Enterprises offers 100% free site inspections and measurements across all major Tamil Nadu cities."
+        }
+      ],
+      "createdAt": "2026-07-09T03:30:52.463Z",
+      "updatedAt": "2026-07-09T03:30:52.463Z"
+    },
+    {
+      "id": "blog-2",
+      "title": "The Permanent Solution to Pigeon Infestation in High-Rise Buildings",
+      "slug": "permanent-solution-pigeon-infestation-high-rise",
+      "shortDescription": "Are pigeons nesting in your AC ducts, balconies, or building ledges? Learn why pigeon netting is the only long-term, humane, and sanitary solution available.",
+      "content": "## The Hazards of Pigeon Infestation\n\nPigeons may seem harmless, but their presence in residential and commercial buildings poses serious health and maintenance hazards. From corrosive droppings that destroy concrete and paint to transmitting dangerous respiratory diseases (like Histoplasmosis and Psittacosis), keeping them off your premises is critical for a sanitary living environment.\n\nAC ducts, pipes, shafts, and balconies are prime nesting targets. In this article, we explain the most effective, humane, and lasting solution to pigeon issues.\n\n---\n\n### Why Repellents and Spikes Often Fail\n\nMany home and property managers attempt temporary fixes:\n*   **Plastic/Metal Spikes:** Useful for narrow ledges, but birds often fill them with twigs and build nests directly on top.\n*   **Ultrasonic Repellents:** Pigeons adapt to high-frequency sounds within a few weeks, making these devices ineffective long-term.\n*   **Shiny Gel or Ribbons:** Highly weather-dependent and loses effectiveness quickly when covered in dust.\n\n### The Real Solution: High-Tensile Bird Netting\n\nInstalling a continuous, sturdy bird safety net is the only 100% guaranteed way to keep pigeons out of balconies, ducts, and shafts. It acts as a physical barrier that prevents any access, prompting the birds to migrate elsewhere without causing them harm.\n\n#### Essential Features of Quality Pigeon Nets:\n1.  **Small Mesh Size (25mm to 40mm):** Pigeons are stubborn and can squeeze through larger gaps. A 35mm-40mm mesh is the industry sweet spot—small enough to block pigeons completely but wide enough to remain fully transparent and let air through.\n2.  **UV-Stabilized Materials:** Extreme summer heat in places like **Trichy**, **Madurai**, and **Chennai** will degrade cheap nets. UV-treated nylon or HDPE is essential to prevent cracking or breaking.\n3.  **Stainless Steel Fasteners:** Standard iron hooks rust within one monsoon season, staining your walls and loosening the net. Always insist on SS (Stainless Steel) fasteners and robust wire rope borders.\n\n---\n\n### Contact Tamil Nadu's Netting Specialists\n\nAt **Star Safety Enterprises**, we have over a decade of experience installing bird protection nets in residential complexes and commercial offices across Tamil Nadu. Our team uses professional rope-access climbing gear to secure deep shafts and duct areas safely.\n\nGet in touch for a durable pigeon protection net today!",
+      "featuredImage": "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&q=80&w=800",
+      "galleryImages": [
+        "https://images.unsplash.com/photo-1444464666168-49d633b86797?auto=format&fit=crop&q=80&w=800"
+      ],
+      "categories": [
+        "cat-2"
+      ],
+      "tags": [
+        "tag-2",
+        "tag-4",
+        "tag-5",
+        "tag-6"
+      ],
+      "status": "published",
+      "publishDate": "2026-07-02T03:30:52.463Z",
+      "author": "K. Vignesh",
+      "readingTime": "4 min read",
+      "metaTitle": "Pigeon Netting Solutions for High-Rise Buildings | Star Safety",
+      "metaDescription": "Keep pigeons away from your balcony and AC ducts permanently. Discover why high-tensile UV-stabilized bird nets are the best humane solution in Tamil Nadu.",
+      "faqs": [
+        {
+          "question": "Will the nets harm the pigeons?",
+          "answer": "Absolutely not. Our bird nets act strictly as a physical barrier. They prevent pigeons from landing or nesting, gently guiding them to find other natural habitats."
+        },
+        {
+          "question": "Can you cover high-altitude AC duct shafts?",
+          "answer": "Yes, our team is highly trained in rope-access and industrial climbing. We can safely install pigeon nets in narrow, deep building ducts at any height."
+        }
+      ],
+      "createdAt": "2026-07-02T03:30:52.463Z",
+      "updatedAt": "2026-07-02T03:30:52.463Z"
+    },
+    {
+      "id": "blog-3",
+      "title": "Industrial Safety Net Standards for Modern Construction Sites",
+      "slug": "industrial-safety-net-standards-construction-sites",
+      "shortDescription": "A guide to understanding OSHA & IS standards for industrial debris and fall protection netting in construction projects across Tamil Nadu.",
+      "content": "## Prioritizing Workplace Safety in Construction\n\nWith rapid industrialization and urban expansion in cities like **Chennai**, **Coimbatore**, **Tiruppur**, and **Hosur**, construction activities are at an all-time high. However, height-related accidents remain one of the leading causes of injuries at work.\n\nIndustrial and construction safety nets are the primary passive safety system required to protect both workers from falls and passersby from falling debris.\n\n---\n\n### Key Requirements for Construction Safety Nets\n\nIndustrial nets are vastly different from domestic balcony nets. They must adhere to strict Indian Standards (IS-11057) and international safety protocols:\n\n#### 1. Fall Arrest Capacity\nA worker-fall safety net must be capable of absorbing the impact of a falling human body (often rated for drops of up to 6 meters). This requires:\n*   **High-tensile braided nylon or polypropylene ropes.**\n*   **Border ropes** with a minimum breaking strength of 20 KN.\n*   **Mesh ropes** with a breaking strength of at least 10 KN.\n\n#### 2. Debris Containment (Dual-Layer Netting)\nStandard wide-mesh nets prevent people from falling, but tools, bricks, and concrete chunks can slip through. To solve this, premium installations use a **dual-layer net**:\n*   **Inner Layer:** A dense HDPE green shade net or fine monofilament mesh (to trap small pebbles and dust).\n*   **Outer Layer:** A high-tensile 100mm rope net (to support structural load and arrest falling bodies).\n\n#### 3. Weathering and UV Stabilization\nSince construction nets are exposed to harsh outdoor conditions, they must be chemically treated with UV stabilizers to resist degradation from sunlight, acidic rain, and chemical dust.\n\n---\n\n### Why Choose Star Safety Enterprises for Industrial Projects?\n\nStar Safety Enterprises is a trusted safety partner for leading builders, factories, and warehouses in Tamil Nadu. We supply and install certified construction safety nets that comply with national safety regulations. \n\nContact our commercial safety division today for a custom quote and safe site inspection.",
+      "featuredImage": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=800",
+      "galleryImages": [
+        "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80&w=800"
+      ],
+      "categories": [
+        "cat-4"
+      ],
+      "tags": [
+        "tag-4",
+        "tag-7"
+      ],
+      "status": "published",
+      "publishDate": "2026-06-24T03:30:52.463Z",
+      "author": "S. Rajkumar",
+      "readingTime": "6 min read",
+      "metaTitle": "Construction & Industrial Safety Net Standards | Star Safety",
+      "metaDescription": "Understand safety net guidelines, fall arrest load capacities, and dual-layer debris containment solutions for builders in Tamil Nadu.",
+      "faqs": [
+        {
+          "question": "Do your nets comply with Indian Standards?",
+          "answer": "Yes, all our construction and industrial safety nets strictly adhere to IS-11057 guidelines for fall arrest and debris netting."
+        },
+        {
+          "question": "Can you handle large-scale commercial factory projects?",
+          "answer": "Absolutely. We have successfully executed large safety net installations for automobile factories, warehouses, and IT parks in Hosur, Sriperumbudur, and Coimbatore."
+        }
+      ],
+      "createdAt": "2026-06-24T03:30:52.463Z",
+      "updatedAt": "2026-06-24T03:30:52.463Z"
+    }
+  ],
+  "inquiries": [
+    {
+      "id": "inq-1",
+      "name": "Anand Kumar",
+      "phone": "9876543210",
+      "email": "anand.k@gmail.com",
+      "city": "Chennai",
+      "service": "Balcony Safety Nets",
+      "message": "I need a premium balcony safety net for my 5th-floor apartment in Adyar. Please contact me for a free site measurement.",
+      "status": "new",
+      "createdAt": "2026-07-14T01:30:52.463Z"
+    },
+    {
+      "id": "inq-2",
+      "name": "Priya Sundaram",
+      "phone": "9443210987",
+      "email": "priya.s@yahoo.com",
+      "city": "Coimbatore",
+      "service": "Pigeon Safety Nets",
+      "message": "There is a severe pigeon issue in our kitchen utility area and AC vents. Need a bird protection net installed.",
+      "status": "contacted",
+      "createdAt": "2026-07-13T03:30:52.463Z"
+    },
+    {
+      "id": "inq-3",
+      "name": "R. Karthikeyan",
+      "phone": "9123456789",
+      "email": "karthik.constructions@gmail.com",
+      "city": "Trichy",
+      "service": "Construction Safety Nets",
+      "message": "We require high-tensile safety nets and debris containment nets for our new 8-storey residential project site in Trichy. Please send a quote.",
+      "status": "resolved",
+      "createdAt": "2026-07-11T03:30:52.463Z"
+    }
+  ],
+  "logs": [
+    {
+      "id": "log-vmoyaw3",
+      "action": "LOGIN",
+      "details": "User admin@starsafety.com logged in via /api/login",
+      "user": "admin@starsafety.com",
+      "timestamp": "2026-07-14T05:41:28.803Z"
+    },
+    {
+      "id": "log-1",
+      "action": "SYSTEM_INIT",
+      "details": "Database initialized with initial system and seed content.",
+      "user": "system",
+      "timestamp": "2026-07-14T05:41:28.786Z"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "ekf8qtsu2ahowqanf75h1j",
+      "userId": "usr-1",
+      "email": "admin@starsafety.com",
+      "name": "Administrator",
+      "expiresAt": "2026-07-15T05:41:28.790Z"
+    }
+  ],
+  "gallery": []
+}
