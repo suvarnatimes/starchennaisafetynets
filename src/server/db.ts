@@ -5,7 +5,13 @@ import { AdminUser, Category, Tag, Blog, ActivityLog, Inquiry, Session, GalleryI
 
 const isVercel = Boolean(process.env.VERCEL || process.env.VERCEL_ENV);
 const DATA_DIR = isVercel ? '/tmp' : path.join(process.cwd(), 'data');
-const DB_FILE = isVercel ? path.join('/tmp', 'db.json') : path.join(DATA_DIR, 'db.json');
+const DB_FILE = isVercel ? '/tmp/db.json' : path.join(DATA_DIR, 'db.json');
+
+// Fixed admin credentials — DO NOT change these without updating data/db.json
+// These are hardcoded so admin login always works on Vercel cold starts even
+// if no db.json file is found (ESM has no __dirname, Vercel may not bundle data/)
+const FIXED_ADMIN_SALT = 'e8a2508e59f09201bdf291b3f4164a4d';
+const FIXED_ADMIN_HASH = '34b17bf149e7f5471e7f517abf96e2b2d6290670a4b936a69355a96eaf81e7e6';
 
 interface DatabaseSchema {
   users: (AdminUser & { passwordHash: string; salt: string })[];
@@ -246,41 +252,37 @@ function getDatabase(): DatabaseSchema {
     }
   }
 
-  // On Vercel cold start, try reading bundled repo data/db.json from multiple known locations
+  // On Vercel cold start, try reading bundled repo data/db.json.
+  // NOTE: __dirname is NOT available in ESM — use process.cwd() only.
   if (isVercel) {
-    const bundledDbPaths = [
-      path.join(process.cwd(), 'data', 'db.json'),
-      path.join(__dirname, '..', '..', 'data', 'db.json'),
-      path.join(__dirname, '..', 'data', 'db.json'),
-    ];
-    for (const bundledDb of bundledDbPaths) {
-      if (fs.existsSync(bundledDb)) {
-        try {
-          const content = fs.readFileSync(bundledDb, 'utf-8');
-          const parsed = JSON.parse(content) as DatabaseSchema;
-          saveDatabase(parsed);
-          return parsed;
-        } catch (e) {
-          console.error('Error reading bundled database file at', bundledDb, ':', e);
-        }
+    const bundledDb = path.join(process.cwd(), 'data', 'db.json');
+    if (fs.existsSync(bundledDb)) {
+      try {
+        const content = fs.readFileSync(bundledDb, 'utf-8');
+        const parsed = JSON.parse(content) as DatabaseSchema;
+        saveDatabase(parsed);
+        return parsed;
+      } catch (e) {
+        console.error('[db] Error reading bundled data/db.json:', e);
       }
+    } else {
+      console.warn('[db] data/db.json not found at', bundledDb, '— falling back to hardcoded seed');
     }
   }
 
 
-  // Generate database with seed values
-  const adminSalt = generateSalt();
-  const adminPasswordHash = hashPassword(DEFAULT_ADMIN_PASSWORD, adminSalt);
-
+  // Final fallback: generate seed DB with FIXED credentials so admin login
+  // always works regardless of whether any db.json file was found.
+  // FIXED_ADMIN_SALT/HASH are hardcoded constants matching data/db.json.
   const initialDB: DatabaseSchema = {
     users: [
       {
         id: 'usr-1',
         email: DEFAULT_ADMIN_EMAIL,
         name: 'Administrator',
-        passwordHash: adminPasswordHash,
-        salt: adminSalt,
-        createdAt: new Date().toISOString()
+        passwordHash: FIXED_ADMIN_HASH,
+        salt: FIXED_ADMIN_SALT,
+        createdAt: '2026-07-14T05:41:28.786Z'
       }
     ],
     categories: initialCategories,

@@ -21,10 +21,16 @@ const PORT = 3000;
 app.use(express.json({ limit: '50mb' })); // support large image base64 uploads
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
-// Ensure upload directory exists
-const UPLOADS_DIR = path.join(process.cwd(), 'data', 'uploads');
-if (!fs.existsSync(UPLOADS_DIR)) {
+// Ensure upload directory exists (on Vercel, use /tmp which is writable)
+const isVercel = Boolean(process.env.VERCEL || process.env.VERCEL_ENV);
+const UPLOADS_DIR = isVercel
+  ? '/tmp/uploads'
+  : path.join(process.cwd(), 'data', 'uploads');
+
+if (!isVercel && !fs.existsSync(UPLOADS_DIR)) {
   fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+} else if (isVercel && !fs.existsSync(UPLOADS_DIR)) {
+  try { fs.mkdirSync(UPLOADS_DIR, { recursive: true }); } catch (_) {}
 }
 
 // Static serve for uploads
