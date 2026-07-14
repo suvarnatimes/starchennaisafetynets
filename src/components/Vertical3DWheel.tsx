@@ -84,7 +84,7 @@ export default function Vertical3DWheel() {
     stopAutoScroll();
     autoScrollTimer.current = setInterval(() => {
       setRotation(prev => prev - itemAngle);
-    }, 4000);
+    }, 2200);
   };
 
   const stopAutoScroll = () => {
@@ -160,7 +160,13 @@ export default function Vertical3DWheel() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full max-w-sm lg:max-w-md mx-auto select-none">
+    <div 
+      className="flex flex-col items-center justify-center w-full max-w-sm lg:max-w-md mx-auto select-none"
+      onMouseEnter={stopAutoScroll}
+      onMouseLeave={() => {
+        if (!isDragging) startAutoScroll();
+      }}
+    >
       
       {/* Perspective Container */}
       <div 
@@ -198,24 +204,28 @@ export default function Vertical3DWheel() {
           style={{
             transformStyle: 'preserve-3d',
             transform: `rotateX(${rotation}deg)`,
-            transition: isDragging ? 'none' : 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)'
+            transition: isDragging ? 'none' : 'transform 0.85s cubic-bezier(0.22, 1, 0.36, 1)'
           }}
         >
           {CAROUSEL_IMAGES.map((item, index) => {
             const angle = index * itemAngle;
             // Determine if this is the active front item
             const isFront = index === activeIndex;
+            // Determine if this is directly adjacent to the active item for smoother visual continuity
+            const isAdjacent =
+              index === (activeIndex + 1) % totalItems ||
+              index === (activeIndex - 1 + totalItems) % totalItems;
 
             return (
               <div
                 key={item.id}
-                className="absolute inset-0 w-full h-full rounded-2xl border-2 transition-all duration-500 overflow-hidden bg-slate-950/90 p-2"
+                className="absolute inset-0 w-full h-full rounded-2xl border-2 transition-all duration-700 ease-out overflow-hidden bg-slate-950/90 p-2"
                 style={{
-                  transform: `rotateX(${angle}deg) translateZ(${radius}px)`,
+                  transform: `rotateX(${angle}deg) translateZ(${radius}px) scale(${isFront ? 1 : 0.94})`,
                   backfaceVisibility: 'hidden',
-                  borderColor: isFront ? '#FF5A1F' : 'rgba(255, 255, 255, 0.15)',
+                  borderColor: isFront ? '#FF5A1F' : isAdjacent ? 'rgba(255, 255, 255, 0.25)' : 'rgba(255, 255, 255, 0.12)',
                   boxShadow: isFront ? '0 15px 35px -10px rgba(255, 90, 31, 0.5)' : 'none',
-                  opacity: isFront ? 1.0 : 0.25,
+                  opacity: isFront ? 1.0 : isAdjacent ? 0.55 : 0.25,
                   transformStyle: 'preserve-3d'
                 }}
               >
@@ -235,11 +245,11 @@ export default function Vertical3DWheel() {
 
       {/* Description & Specs below the Wheel */}
       <div className="mt-6 text-center max-w-xs space-y-1.5 px-4 min-h-[64px] relative z-20">
-        <h5 className="font-display font-black text-white text-base tracking-tight uppercase flex items-center justify-center gap-1.5">
-          <Shield className="h-4 w-4 text-accent" />
+        <h5 className="font-display font-black text-white text-base tracking-tight uppercase flex items-center justify-center gap-1.5 transition-all duration-500">
+          <Shield className="h-4 w-4 text-accent shrink-0" />
           {CAROUSEL_IMAGES[activeIndex]?.title}
         </h5>
-        <p className="text-xs text-slate-300 leading-relaxed font-sans font-medium">
+        <p className="text-xs text-slate-300 leading-relaxed font-sans font-medium transition-all duration-500">
           {CAROUSEL_IMAGES[activeIndex]?.desc}
         </p>
       </div>
