@@ -77,6 +77,6 @@ export interface GalleryImage {
   cloudinaryId: string;
   caption?: string;
   category?: string;
-  uploadedAt: string;
+  createdAt: string;
 }
 

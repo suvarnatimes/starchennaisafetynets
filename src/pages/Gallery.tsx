@@ -6,7 +6,7 @@ interface GalleryImage {
   url: string;
   caption?: string;
   category?: string;
-  uploadedAt: string;
+  createdAt: string;
 }
 
 interface GalleryProps {

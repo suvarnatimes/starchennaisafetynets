@@ -92,7 +92,7 @@ function CardImageSlideshow({ images, title }: CardImageSlideshowProps) {
 
 const services = [
   {
-    title: 'Balcony Safety Nets',
+    title: 'Balcony Safety Nets (பால்கனி பாதுகாப்பு வலைகள்)',
     highlightWord: 'Balcony',
     icon: Shield,
     desc: 'Secure your balconies from accidental falls. Made of UV-resistant high-tensile HDPE or transparent monofilament wires. Perfect for high-rise apartment safety.',
@@ -103,7 +103,7 @@ const services = [
     ]
   },
   {
-    title: 'Bird Protection Nets',
+    title: 'Bird Protection Nets (பறவை பாதுகாப்பு வலைகள்)',
     highlightWord: 'Bird',
     icon: Sparkles,
     desc: 'Keep pigeons and wild sparrows from infesting and nesting in AC vents, pipes, and shafts without harming them. Long-lasting HDPE material.',
@@ -114,7 +114,7 @@ const services = [
     ]
   },
   {
-    title: 'Pigeon Safety Nets',
+    title: 'Pigeon Safety Nets (புறா பாதுகாப்பு வலைகள்)',
     highlightWord: 'Pigeon',
     icon: Heart,
     desc: 'Specifically designed mesh targets stubborn pigeon flocks. Maintain absolute balcony sanitation with complete transparency and UV protection.',
@@ -125,7 +125,7 @@ const services = [
     ]
   },
   {
-    title: "Children's Safety Nets",
+    title: "Children's Safety Nets (குழந்தைகள் பாதுகாப்பு வலைகள்)",
     highlightWord: "Children's",
     icon: Users,
     desc: 'Double-mesh robust netting configured near windows, staircases, and open balconies. Tested to support weights of up to 150 kg for complete child safety.',
@@ -136,7 +136,7 @@ const services = [
     ]
   },
   {
-    title: 'Construction Safety Nets',
+    title: 'Construction Safety Nets (கட்டுமான பாதுகாப்பு வலைகள்)',
     highlightWord: 'Construction',
     icon: Award,
     desc: 'Certified industrial-grade fall arrest and dual-layer debris containment nets for multi-storey project sites. Adheres strictly to IS-11057 standards.',
@@ -147,7 +147,7 @@ const services = [
     ]
   },
   {
-    title: 'Coconut Tree Safety Nets',
+    title: 'Coconut Tree Safety Nets (தென்னை மர பாதுகாப்பு வலைகள்)',
     highlightWord: 'Coconut',
     icon: PenTool,
     desc: 'Heavy-duty weather-proof rope nets anchored below tall coconut trees to catch falling fruits safely, protecting pedestrians and properties from impact.',
@@ -158,7 +158,7 @@ const services = [
     ]
   },
   {
-    title: 'Monkey Safety Nets',
+    title: 'Monkey Safety Nets (குரங்கு பாதுகாப்பு வலைகள்)',
     highlightWord: 'Monkey',
     icon: ShieldCheck,
     desc: 'Heavy-duty high-tensile mesh nets designed to prevent monkeys from entering residential balconies, terraces, and windows while maintaining clear ventilation and visibility.',
@@ -169,7 +169,7 @@ const services = [
     ]
   },
   {
-    title: 'Duct Area Safety Nets',
+    title: 'Duct Area Safety Nets (குழாய் வழி பாதுகாப்பு வலைகள்)',
     highlightWord: 'Duct',
     icon: Layers,
     desc: 'Cover narrow plumbing shafts, high-rise building ducts, and open service vents to stop garbage accumulation, birds, or accidental worker drops.',
@@ -180,7 +180,7 @@ const services = [
     ]
   },
   {
-    title: 'Building Safety Nets',
+    title: 'Building Safety Nets (கட்டிட பாதுகாப்பு வலைகள்)',
     highlightWord: 'Building',
     icon: Flame,
     desc: 'Comprehensive structural safety wraps designed for aging buildings to secure plaster falls, protect surrounding pathways, and contain debris.',
@@ -194,7 +194,7 @@ const services = [
 
 const invisibleGrillServices = [
   {
-    title: 'Balcony Invisible Grill',
+    title: 'Balcony Invisible Grill (பால்கனி மறைமுக கம்பி வேலி)',
     highlightWord: 'Balcony',
     icon: Shield,
     desc: 'Elegant safety barrier for modern high-rise balconies. Strong 316-grade stainless steel cables with nylon coating ensure complete fall protection without blocking views.',
@@ -205,7 +205,7 @@ const invisibleGrillServices = [
     ]
   },
   {
-    title: 'Window Invisible Grill',
+    title: 'Window Invisible Grill (ஜன்னல் மறைமுக கம்பி வேலி)',
     highlightWord: 'Window',
     icon: Layers,
     desc: 'Ditch ugly iron grates. Window invisible grills feature thin, extremely strong steel wires spaced perfectly to keep kids and pets safe while preserving window breeze and beautiful outside views.',
@@ -216,7 +216,7 @@ const invisibleGrillServices = [
     ]
   },
   {
-    title: 'Staircase Invisible Grill',
+    title: 'Staircase Invisible Grill (படிக்கட்டு மறைமுக கம்பி வேலி)',
     highlightWord: 'Staircase',
     icon: Flame,
     desc: 'Custom vertically stretched high-tension wires alongside open staircase railings. Prevents kids from slipping through gaps while retaining the modern architectural openness of your home.',
@@ -227,7 +227,7 @@ const invisibleGrillServices = [
     ]
   },
   {
-    title: 'Terrace Invisible Grill',
+    title: 'Terrace Invisible Grill (மொட்டை மாடி மறைமுக கம்பி வேலி)',
     highlightWord: 'Terrace',
     icon: ShieldCheck,
     desc: 'Ensure absolute safety on rooftop garden edges or open terraces. Provides high-security load-bearing boundaries without obstructing magnificent skyline scenery.',
@@ -238,7 +238,7 @@ const invisibleGrillServices = [
     ]
   },
   {
-    title: 'Office Invisible Grill',
+    title: 'Office Invisible Grill (அலுவலக மறைமுக கம்பி வேலி)',
     highlightWord: 'Office',
     icon: Sparkles,
     desc: 'Minimalist perimeter safety barriers designed for corporate high-rises, commercial office ducts, and luxury showrooms. Offers modern aesthetics with rigid safety certification.',
@@ -252,7 +252,7 @@ const invisibleGrillServices = [
 
 const sportsNetServices = [
   {
-    title: 'Cricket Practice Nets',
+    title: 'Cricket Practice Nets (கிரிக்கெட் பயிற்சி வலைகள்)',
     highlightWord: 'Cricket',
     icon: Sparkles,
     desc: 'Premium robust sports netting setups for professional cricket clubs, residential terraces, and school grounds. UV-treated nylon nets built to absorb heavy cricket ball impact.',
@@ -263,7 +263,7 @@ const sportsNetServices = [
     ]
   },
   {
-    title: 'Football Nets',
+    title: 'Football Nets (கால்பந்து வலைகள்)',
     highlightWord: 'Football',
     icon: Award,
     desc: 'Custom high-density co-polymer goalpost nets and enclosing fence nets for turf courts and outdoor football grounds. Extreme tear resistance and high-tensile knotting.',
@@ -274,7 +274,7 @@ const sportsNetServices = [
     ]
   },
   {
-    title: 'Tennis Court Nets',
+    title: 'Tennis Court Nets (டென்னிஸ் விளையாட்டு வலைகள்)',
     highlightWord: 'Tennis',
     icon: Shield,
     desc: 'Heavy-duty tournament-grade tennis nets and perimeter backdrop windbreak netting. Resists continuous outdoor solar wear, wind pressure, and rain.',
@@ -285,7 +285,7 @@ const sportsNetServices = [
     ]
   },
   {
-    title: 'Golf Practice Nets',
+    title: 'Golf Practice Nets (கோல்ஃப் பயிற்சி வலைகள்)',
     highlightWord: 'Golf',
     icon: Heart,
     desc: 'Tight-mesh ultra-durable containment nets that stop golf balls of high-velocity impact. Safely practice drives inside residential spaces, offices, or gardens.',
@@ -299,7 +299,7 @@ const sportsNetServices = [
 
 const householdServices = [
   {
-    title: 'Cloth Hangers',
+    title: 'Cloth Hangers (துணி உலர்த்தும் கம்பிகள்)',
     highlightWord: 'Cloth',
     icon: Layers,
     desc: 'Space-saving ceiling-mounted pulley cloth drying hangers. High-quality rust-free stainless steel pipes ideal for apartments in Chennai.',
@@ -310,7 +310,7 @@ const householdServices = [
     ]
   },
   {
-    title: 'Mosquito Nets',
+    title: 'Mosquito Nets (கொசு வலைகள்)',
     highlightWord: 'Mosquito',
     icon: ShieldCheck,
     desc: 'Premium Velcro and pleated mosquito net screens for windows and doors. Durable mesh protection keeping insects away while preserving airflow.',
@@ -321,7 +321,7 @@ const householdServices = [
     ]
   },
   {
-    title: 'Bird Spikes',
+    title: 'Bird Spikes (பறவை தடுப்பு முட்கள்)',
     highlightWord: 'Bird',
     icon: Sparkles,
     desc: 'Polycarbonate and stainless steel bird spikes. Long-lasting humane deterrents to prevent birds and pigeons from nesting on ledges.',
@@ -416,8 +416,13 @@ function ScrollingServiceRow({ items, onChangePage, onOpenQuoteModal }: Scrollin
                   </div>
                 </div>
                 <div className="p-6 space-y-3">
-                  <h3 className="font-display font-bold text-lg text-primary group-hover:text-accent transition-colors">
-                    {renderTitle(srv.title, srv.highlightWord)}
+                  <h3 className="font-display font-bold text-lg text-primary group-hover:text-accent transition-colors leading-tight">
+                    {renderTitle(srv.title.split(' (')[0], srv.highlightWord)}
+                    {srv.title.includes(' (') && (
+                      <span className="text-sm text-slate-500 block font-sans font-bold mt-1.5 leading-normal">
+                        {`(${srv.title.split(' (')[1]}`}
+                      </span>
+                    )}
                   </h3>
                   <p className="text-xs text-slate-500 leading-relaxed h-16 overflow-y-auto scrollbar-none">{srv.desc}</p>
                 </div>

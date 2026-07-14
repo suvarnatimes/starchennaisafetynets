@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   ShieldCheck, Shield, Award, Users, CheckCircle, 
   HelpCircle, ChevronDown, Phone, MessageSquare, 
-  Settings, Layers, Sparkles, Heart, Clipboard, Check
+  Settings, Layers, Sparkles, Heart, Clipboard, Check, Eye
 } from 'lucide-react';
 
 interface ServicesProps {
@@ -26,22 +26,22 @@ interface ServiceDetail {
 const serviceDetails: ServiceDetail[] = [
   {
     id: 'balcony-safety-nets',
-    title: 'Balcony Safety Nets',
+    title: 'Balcony Safety Nets (பால்கனி பாதுகாப்பு வலைகள்)',
     icon: Shield,
     image: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954795/starchennaisafetynets/balcony_safety_1.jpg',
-    desc: 'Heavy-duty balcony netting solutions engineered to prevent high-rise apartment falls and secure children and pets.',
-    longDesc: 'High-rise apartment balconies offer fresh air and scenic views but pose major hazards for families with curious kids or playful pets. Our professional balcony safety nets are custom-fabricated from UV-treated co-polymers and transparent monofilament wires. They provide solid, reliable fall-arrest security up to 150 kg without blocking air circulation or light.',
+    desc: 'Protect your balcony spaces from dangerous intrusions and accidental falls with our premium, high-strength safety nets.',
+    longDesc: 'Protect your balconies from dangerous intrusions, keeping children, pets, monkeys, and birds completely safe. Our premium, high-strength safety nets are professionally installed by a trusted, reliable local company to blend seamlessly with your home\'s exterior, ensuring complete peace of mind.',
     benefits: [
-      'Preserves 98% of natural view and sunlight.',
-      'Prevents fatal domestic balcony accidents completely.',
-      'Heavily UV-resistant—resists bleaching and cracking in hot summers.',
-      'Extremely safe and custom-calibrated for pets and children.'
+      '100% reliable fall-arrest security for children and pets.',
+      'High-grade co-polymer UV protection ensures long-term outdoor life.',
+      'Maintains 98% of natural views, ventilation, and sunlight.',
+      'Offered by a trusted, reliable, and experienced local company.'
     ],
     features: [
-      'Material: 100% co-polymer Nylon or UV HDPE',
-      'Breaking Strength: Up to 150 kg impact load',
-      'Mesh Size: 25mm to 50mm configured options',
-      'Fasteners: Rust-proof Solid Stainless Steel (SS304)'
+      'Material: Premium Nylon, Cotton, and HDPE (High-Density Polyethylene) materials',
+      'Protection: Balconies, keeping children, pets, monkeys, and birds safe',
+      'Sizing & Options: Custom-tailored sizes with mesh configurations from 25mm to 50mm gaps',
+      'Warranty & Support: 6 to 7 Years Warranty with 1 Year of Free Servicing'
     ],
     gallery: [
       'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954795/starchennaisafetynets/balcony_safety_1.jpg',
@@ -49,173 +49,57 @@ const serviceDetails: ServiceDetail[] = [
       'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954798/starchennaisafetynets/balcony_safety_3.jpg'
     ],
     faqs: [
-      { q: 'Will the net block my balcony view?', a: 'No, our transparent monofilament safety nets are nearly invisible from a few feet away and do not block light or fresh breeze.' },
-      { q: 'What mesh size should I choose if I have a cat?', a: 'For cats and puppies, we install a tight 25mm or 30mm mesh net to prevent them from squeezing through border rails.' }
+      { q: 'Will the net block my balcony view?', a: 'No, our transparent and light-colored co-polymer nets maintain 98% of natural light and ventilation.' },
+      { q: 'Is the installation safe for high-rise apartments?', a: 'Yes. Our experienced local technicians use professional climbing harnesses and safety equipment to perform secure installations.' }
     ]
   },
   {
-    id: 'bird-protection-nets',
-    title: 'Bird Protection Nets',
-    icon: Sparkles,
-    image: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954800/starchennaisafetynets/bird_protection_1.jpg',
-    desc: 'Keep sparrows and pigeons away from your balconies, windows, and AC vents permanently and humanely.',
-    longDesc: 'Pigeon and bird infestations are more than a nuisance; their acidic droppings corrode building concrete, destroy AC coils, and spread dangerous respiratory pathogens. Our high-tensile bird protection nets act as a continuous physical barrier. They prevent birds from landing or nesting anywhere on your exterior walls, shafts, or ducts.',
+    id: 'invisible-grills',
+    title: 'Invisible Grills (மறைமுக கம்பி வேலிகள்)',
+    icon: Eye,
+    image: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954788/starchennaisafetynets/invisible_grill_balcony_1.jpg',
+    desc: 'Modern safety solution that secures balconies and windows with high-tensile steel cables without blocking your panoramic view.',
+    longDesc: 'Upgrade to a modern safety solution that secures balconies and windows without blocking the view. These sleek, premium grills enhance the structural beauty of the balcony and are virtually unnoticeable from a distance, acting as a robust barrier preventing children from falling and keeping monkeys out.',
     benefits: [
-      '100% humane—gently guides birds to find other natural habitats without harm.',
-      'Maintains pristine apartment cleanliness and hygienic balconies.',
-      'Protects expensive external AC compressors and plumbing channels.',
-      'Long-lasting—remains intact under high winds.'
+      'Sleek, premium look that enhances balcony aesthetics.',
+      'Virtually unnoticeable from a distance, preserving views.',
+      'Extremely strong high-tensile stainless steel cables.',
+      'Completely rust-proof and weather-resistant.'
     ],
     features: [
-      'Material: UV-stabilized High-Density Polyethylene (HDPE)',
-      'Mesh Size: 25mm to 35mm (stops smaller birds)',
-      'Life Span: Up to 8 years under standard tropical climate',
-      'Border: Heavy-duty 1mm wire rope with steel cable loops'
+      'Material: Premium-grade high-tensile stainless steel wire cables with a protective coating',
+      'Protection: Acts as a barrier preventing children from falling and keeping monkeys out',
+      'Sizing & Options: Available in premium thicknesses of 2mm, 2.5mm, and 3mm',
+      'Warranty & Support: Highly durable structure, lasting comfortably for 10 to 12 Years'
     ],
     gallery: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954800/starchennaisafetynets/bird_protection_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954802/starchennaisafetynets/bird_protection_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954805/starchennaisafetynets/bird_protection_3.jpg'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954788/starchennaisafetynets/invisible_grill_balcony_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954790/starchennaisafetynets/invisible_grill_balcony_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954793/starchennaisafetynets/invisible_grill_balcony_3.jpg'
     ],
     faqs: [
-      { q: 'Do these nets tear when birds fly into them?', a: 'No. Our bird nets are manufactured from high-tensile HDPE which can absorb sudden impacts without tearing.' },
-      { q: 'Do you offer a warranty against bird damage?', a: 'Yes, we provide up to 5 years warranty on bird protection nets.' }
-    ]
-  },
-  {
-    id: 'pigeon-safety-nets',
-    title: 'Pigeon Safety Nets',
-    icon: Heart,
-    image: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954895/starchennaisafetynets/pigeon_safety_1.jpg',
-    desc: 'Sturdy, small-mesh netting solutions targeting stubborn urban pigeon nesting grounds in open windows and AC ledges.',
-    longDesc: 'Pigeons are extremely stubborn nesting creatures that frequently infest AC compressor slabs and service shafts. Our pigeon safety nets use a specialized 35mm to 40mm mesh that stops pigeons of all sizes while maintaining maximum transparency. Our technicians use professional climbing equipment to secure these nets across deep outer ledges safely.',
-    benefits: [
-      'Prevents severe pigeon nesting and noise issues.',
-      'Saves money spent on frequent balcony washings and sanitizations.',
-      'Invisible from a short distance—maintains home aesthetics.',
-      'Weather-proof material that doesn\'t rust or fade.'
-    ],
-    features: [
-      'Material: 15-ply to 21-ply UV-stabilized co-copolymer HDPE',
-      'Mesh Size: 35mm to 40mm',
-      'Mounting: Stainless Steel wall keyhole loops',
-      'Warranty: Up to 5 years certification support'
-    ],
-    gallery: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954895/starchennaisafetynets/pigeon_safety_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954897/starchennaisafetynets/pigeon_safety_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954898/starchennaisafetynets/pigeon_safety_3.jpg'
-    ],
-    faqs: [
-      { q: 'How do you secure the net corners so pigeons do not sneak in?', a: 'We use professional solid steel border framing cables and anchor bolts every 1.5 feet to seal all gaps.' },
-      { q: 'Is site inspection free for pigeon netting?', a: 'Yes. We provide free measurements and cost estimates across all Tamil Nadu towns.' }
-    ]
-  },
-  {
-    id: 'children-safety-nets',
-    title: 'Children\'s Safety Nets',
-    icon: Users,
-    image: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954819/starchennaisafetynets/child_safety_1.jpg',
-    desc: 'Heavy-duty double-knotted safety nets designed to prevent falls and secure children near open windows, staircases, and balconies.',
-    longDesc: 'Toddler safety is a priority. Windows and high stairs are high-risk areas in modern duplexes and high-rise apartments. Our children safety nets are made of high-tensile, double-knotted co-polymer material designed to absorb high fall energy. They are anchored with double-reinforced fasteners to ensure extreme stability for active, playful toddlers.',
-    benefits: [
-      'Provides absolute safety around windows, staircases, and balconies.',
-      'Double-mesh design for maximum strength and support.',
-      'Extremely safe and child-friendly soft material—no sharp wires.',
-      'Installed cleanly without disrupting your home interior decor.'
-    ],
-    features: [
-      'Material: High-tensile co-polymer Double-Knotted Nylon',
-      'Load Rating: Tested for sudden falls of up to 150 kg',
-      'Fasteners: Heavy-duty steel wall anchor loops',
-      'Warranty: 5 to 10 years certification'
-    ],
-    gallery: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954819/starchennaisafetynets/child_safety_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954822/starchennaisafetynets/child_safety_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954824/starchennaisafetynets/child_safety_3.jpg'
-    ],
-    faqs: [
-      { q: 'Can a child cut these safety nets with scissors?', a: 'Our nets are made of thick, high-tensile multi-ply co-polymer ropes which are extremely hard to break or cut with safety scissors. However, children should be kept away from sharp tools.' },
-      { q: 'Can you install these nets inside around staircases?', a: 'Yes. We specialize in staircase safety nets, windows, and mezzanine railings.' }
-    ]
-  },
-  {
-    id: 'construction-safety-nets',
-    title: 'Construction Safety Nets',
-    icon: Award,
-    image: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954840/starchennaisafetynets/construction_safety_1.jpg',
-    desc: 'OSHA & IS certified heavy fall-arrest safety nets and fine debris containment nets for multi-storey builders.',
-    longDesc: 'Under Indian Standard IS-11057, construction safety nets are mandatory for tall engineering and real-estate project sites. We supply and install dual-layer construction nets: an outer high-tensile 100mm rope grid to catch falling workers, and an inner fine green mesh layer to contain falling bricks, concrete plaster, and structural debris.',
-    benefits: [
-      'Protects high-rise construction workers from fatal falls.',
-      'Prevents falling construction debris from hurting pedestrians.',
-      'Helps builders comply fully with safety norms (IS-11057).',
-      'Highly durable material that resists welding sparks and chemicals.'
-    ],
-    features: [
-      'Material: Heavy braided Polypropylene or Nylon ropes',
-      'Breaking Strength: Border ropes rating up to 20 KN',
-      'Design: Dual-layer net (Heavy rope + Fine debris mesh)',
-      'Standards: Fully complies with IS-11057'
-    ],
-    gallery: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954840/starchennaisafetynets/construction_safety_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954843/starchennaisafetynets/construction_safety_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954845/starchennaisafetynets/construction_safety_3.jpg'
-    ],
-    faqs: [
-      { q: 'Do your construction safety nets have testing certificates?', a: 'Yes. All our industrial and construction safety nets are accompanied by manufacturer test certificates.' },
-      { q: 'Can you handle large corporate orders for IT parks?', a: 'Yes. We regularly execute large-scale commercial installations for major builders across Tamil Nadu.' }
-    ]
-  },
-  {
-    id: 'coconut-tree-safety-nets',
-    title: 'Coconut Tree Safety Nets',
-    icon: Clipboard,
-    image: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954833/starchennaisafetynets/coconut_safety_1.jpg',
-    desc: 'Protect pedestrian pathways, parking spaces, and roofs from heavy falling coconuts in tropical yards.',
-    longDesc: 'Falling coconuts are a serious safety hazard, capable of causing severe head injuries or destroying car windshields. Our coconut tree safety nets are high-tensile HDPE nets installed horizontally below the tree crown. They catch falling coconuts safely, keeping surrounding pathways and car parks fully secure.',
-    benefits: [
-      'Prevents severe head injuries and property damages.',
-      'Saves cars and window glass in surrounding driveways.',
-      'Strong co-polymer material that withstands falling coconut impact.',
-      'Weather-resistant—resists continuous monsoon moisture.'
-    ],
-    features: [
-      'Material: Weather-proof thick co-polymer HDPE',
-      'Mesh Size: Tight mesh to retain falling coconuts easily',
-      'Anchoring: Stainless steel frame anchors and cable hooks',
-      'Warranty: Up to 5 years'
-    ],
-    gallery: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954833/starchennaisafetynets/coconut_safety_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954836/starchennaisafetynets/coconut_safety_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954838/starchennaisafetynets/coconut_safety_3.jpg'
-    ],
-    faqs: [
-      { q: 'Does the net affect the coconut tree growth?', a: 'Not at all. The net is mounted a few feet below the tree crown and does not touch or affect the growth of the tree.' },
-      { q: 'Can the net catch multiple coconuts?', a: 'Yes, our thick HDPE coconut nets are built to support the weight of multiple falling fruits safely.' }
+      { q: 'Are invisible grills safe for active children?', a: 'Yes. They are built from high-tensile stainless steel wire cables and can withstand significant pressure, making them highly secure.' },
+      { q: 'Do invisible grills rust over time?', a: 'No, we use high-grade stainless steel cables coated with protective nylon, preventing rust in humid weather.' }
     ]
   },
   {
     id: 'monkey-safety-nets',
-    title: 'Monkey Safety Nets',
+    title: 'Monkey Safety Nets (குரங்கு பாதுகாப்பு வலைகள்)',
     icon: ShieldCheck,
     image: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783999741/starchennaisafetynets/monkey_safety_net_1.jpg',
-    desc: 'Heavy-duty high-tensile mesh nets designed to prevent monkeys from entering residential balconies, terraces, and windows.',
-    longDesc: 'Monkey intrusions can cause property damage, mess, and safety hazards for families and pets in apartments and individual homes. Our Monkey Safety Nets use robust, bite-resistant and high-tensile mesh anchored securely along balconies, windows, and terraces to keep monkeys out while preserving natural light and breeze.',
+    desc: 'Heavy-duty bite-resistant nets designed specifically to prevent monkey intrusions into your residential premises.',
+    longDesc: 'Keep aggressive and intrusive monkeys at bay with our heavy-duty monkey safety nets. Designed specifically to resist monkey intrusions into homes, these high-tensile nets ensure complete peace of mind and protection for balconies, windows, and open duct areas.',
     benefits: [
-      'Complete protection against monkey intrusions and property damage.',
-      'Strong high-tensile material designed to withstand pulling and climbing.',
-      'Maintains clear ventilation and outdoor visibility.',
-      'UV-stabilized and weather-resistant for long-term outdoor use.'
+      'Heavy-duty bite-resistant build prevents monkeys from tearing the net.',
+      'Provides secure anchoring to resist climbing and pulling forces.',
+      'Maintains clear ventilation, breeze, and natural sunlight.',
+      'Weatherproof construction suitable for hot summers and heavy rains.'
     ],
     features: [
-      'Material: Heavy-duty UV-treated HDPE / Nylon mesh',
-      'Mesh Size: Customized tight mesh preventing entry',
-      'Anchoring: Heavy-duty stainless steel anchors & borders',
-      'Warranty: Up to 5 years'
+      'Material: Heavy-duty, bite-resistant UV-stabilized HDPE and Nylon mesh',
+      'Protection: Complete barrier against monkey intrusions and property damage',
+      'Sizing & Options: Custom layouts designed to be installed anywhere—Balconies, Windows, and open Duct Areas',
+      'Warranty & Support: 6 Months Warranty backed by 1 Year of Free Servicing'
     ],
     gallery: [
       'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783999741/starchennaisafetynets/monkey_safety_net_1.jpg',
@@ -223,37 +107,153 @@ const serviceDetails: ServiceDetail[] = [
       'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783999744/starchennaisafetynets/monkey_safety_net_3.jpg'
     ],
     faqs: [
-      { q: 'Can monkeys chew or tear through these safety nets?', a: 'Our monkey safety nets are fabricated from high-tensile, heavy-grade fibers specifically chosen to resist pulling, climbing, and wear.' },
-      { q: 'Will monkey safety nets block airflow or sunlight?', a: 'No, the mesh allows fresh air and natural sunlight to pass through freely while acting as an effective barrier.' }
+      { q: 'Can monkeys climb or tear these safety nets?', a: 'Our nets are manufactured from heavy-duty, multi-ply co-polymer fibers designed to resist biting, tearing, and heavy pulling.' },
+      { q: 'Where can these monkey nets be installed?', a: 'They can be installed on balconies, windows, utility areas, and open ventilation ducts.' }
     ]
   },
   {
-    id: 'cloth-hangers',
-    title: 'Cloth Hangers',
-    icon: Layers,
-    image: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783999736/starchennaisafetynets/cloth_hanger_1.jpg',
-    desc: 'Space-saving ceiling-mounted pulley cloth drying hangers with rust-free stainless steel pipes.',
-    longDesc: 'Drying clothes in apartments and urban homes can take up valuable balcony and floor space. Our ceiling-mounted pulley cloth drying hangers feature high-grade rust-free stainless steel pipes with smooth, independent pulley systems that let you lower each rod effortlessly for hanging laundry and raise it to the ceiling out of the way.',
+    id: 'sports-nets',
+    title: 'Sports Nets (Cricket, Football, Basketball, Tennis) (விளையாட்டு வலைகள்)',
+    icon: Award,
+    image: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954849/starchennaisafetynets/cricket_practice_net_1.jpg',
+    desc: 'Specialized heavy boundary nets tailored for sports enclosures, practicing pitches, and stadium courts.',
+    longDesc: 'Enclose your athletic spaces with specialized heavy nets tailored for sports enclosures. Built to withstand heavy impact, these premium nets are designed for professional and residential setups, ensuring safety and containment for all active play.',
     benefits: [
-      'Saves valuable balcony and floor space.',
-      '100% rust-free stainless steel pipes for long durability.',
-      'Individual pulley mechanism for effortless raising and lowering.',
-      'Neat and modern aesthetic for apartments and utility areas.'
+      'Highly durable, built to absorb high-impact sports balls.',
+      'Perfect for cricket pitches, football boundaries, and tennis courts.',
+      'Weather-resistant properties protect against outdoor solar wear.',
+      'Ensures safety for nearby buildings, windows, and spectators.'
     ],
     features: [
-      'Material: High-grade 304 Stainless Steel Pipes',
-      'Mechanism: Heavy-duty smooth nylon pulleys & ropes',
-      'Mounting: Ceiling anchored with high-strength fasteners',
-      'Warranty: Up to 3 years'
+      'Material: Heavy-duty Nylon and HDPE sports netting cords',
+      'Protection: Boundary containment for sports pitches and protection for surrounding properties',
+      'Sizing & Options: Tailored for Cricket practicing pitches, Football boundary nets, Basketball cages, and Tennis courts. Available in multiple colors including Green, Black, and White',
+      'Warranty & Support: Prompt installation by professionals, Free Home Delivery available, with affordable fixing and setup charges'
     ],
     gallery: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783999736/starchennaisafetynets/cloth_hanger_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783999738/starchennaisafetynets/cloth_hanger_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783999739/starchennaisafetynets/cloth_hanger_3.jpg'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954849/starchennaisafetynets/cricket_practice_net_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954851/starchennaisafetynets/cricket_practice_net_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954854/starchennaisafetynets/cricket_practice_net_3.jpg'
     ],
     faqs: [
-      { q: 'Are the stainless steel pipes rust-proof?', a: 'Yes, we use high-grade rust-proof stainless steel pipes suitable even for humid and coastal weather conditions.' },
-      { q: 'Can each rod be operated individually?', a: 'Yes, each pipe has an independent pulley system allowing you to lower and raise one pipe at a time.' }
+      { q: 'Do you provide nets in different colors?', a: 'Yes, we supply sports nets in Green, Black, and White configurations to match your site layout.' },
+      { q: 'Are setup and installation services included?', a: 'Yes, we provide professional setup and fixing services at highly affordable local market rates.' }
+    ]
+  },
+  {
+    id: 'bird-pigeon-safety-nets',
+    title: 'Bird / Pigeon Safety Nets (பறவை / புறா பாதுகாப்பு வலைகள்)',
+    icon: Sparkles,
+    image: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954800/starchennaisafetynets/bird_protection_1.jpg',
+    desc: 'Humane bird deterrent netting that prevents pigeon infestations and maintains absolute hygiene in balconies.',
+    longDesc: 'Maintain absolute hygiene and safety in your home premises by preventing disease-spreading birds like pigeons from entering. Our premium nets offer a durable, humane barrier that keeps balconies, AC ledges, and plumbing ducts clean and sanitized.',
+    benefits: [
+      '100% humane barrier guiding birds away without causing harm.',
+      'Saves cleaning costs by preventing bird droppings and nests.',
+      'Strong physical barrier that blocks birds, pigeons, and pests.',
+      'Rust-proof fixing using premium nuts and bolts.'
+    ],
+    features: [
+      'Material: Standard Nylon and HD Nylon configurations with durable premium nuts and bolts for structural fixing',
+      'Protection: Restricts disease-spreading birds like pigeons and small pests from entering premises',
+      'Sizing & Options: Multiple mesh grid options (25mm, 30mm, 40mm, and 50mm gaps) and custom scales (4cm to 10cm scales) to dynamically match balcony sizes',
+      'Warranty & Support: Economical, budget-friendly rates with long-lasting structural durability'
+    ],
+    gallery: [
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954800/starchennaisafetynets/bird_protection_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954802/starchennaisafetynets/bird_protection_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954805/starchennaisafetynets/bird_protection_3.jpg'
+    ],
+    faqs: [
+      { q: 'Will the nets harm the pigeons?', a: 'No, our nets act as a gentle physical barrier that keeps pigeons away without trapping or hurting them.' },
+      { q: 'How is the net sized for custom balconies?', a: 'Measurements are calculated based on standard centimeter scales (4cm to 10cm scales) to perfectly match your balcony dimensions.' }
+    ]
+  },
+  {
+    id: 'coconut-safety-nets',
+    title: 'Coconut Safety Nets (தென்னை மர பாதுகாப்பு வலைகள்)',
+    icon: Clipboard,
+    image: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954833/starchennaisafetynets/coconut_safety_1.jpg',
+    desc: 'Heavy-duty overhead safety netting designed to catch falling coconuts, protecting pedestrians and cars.',
+    longDesc: 'Ensure pedestrian and property safety with our heavy-duty overhead safety nets designed to catch falling coconuts or large fruits. These robust nets protect children, passersby, and parked vehicles from severe impact and damages.',
+    benefits: [
+      'Heavy-duty wire/thread build designed for high-impact loads.',
+      'Prevents severe head injuries and windshield/vehicle damage.',
+      'Can be configured with single or double layers depending on height.',
+      'Highly weather-resistant, built for open outdoor exposure.'
+    ],
+    features: [
+      'Material: Heavy wire/thread build available in 2.5mm and 3mm variants',
+      'Protection: Defends pedestrians, children, and vehicles below from falling coconuts or large fruits',
+      'Sizing & Options: Can be layered as Single Net or Double Net configurations based on custom load requirements',
+      'Warranty & Support: High-strength anchoring with premium weather-resistant performance'
+    ],
+    gallery: [
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954833/starchennaisafetynets/coconut_safety_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954836/starchennaisafetynets/coconut_safety_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954838/starchennaisafetynets/coconut_safety_3.jpg'
+    ],
+    faqs: [
+      { q: 'How many falling coconuts can the net hold?', a: 'Our double-net configurations are designed to safely catch and retain multiple falling coconuts before clearing is required.' },
+      { q: 'Does it harm the growth of the tree?', a: 'No, the net is anchored below the tree crown and does not touch or affect the growth of the tree.' }
+    ]
+  },
+  {
+    id: 'window-safety-nets',
+    title: 'Window Safety Nets (ஜன்னல் பாதுகாப்பு வலைகள்)',
+    icon: Layers,
+    image: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954917/starchennaisafetynets/invisible_grill_window_1.jpg',
+    desc: 'Compact, small-gap window safety nets that keep pests and geckos out while keeping fresh air flowing.',
+    longDesc: 'Block geckos, lizards, and flying insects from creeping inside your home with our compact window safety nets. Enjoy fresh air and natural window ventilation day and night without worrying about unwanted crawling pests.',
+    benefits: [
+      'Blocks geckos, lizards, spiders, and crawling bugs.',
+      'Sized with tight 25mm gaps specifically to stop insects.',
+      'Maintains perfect ventilation and natural room lighting.',
+      'Clean, aesthetic installation that fits standard window frames.'
+    ],
+    features: [
+      'Material: Fine-mesh UV-stabilized Nylon filaments',
+      'Protection: Restricts lizards, geckos, and flying insects from creeping inside',
+      'Sizing & Options: Compact 25mm mesh gap configurations custom-fit to standard residential window frames',
+      'Warranty & Support: Lasts securely for 4 to 5 Years, supported by 1 Year of Free Servicing'
+    ],
+    gallery: [
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954917/starchennaisafetynets/invisible_grill_window_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954920/starchennaisafetynets/invisible_grill_window_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954923/starchennaisafetynets/invisible_grill_window_3.jpg'
+    ],
+    faqs: [
+      { q: 'Will these nets block the window breeze?', a: 'No, the 25mm mesh gaps allow maximum airflow and ventilation while keeping pests out.' },
+      { q: 'How long do window safety nets last?', a: 'They are made of high-quality UV-stabilized nylon and comfortably last 4 to 5 years.' }
+    ]
+  },
+  {
+    id: 'terrace-safety-nets',
+    title: 'Terrace Safety Nets (மொட்டை மாடி பாதுகாப்பு வலைகள்)',
+    icon: ShieldCheck,
+    image: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954912/starchennaisafetynets/invisible_grill_terrace_1.jpg',
+    desc: 'Wide-area terrace netting designed to enclose rooftop gardens, keeping pests, snakes, and stray animals out.',
+    longDesc: 'Secure your rooftop or open terrace with wide-area open terrace netting that encloses gardens or open house roofs. Keep dangerous stray animals, snakes, and crawling pests completely out of your property while preventing height hazards.',
+    benefits: [
+      'Secures wide open terrace boundaries, preventing accidents.',
+      'Acts as a barrier against snakes, geckos, and crawling pests.',
+      'Keeps stray dogs and cats off your rooftop gardens.',
+      'High-tensile, weather-resistant HDPE wire built to resist heavy winds.'
+    ],
+    features: [
+      'Material: High-tensile, weather-proof co-polymer HDPE wire mesh',
+      'Protection: Prevents falls and keeps dangerous stray animals, snakes, and crawling pests off the terrace',
+      'Sizing & Options: Wide-area custom roof and terrace enclosure layouts matching the exact dimensions of your terrace',
+      'Warranty & Support: Highly durable structure with long-term weather-proof warranty protection'
+    ],
+    gallery: [
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954912/starchennaisafetynets/invisible_grill_terrace_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954914/starchennaisafetynets/invisible_grill_terrace_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954916/starchennaisafetynets/invisible_grill_terrace_3.jpg'
+    ],
+    faqs: [
+      { q: 'Is it strong enough to resist heavy winds on rooftops?', a: 'Yes. The co-polymer HDPE wire mesh is UV-stabilized and calibrated to withstand strong rooftop winds without tearing.' },
+      { q: 'Does it cover rooftop gardens?', a: 'Yes, it can enclose gardens and terrace perimeters to ensure complete security.' }
     ]
   }
 ];
@@ -261,7 +261,7 @@ const serviceDetails: ServiceDetail[] = [
 export default function Services({ onOpenQuoteModal, initialService }: ServicesProps) {
   // Find index based on initialService or default to 0
   const defaultIdx = initialService 
-    ? serviceDetails.findIndex(s => s.title === initialService || s.id === initialService)
+    ? serviceDetails.findIndex(s => s.title.toLowerCase().includes(initialService.toLowerCase()) || s.id === initialService)
     : 0;
   
   const [activeTab, setActiveTab] = useState(defaultIdx !== -1 ? defaultIdx : 0);
@@ -287,7 +287,7 @@ export default function Services({ onOpenQuoteModal, initialService }: ServicesP
           <span className="text-xs font-mono font-bold text-accent uppercase tracking-widest block">Explore Our Offerings</span>
           <h1 className="text-3xl sm:text-5xl font-display font-black tracking-tight leading-tight">Our Safety Net Services</h1>
           <p className="text-base sm:text-lg text-slate-300 max-w-3xl mx-auto font-sans leading-relaxed">
-            Discover our high-tensile, UV-stabilized safety net systems custom-fabricated for balconies, birds, kids, and builders in Tamil Nadu.
+            Discover our high-tensile, UV-stabilized safety net systems custom-fabricated for balconies, birds, kids, and builders in Andhra Pradesh.
           </p>
         </div>
       </section>
@@ -302,18 +302,30 @@ export default function Services({ onOpenQuoteModal, initialService }: ServicesP
               <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest block mb-4">Select Safety Net Specialty</span>
               {serviceDetails.map((srv, idx) => {
                 const TabIcon = srv.icon;
+                const titleParts = srv.title.split(' (');
+                const englishTitle = titleParts[0];
+                const tamilTitle = titleParts[1] ? `(${titleParts[1]}` : '';
                 return (
                   <button
                     key={srv.id}
                     onClick={() => setActiveTab(idx)}
-                    className={`group w-full text-left flex items-center gap-3 px-4 py-3.5 rounded-xl text-sm font-semibold transition-all duration-300 hover:scale-[1.02] active:scale-95 ${
+                    className={`group w-full text-left flex flex-col justify-center px-4 py-3 rounded-xl transition-all duration-300 hover:scale-[1.02] active:scale-95 ${
                       activeTab === idx 
                         ? 'bg-accent text-white shadow shadow-accent/15' 
                         : 'bg-white border border-slate-100 text-slate-600 hover:bg-slate-50 hover:text-accent hover:border-slate-200'
                     }`}
                   >
-                    <TabIcon className="h-4 w-4 group-hover:scale-110 transition-transform duration-300" />
-                    {srv.title}
+                    <div className="flex items-center gap-3 text-sm font-semibold">
+                      <TabIcon className="h-4 w-4 group-hover:scale-110 transition-transform duration-300 shrink-0" />
+                      <span>{englishTitle}</span>
+                    </div>
+                    {tamilTitle && (
+                      <span className={`text-xs ml-7 mt-0.5 font-bold transition-colors ${
+                        activeTab === idx ? 'text-white/95' : 'text-slate-500 group-hover:text-accent/80'
+                      }`}>
+                        {tamilTitle}
+                      </span>
+                    )}
                   </button>
                 );
               })}
@@ -332,12 +344,19 @@ export default function Services({ onOpenQuoteModal, initialService }: ServicesP
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent" />
                 <div className="absolute bottom-6 left-6 flex items-center gap-3 text-white">
-                  <div className="bg-accent p-3 rounded-xl">
+                  <div className="bg-accent p-3 rounded-xl shrink-0">
                     <IconComp className="h-6 w-6 text-white" />
                   </div>
                   <div>
                     <span className="text-xs font-mono font-bold text-accent uppercase tracking-widest">Star Safety Specialty</span>
-                    <h2 className="font-display font-black text-xl sm:text-2xl tracking-tight leading-none text-white mt-1">{activeSrv.title}</h2>
+                    <h2 className="font-display font-black text-xl sm:text-2xl tracking-tight leading-tight text-white mt-1">
+                      {activeSrv.title.split(' (')[0]}
+                    </h2>
+                    {activeSrv.title.includes(' (') && (
+                      <span className="text-sm sm:text-base text-slate-200 block font-sans font-bold mt-1.5 leading-tight">
+                        {`(${activeSrv.title.split(' (')[1]}`}
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -345,7 +364,7 @@ export default function Services({ onOpenQuoteModal, initialService }: ServicesP
               {/* Description */}
               <div className="space-y-4">
                 <h3 className="font-display font-bold text-lg text-primary">Service Overview</h3>
-                <p className="text-sm text-slate-500 leading-relaxed font-sans">{activeSrv.longDesc}</p>
+                <p className="text-sm text-slate-500 leading-relaxed font-sans whitespace-pre-line">{activeSrv.longDesc}</p>
               </div>
 
               {/* Two Column Benefits vs Features */}
@@ -411,11 +430,11 @@ export default function Services({ onOpenQuoteModal, initialService }: ServicesP
               {/* Dedicated CTA Block */}
               <div className="bg-primary/95 rounded-2xl border border-white/5 p-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-white">
                 <div>
-                  <h4 className="font-display font-bold text-sm text-white">Secure your balconies with {activeSrv.title} today!</h4>
+                  <h4 className="font-display font-bold text-sm text-white">Secure your spaces with {activeSrv.title.split(' (')[0]} today!</h4>
                   <p className="text-[11px] text-slate-400 font-sans mt-0.5">Book a local technician visit now and enjoy same-day safety net completion.</p>
                 </div>
                 <button
-                  onClick={() => onOpenQuoteModal(activeSrv.title)}
+                  onClick={() => onOpenQuoteModal(activeSrv.title.split(' (')[0])}
                   className="group relative overflow-hidden bg-accent hover:bg-accent-light text-white font-bold text-xs px-6 py-3.5 rounded-xl transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] active:scale-95 shadow shadow-accent/15 hover:shadow-accent/40 whitespace-nowrap"
                 >
                   <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 ease-out pointer-events-none" />

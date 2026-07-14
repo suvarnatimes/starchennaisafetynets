@@ -247,6 +247,34 @@
   ],
   "logs": [
     {
+      "id": "log-x00dz6m",
+      "action": "LOGIN",
+      "details": "User admin@starsafety.com logged in via /api/login",
+      "user": "admin@starsafety.com",
+      "timestamp": "2026-07-14T06:50:34.710Z"
+    },
+    {
+      "id": "log-ocvqsyw",
+      "action": "LOGIN",
+      "details": "User admin@starsafety.com logged in via /api/login",
+      "user": "admin@starsafety.com",
+      "timestamp": "2026-07-14T06:49:19.279Z"
+    },
+    {
+      "id": "log-ldeyi7b",
+      "action": "LOGIN",
+      "details": "User admin@starsafety.com logged in via /api/login",
+      "user": "admin@starsafety.com",
+      "timestamp": "2026-07-14T06:49:12.089Z"
+    },
+    {
+      "id": "log-66m9wpa",
+      "action": "LOGIN",
+      "details": "User admin@starsafety.com logged in via /api/login",
+      "user": "admin@starsafety.com",
+      "timestamp": "2026-07-14T06:49:02.521Z"
+    },
+    {
       "id": "log-vmoyaw3",
       "action": "LOGIN",
       "details": "User admin@starsafety.com logged in via /api/login",
@@ -268,6 +296,34 @@
       "email": "admin@starsafety.com",
       "name": "Administrator",
       "expiresAt": "2026-07-15T05:41:28.790Z"
+    },
+    {
+      "id": "lzia4ok1ihm7v5hjtv72ly",
+      "userId": "usr-1",
+      "email": "admin@starsafety.com",
+      "name": "Administrator",
+      "expiresAt": "2026-07-15T06:49:02.505Z"
+    },
+    {
+      "id": "jukw8hrvtlg8xsrwi8h2m8",
+      "userId": "usr-1",
+      "email": "admin@starsafety.com",
+      "name": "Administrator",
+      "expiresAt": "2026-07-15T06:49:12.075Z"
+    },
+    {
+      "id": "3tr33hc5sp2igyoeomdkd",
+      "userId": "usr-1",
+      "email": "admin@starsafety.com",
+      "name": "Administrator",
+      "expiresAt": "2026-07-15T06:49:19.264Z"
+    },
+    {
+      "id": "eq1xmjguowendjblhuzppi",
+      "userId": "usr-1",
+      "email": "admin@starsafety.com",
+      "name": "Administrator",
+      "expiresAt": "2026-07-15T06:50:34.698Z"
     }
   ],
   "gallery": []
