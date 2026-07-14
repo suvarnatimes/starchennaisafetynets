@@ -17,7 +17,7 @@ cloudinary.config({
 const app = express();
 
 // ================= STATELESS TOKEN LOGIC =================
-const SESSION_SECRET = process.env.CLOUDINARY_API_SECRET || 'star-safety-nets-secret-key-1837482';
+const SESSION_SECRET = 'star-safety-nets-secret-key-1837482-stable-fixed-key';
 
 interface TokenPayload {
   userId: string;
@@ -794,20 +794,62 @@ app.get('/api/gallery', (req: Request, res: Response): void => {
   res.json(images);
 });
 
-app.post('/api/gallery', authMiddleware, (req: Request, res: Response): void => {
-  const { url, caption, category, cloudinaryId } = req.body;
-  if (!url || !category) {
-    res.status(400).json({ error: 'URL and category are required' });
+app.post('/api/gallery', authMiddleware, async (req: Request, res: Response): Promise<void> => {
+  const { image, url, fileName, caption, category, cloudinaryId } = req.body;
+
+  if (!category) {
+    res.status(400).json({ error: 'Category is required' });
+    return;
+  }
+
+  let finalUrl = url || '';
+  let finalCloudinaryId = cloudinaryId || '';
+
+  if (image) {
+    try {
+      if (process.env.CLOUDINARY_CLOUD_NAME || process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME) {
+        const uploadResult = await cloudinary.uploader.upload(image, {
+          folder: 'starchennaisafetynets',
+          public_id: `${Date.now()}-${(fileName || 'gallery').replace(/[^a-zA-Z0-9]/g, '-')}`
+        });
+        finalUrl = uploadResult.secure_url;
+        finalCloudinaryId = uploadResult.public_id;
+      } else {
+        const matches = image.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+        if (!matches || matches.length !== 3) {
+          res.status(400).json({ error: 'Invalid image format' });
+          return;
+        }
+
+        const imageBuffer = Buffer.from(matches[2], 'base64');
+        const extension = matches[1].split('/')[1] || 'png';
+        const cleanFileName = `${Date.now()}-${(fileName || 'gallery').replace(/[^a-zA-Z0-9]/g, '-')}.${extension}`;
+        const filePath = path.join(UPLOADS_DIR, cleanFileName);
+
+        fs.writeFileSync(filePath, imageBuffer);
+
+        finalUrl = `/api/uploads/${cleanFileName}`;
+        finalCloudinaryId = cleanFileName;
+      }
+    } catch (err: any) {
+      console.error('Gallery Upload Error:', err);
+      res.status(500).json({ error: 'Failed to upload gallery image: ' + err.message });
+      return;
+    }
+  }
+
+  if (!finalUrl) {
+    res.status(400).json({ error: 'Image or URL is required' });
     return;
   }
 
   const data = db.get();
   const newImage = {
     id: 'gal-' + Math.random().toString(36).substring(2, 9),
-    url,
+    url: finalUrl,
     caption: caption || '',
     category,
-    cloudinaryId: cloudinaryId || '',
+    cloudinaryId: finalCloudinaryId,
     createdAt: new Date().toISOString()
   };
 
