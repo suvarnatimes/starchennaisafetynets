@@ -58,7 +58,16 @@ export default function Vertical3DWheel() {
 
   const totalItems = CAROUSEL_IMAGES.length;
   const itemAngle = 360 / totalItems; // 60 degrees each
-  const radius = 160; // 3D cylinder radius in pixels
+  const [radius, setRadius] = useState<number>(160); // 3D cylinder radius in pixels
+
+  useEffect(() => {
+    const updateRadius = () => {
+      setRadius(window.innerWidth >= 1024 ? 195 : 160);
+    };
+    updateRadius();
+    window.addEventListener('resize', updateRadius);
+    return () => window.removeEventListener('resize', updateRadius);
+  }, []);
 
   // Calculate active index based on rotation
   useEffect(() => {
@@ -151,12 +160,12 @@ export default function Vertical3DWheel() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full max-w-sm mx-auto select-none">
+    <div className="flex flex-col items-center justify-center w-full max-w-sm lg:max-w-md mx-auto select-none">
       
       {/* Perspective Container */}
       <div 
         id="wheel-3d-perspective"
-        className="relative w-72 sm:w-80 h-[360px] mb-12 flex items-center justify-center cursor-grab active:cursor-grabbing overflow-visible"
+        className="relative w-72 sm:w-80 lg:w-96 h-[360px] lg:h-[440px] mb-12 flex items-center justify-center cursor-grab active:cursor-grabbing overflow-visible"
         style={{ perspective: '1200px' }}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
@@ -185,7 +194,7 @@ export default function Vertical3DWheel() {
 
         {/* The 3D Wheel cylinder */}
         <div 
-          className="w-full h-[180px] relative"
+          className="w-full h-[180px] lg:h-[230px] relative"
           style={{
             transformStyle: 'preserve-3d',
             transform: `rotateX(${rotation}deg)`,
@@ -210,23 +219,13 @@ export default function Vertical3DWheel() {
                   transformStyle: 'preserve-3d'
                 }}
               >
-                <div className="relative w-full h-full rounded-xl overflow-hidden">
+                <div className="relative w-full h-full rounded-xl overflow-hidden shadow-2xl">
                   <img 
                     src={item.url} 
                     alt={item.title} 
                     className="w-full h-full object-cover select-none pointer-events-none"
                     referrerPolicy="no-referrer"
                   />
-                  
-                  {/* Image Overlay with high contrast backing */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent flex flex-col justify-end p-4">
-                    <span className="text-[9px] font-mono font-bold text-accent tracking-widest uppercase mb-1">
-                      Premium Quality
-                    </span>
-                    <h4 className="font-display font-black text-white text-sm leading-tight">
-                      {item.title}
-                    </h4>
-                  </div>
                 </div>
               </div>
             );

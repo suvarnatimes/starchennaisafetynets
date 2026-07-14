@@ -57,7 +57,7 @@ export default function Header({ activePage, onChangePage }: HeaderProps) {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-8">
             {navItems.map((item) => (
               <button
                 key={item.id}
@@ -77,7 +77,7 @@ export default function Header({ activePage, onChangePage }: HeaderProps) {
           </nav>
 
           {/* Desktop CTA Button */}
-          <div className="hidden md:flex items-center">
+          <div className="hidden lg:flex items-center">
             <a
               href="tel:+919840245678"
               className="group relative overflow-hidden flex items-center gap-2 bg-accent hover:bg-accent-light text-white font-semibold text-sm px-5 py-2.5 rounded-xl shadow-lg shadow-accent/15 transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95"
@@ -89,7 +89,7 @@ export default function Header({ activePage, onChangePage }: HeaderProps) {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
+          <div className="lg:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="p-2 rounded-lg text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white transition-colors"
@@ -103,7 +103,7 @@ export default function Header({ activePage, onChangePage }: HeaderProps) {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-primary shadow-xl border-t border-white/5 backdrop-blur-lg animate-fadeIn">
+        <div className="lg:hidden bg-primary shadow-xl border-t border-white/5 backdrop-blur-lg animate-fadeIn">
           <div className="px-2 pt-2 pb-4 space-y-1">
             {navItems.map((item) => (
               <button

@@ -197,6 +197,64 @@ const serviceDetails: ServiceDetail[] = [
       { q: 'Does the net affect the coconut tree growth?', a: 'Not at all. The net is mounted a few feet below the tree crown and does not touch or affect the growth of the tree.' },
       { q: 'Can the net catch multiple coconuts?', a: 'Yes, our thick HDPE coconut nets are built to support the weight of multiple falling fruits safely.' }
     ]
+  },
+  {
+    id: 'monkey-safety-nets',
+    title: 'Monkey Safety Nets',
+    icon: ShieldCheck,
+    image: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783999741/starchennaisafetynets/monkey_safety_net_1.jpg',
+    desc: 'Heavy-duty high-tensile mesh nets designed to prevent monkeys from entering residential balconies, terraces, and windows.',
+    longDesc: 'Monkey intrusions can cause property damage, mess, and safety hazards for families and pets in apartments and individual homes. Our Monkey Safety Nets use robust, bite-resistant and high-tensile mesh anchored securely along balconies, windows, and terraces to keep monkeys out while preserving natural light and breeze.',
+    benefits: [
+      'Complete protection against monkey intrusions and property damage.',
+      'Strong high-tensile material designed to withstand pulling and climbing.',
+      'Maintains clear ventilation and outdoor visibility.',
+      'UV-stabilized and weather-resistant for long-term outdoor use.'
+    ],
+    features: [
+      'Material: Heavy-duty UV-treated HDPE / Nylon mesh',
+      'Mesh Size: Customized tight mesh preventing entry',
+      'Anchoring: Heavy-duty stainless steel anchors & borders',
+      'Warranty: Up to 5 years'
+    ],
+    gallery: [
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783999741/starchennaisafetynets/monkey_safety_net_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783999743/starchennaisafetynets/monkey_safety_net_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783999744/starchennaisafetynets/monkey_safety_net_3.jpg'
+    ],
+    faqs: [
+      { q: 'Can monkeys chew or tear through these safety nets?', a: 'Our monkey safety nets are fabricated from high-tensile, heavy-grade fibers specifically chosen to resist pulling, climbing, and wear.' },
+      { q: 'Will monkey safety nets block airflow or sunlight?', a: 'No, the mesh allows fresh air and natural sunlight to pass through freely while acting as an effective barrier.' }
+    ]
+  },
+  {
+    id: 'cloth-hangers',
+    title: 'Cloth Hangers',
+    icon: Layers,
+    image: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783999736/starchennaisafetynets/cloth_hanger_1.jpg',
+    desc: 'Space-saving ceiling-mounted pulley cloth drying hangers with rust-free stainless steel pipes.',
+    longDesc: 'Drying clothes in apartments and urban homes can take up valuable balcony and floor space. Our ceiling-mounted pulley cloth drying hangers feature high-grade rust-free stainless steel pipes with smooth, independent pulley systems that let you lower each rod effortlessly for hanging laundry and raise it to the ceiling out of the way.',
+    benefits: [
+      'Saves valuable balcony and floor space.',
+      '100% rust-free stainless steel pipes for long durability.',
+      'Individual pulley mechanism for effortless raising and lowering.',
+      'Neat and modern aesthetic for apartments and utility areas.'
+    ],
+    features: [
+      'Material: High-grade 304 Stainless Steel Pipes',
+      'Mechanism: Heavy-duty smooth nylon pulleys & ropes',
+      'Mounting: Ceiling anchored with high-strength fasteners',
+      'Warranty: Up to 3 years'
+    ],
+    gallery: [
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783999736/starchennaisafetynets/cloth_hanger_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783999738/starchennaisafetynets/cloth_hanger_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783999739/starchennaisafetynets/cloth_hanger_3.jpg'
+    ],
+    faqs: [
+      { q: 'Are the stainless steel pipes rust-proof?', a: 'Yes, we use high-grade rust-proof stainless steel pipes suitable even for humid and coastal weather conditions.' },
+      { q: 'Can each rod be operated individually?', a: 'Yes, each pipe has an independent pulley system allowing you to lower and raise one pipe at a time.' }
+    ]
   }
 ];
 

@@ -158,14 +158,14 @@ const services = [
     ]
   },
   {
-    title: 'Industrial Safety Nets',
-    highlightWord: 'Industrial',
+    title: 'Monkey Safety Nets',
+    highlightWord: 'Monkey',
     icon: ShieldCheck,
-    desc: 'High-altitude rope nets designed for warehouses, chemical plants, and manufacturing bays. Secure cargo storage and material handling facilities.',
+    desc: 'Heavy-duty high-tensile mesh nets designed to prevent monkeys from entering residential balconies, terraces, and windows while maintaining clear ventilation and visibility.',
     images: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954879/starchennaisafetynets/industrial_safety_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954881/starchennaisafetynets/industrial_safety_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954883/starchennaisafetynets/industrial_safety_3.jpg'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783999741/starchennaisafetynets/monkey_safety_net_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783999743/starchennaisafetynets/monkey_safety_net_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783999744/starchennaisafetynets/monkey_safety_net_3.jpg'
     ]
   },
   {
@@ -304,9 +304,9 @@ const householdServices = [
     icon: Layers,
     desc: 'Space-saving ceiling-mounted pulley cloth drying hangers. High-quality rust-free stainless steel pipes ideal for apartments in Chennai.',
     images: [
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954825/starchennaisafetynets/cloth_hanger_1.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954828/starchennaisafetynets/cloth_hanger_2.jpg',
-      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954830/starchennaisafetynets/cloth_hanger_3.jpg'
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783999736/starchennaisafetynets/cloth_hanger_1.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783999738/starchennaisafetynets/cloth_hanger_2.jpg',
+      'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783999739/starchennaisafetynets/cloth_hanger_3.jpg'
     ]
   },
   {
