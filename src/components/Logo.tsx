@@ -17,7 +17,7 @@ export default function Logo({
   return (
     <div className={`inline-flex items-center justify-center select-none bg-white/95 backdrop-blur-md px-2 py-0.5 rounded-lg border border-white/80 shadow-[0_4px_12px_rgba(15,23,42,0.06),0_1px_2px_rgba(15,23,42,0.03)] transition-all duration-300 hover:bg-white/100 hover:border-white/90 hover:shadow-[0_8px_20px_rgba(15,23,42,0.1)] hover:-translate-y-0.5 active:scale-98 ${className}`}>
       <img
-        src={logoUrl}
+        src={optimizeImage(logoUrl)}
         alt="Star Enterprises Logo"
         referrerPolicy="no-referrer"
         style={{ height: resolvedHeight, width: 'auto' }}

@@ -5,6 +5,7 @@ import {
   MessageSquare, HelpCircle, ChevronRight 
 } from 'lucide-react';
 import { Blog, Category, Tag as TagType } from '../types.js';
+import { optimizeImage } from '../utils/optimizeImage.js';
 
 interface BlogProps {
   onOpenQuoteModal: (service?: string) => void;
@@ -211,11 +212,11 @@ export default function BlogPage({ onOpenQuoteModal, initialSlug, onSlugChange }
             {activeBlog.featuredImage && (
               <div className="h-80 sm:h-[450px] rounded-3xl overflow-hidden shadow-lg border border-slate-100">
                 <img 
-                  src={activeBlog.featuredImage} 
+                  src={optimizeImage(activeBlog.featuredImage)} 
                   alt={activeBlog.title} 
                   referrerPolicy="no-referrer"
                   className="w-full h-full object-cover"
-                />
+                 loading="lazy" />
               </div>
             )}
 
@@ -245,7 +246,7 @@ export default function BlogPage({ onOpenQuoteModal, initialSlug, onSlugChange }
                 <div className="grid grid-cols-2 gap-4">
                   {activeBlog.galleryImages.map((img, idx) => (
                     <div key={idx} className="h-44 rounded-xl overflow-hidden border border-slate-100 shadow-sm">
-                      <img src={img} alt="Installation gallery" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                      <img src={optimizeImage(img)} alt="Installation gallery" className="w-full h-full object-cover" referrerPolicy="no-referrer"  loading="lazy" />
                     </div>
                   ))}
                 </div>
@@ -377,11 +378,11 @@ export default function BlogPage({ onOpenQuoteModal, initialSlug, onSlugChange }
                           onClick={() => handleBlogClick(blog.slug)}
                         >
                           <img 
-                            src={blog.featuredImage} 
+                            src={optimizeImage(blog.featuredImage)} 
                             alt={blog.title} 
                             referrerPolicy="no-referrer"
                             className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
-                          />
+                           loading="lazy" />
                           <div className="absolute top-4 left-4 bg-primary/95 backdrop-blur text-white font-mono text-[10px] font-bold px-3 py-1 rounded-full uppercase">
                             {categories.find(c => c.id === blog.categories[0])?.name || 'Safety'}
                           </div>
@@ -534,11 +535,11 @@ export default function BlogPage({ onOpenQuoteModal, initialSlug, onSlugChange }
                       className="flex gap-3 items-center group cursor-pointer"
                     >
                       <img 
-                        src={blog.featuredImage} 
+                        src={optimizeImage(blog.featuredImage)} 
                         alt="" 
                         className="h-12 w-16 object-cover rounded border border-slate-100 flex-shrink-0"
                         referrerPolicy="no-referrer"
-                      />
+                       loading="lazy" />
                       <div>
                         <h4 className="text-xs font-display font-bold text-primary group-hover:text-accent transition-colors line-clamp-2">
                           {blog.title}

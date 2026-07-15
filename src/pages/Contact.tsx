@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { optimizeImage } from '../utils/optimizeImage.js';
 import { 
   MapPin, Phone, Mail, Clock, MessageSquare, 
   Send, ShieldCheck, CheckCircle, Smartphone 
@@ -283,8 +284,8 @@ export default function Contact() {
       {/* Visual Google Maps Block Section */}
       <section className="h-96 w-full relative bg-slate-100 border-t border-slate-200">
         <div className="absolute inset-0 z-0">
-          <img 
-            src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=1200" 
+          <img loading="lazy"
+            src={optimizeImage("https://images.unsplash.com/photo-1558227691-41ea78d1f631?auto=format&fit=crop&q=80&w=1000")} 
             alt="Map location backdrop" 
             referrerPolicy="no-referrer"
             className="w-full h-full object-cover grayscale opacity-25 select-none"

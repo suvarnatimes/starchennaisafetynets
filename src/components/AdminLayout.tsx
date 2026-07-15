@@ -7,6 +7,7 @@ import {
   Smartphone, Check, RefreshCw, Images, ZoomIn, ChevronLeft, ChevronRight
 } from 'lucide-react';
 import { Blog, Category, Tag as TagType, Inquiry, ActivityLog, GalleryImage } from '../types.js';
+import { optimizeImage } from '../utils/optimizeImage.js';
 
 interface AdminLayoutProps {
   token: string;
@@ -614,7 +615,7 @@ export default function AdminLayout({ token, onLogout }: AdminLayoutProps) {
                 </div>
                 
                 {editingBlog.featuredImage && (
-                  <img src={editingBlog.featuredImage} alt="Featured banner" className="w-full h-80 object-cover rounded-xl" referrerPolicy="no-referrer" />
+                  <img src={optimizeImage(editingBlog.featuredImage)} alt="Featured banner" className="w-full h-80 object-cover rounded-xl" referrerPolicy="no-referrer" />
                 )}
 
                 <div className="markdown-body text-slate-300 space-y-4" style={{ color: '#cbd5e1' }}>
@@ -1009,7 +1010,7 @@ export default function AdminLayout({ token, onLogout }: AdminLayoutProps) {
                       </div>
                       {editingBlog.featuredImage && (
                         <div className="mt-2 rounded-lg overflow-hidden border border-slate-800">
-                          <img src={editingBlog.featuredImage} alt="Featured preview" className="w-full h-24 object-cover" referrerPolicy="no-referrer" />
+                          <img src={optimizeImage(editingBlog.featuredImage)} alt="Featured preview" className="w-full h-24 object-cover" referrerPolicy="no-referrer" />
                         </div>
                       )}
                     </div>
@@ -1020,7 +1021,7 @@ export default function AdminLayout({ token, onLogout }: AdminLayoutProps) {
                       <div className="grid grid-cols-3 gap-2">
                         {editingBlog.galleryImages?.map((img, idx) => (
                           <div key={idx} className="relative group rounded-lg overflow-hidden border border-slate-800 aspect-square">
-                            <img src={img} alt="Gallery item" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                            <img src={optimizeImage(img)} alt="Gallery item" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                             <button
                               type="button"
                               onClick={() => {
@@ -1398,7 +1399,7 @@ export default function AdminLayout({ token, onLogout }: AdminLayoutProps) {
                       <td className="py-4 px-4">
                         <div className="flex items-center gap-3">
                           <img
-                            src={blog.featuredImage}
+                            src={optimizeImage(blog.featuredImage)}
                             alt=""
                             className="h-10 w-14 object-cover rounded border border-slate-800"
                             referrerPolicy="no-referrer"
@@ -1980,7 +1981,7 @@ export default function AdminLayout({ token, onLogout }: AdminLayoutProps) {
                   <div key={img.id} className="group relative rounded-xl overflow-hidden bg-slate-800 border border-slate-700 hover:border-blue-500 transition-all shadow-sm hover:shadow-lg">
                     <div className="aspect-square overflow-hidden cursor-pointer" onClick={() => setGalleryLightbox(idx)}>
                       <img
-                        src={img.url}
+                        src={optimizeImage(img.url)}
                         alt={img.caption || 'Gallery'}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
@@ -2048,7 +2049,7 @@ export default function AdminLayout({ token, onLogout }: AdminLayoutProps) {
               <ChevronLeft className="h-5 w-5" />
             </button>
             <div className="max-w-4xl max-h-[90vh] flex flex-col items-center gap-3 px-16" onClick={e => e.stopPropagation()}>
-              <img src={galleryImages[galleryLightbox].url} alt="" className="max-h-[80vh] max-w-full object-contain rounded-xl shadow-2xl" />
+              <img src={optimizeImage(galleryImages[galleryLightbox].url)} alt="" className="max-h-[80vh] max-w-full object-contain rounded-xl shadow-2xl" />
               {galleryImages[galleryLightbox].caption && <p className="text-white text-sm font-medium">{galleryImages[galleryLightbox].caption}</p>}
               <p className="text-slate-400 text-xs font-mono">{galleryLightbox + 1} / {galleryImages.length}</p>
             </div>

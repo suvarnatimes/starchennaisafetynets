@@ -86,11 +86,11 @@ export default function ReviewSlider() {
           <div className="flex-shrink-0 relative">
             <div className="h-20 w-20 md:h-24 md:w-24 rounded-full overflow-hidden border-4 border-slate-50 shadow-md">
               <img
-                src={activeReview.image}
+                src={optimizeImage(activeReview.image)}
                 alt={activeReview.name}
                 referrerPolicy="no-referrer"
                 className="h-full w-full object-cover"
-              />
+               loading="lazy" />
             </div>
             <div className="absolute -bottom-2 -right-2 bg-accent text-white p-1.5 rounded-full shadow">
               <Quote className="h-3 w-3" />

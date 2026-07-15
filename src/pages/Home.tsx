@@ -9,6 +9,7 @@ import LogoCarousel from '../components/LogoCarousel.js';
 import ReviewSlider from '../components/ReviewSlider.js';
 import RippleGrid from '../components/RippleGrid.js';
 import Vertical3DWheel from '../components/Vertical3DWheel.js';
+import { optimizeImage } from '../utils/optimizeImage.js';
 
 interface HomeProps {
   onChangePage: (page: string) => void;
@@ -40,11 +41,11 @@ function CardImageSlideshow({ images, title }: CardImageSlideshowProps) {
         {images.map((img, i) => (
           <img
             key={i}
-            src={img}
+            src={optimizeImage(img)}
             alt={`${title} view ${i + 1}`}
             referrerPolicy="no-referrer"
             className="w-full h-full object-cover shrink-0 select-none"
-          />
+           loading="lazy" />
         ))}
       </div>
 

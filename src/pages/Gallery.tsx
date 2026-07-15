@@ -137,7 +137,7 @@ export default function Gallery({ onOpenQuoteModal }: GalleryProps) {
                   onClick={() => openLightbox(idx)}
                 >
                   <img
-                    src={img.url}
+                    src={optimizeImage(img.url)}
                     alt={img.caption || `Gallery image ${idx + 1}`}
                     className="w-full h-auto object-cover block group-hover:scale-[1.03] transition-transform duration-500"
                     loading="lazy"
@@ -206,10 +206,10 @@ export default function Gallery({ onOpenQuoteModal }: GalleryProps) {
           {/* Image */}
           <div className="relative max-w-5xl max-h-[90vh] w-full flex flex-col items-center gap-3" onClick={e => e.stopPropagation()}>
             <img
-              src={filtered[lightboxIdx].url}
+              src={optimizeImage(filtered[lightboxIdx].url)}
               alt={filtered[lightboxIdx].caption || 'Gallery image'}
               className="max-h-[80vh] max-w-full object-contain rounded-xl shadow-2xl"
-            />
+             loading="lazy" />
             {filtered[lightboxIdx].caption && (
               <p className="text-white text-sm font-medium text-center">{filtered[lightboxIdx].caption}</p>
             )}

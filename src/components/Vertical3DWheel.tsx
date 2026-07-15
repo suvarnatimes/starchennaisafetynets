@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Shield, Eye, ArrowUp, ArrowDown } from 'lucide-react';
+import { optimizeImage } from '../utils/optimizeImage.js';
 
 interface WheelItem {
   id: number;
@@ -231,11 +232,11 @@ export default function Vertical3DWheel() {
               >
                 <div className="relative w-full h-full rounded-xl overflow-hidden shadow-2xl">
                   <img 
-                    src={item.url} 
+                    src={optimizeImage(item.url)} 
                     alt={item.title} 
                     className="w-full h-full object-cover select-none pointer-events-none"
                     referrerPolicy="no-referrer"
-                  />
+                   loading="lazy" />
                 </div>
               </div>
             );

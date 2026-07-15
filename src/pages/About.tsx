@@ -75,6 +75,7 @@ export default function About({ onOpenQuoteModal }: AboutProps) {
               <h2 className="text-3xl font-display font-black text-primary">Securing Tamil Nadu's Balconies & Projects Since 2014</h2>
               <p className="text-sm text-slate-500 leading-relaxed font-sans">
                 Star Safety Enterprises was established with a singular focus: to engineer and install elite high-altitude safety netting that prevents fatal household balcony slips and sanitizes commercial sites. Finding that cheap, raw domestic nets decay and rip easily under the Chennai sun, we pioneered the import and supply of UV-treated industrial HDPE co-polymers.
+import { optimizeImage } from '../utils/optimizeImage.js';
               </p>
               <p className="text-sm text-slate-500 leading-relaxed font-sans">
                 Today, with regional hubs in Coimbatore, Trichy, and Madurai, our expert technicians serve residential societies, schools, corporate IT parks, and factories, ensuring flawless safety certifications and written warranty peace of mind.
@@ -188,7 +189,7 @@ export default function About({ onOpenQuoteModal }: AboutProps) {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {galleryImages.map((img, idx) => (
               <div key={idx} className="h-48 rounded-xl overflow-hidden shadow-sm group relative">
-                <img src={img} alt="Installation gallery" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" referrerPolicy="no-referrer" />
+                <img src={optimizeImage(img)} alt="Installation gallery" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" referrerPolicy="no-referrer"  loading="lazy" />
                 <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
             ))}

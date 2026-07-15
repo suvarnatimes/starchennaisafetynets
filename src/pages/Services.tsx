@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { optimizeImage } from '../utils/optimizeImage.js';
 import { 
   ShieldCheck, Shield, Award, Users, CheckCircle, 
   HelpCircle, ChevronDown, Phone, MessageSquare, 
@@ -337,11 +338,11 @@ export default function Services({ onOpenQuoteModal, initialService }: ServicesP
               {/* Cover Banner */}
               <div className="h-64 sm:h-80 rounded-2xl overflow-hidden relative">
                 <img 
-                  src={activeSrv.image} 
+                  src={optimizeImage(activeSrv.image)} 
                   alt={activeSrv.title} 
                   referrerPolicy="no-referrer"
                   className="w-full h-full object-cover"
-                />
+                 loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent" />
                 <div className="absolute bottom-6 left-6 flex items-center gap-3 text-white">
                   <div className="bg-accent p-3 rounded-xl shrink-0">
@@ -421,7 +422,7 @@ export default function Services({ onOpenQuoteModal, initialService }: ServicesP
                 <div className="grid grid-cols-2 gap-4">
                   {activeSrv.gallery.map((img, idx) => (
                     <div key={idx} className="h-40 rounded-xl overflow-hidden shadow-sm border border-slate-100">
-                      <img src={img} alt={`${activeSrv.title} gallery`} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                      <img src={optimizeImage(img)} alt={`${activeSrv.title} gallery`} className="w-full h-full object-cover" referrerPolicy="no-referrer"  loading="lazy" />
                     </div>
                   ))}
                 </div>
