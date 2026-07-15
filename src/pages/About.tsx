@@ -3,6 +3,7 @@ import {
   ShieldCheck, Heart, Award, Star, MapPin, 
   Clock, Shield, Target, Users, BookOpen, Check 
 } from 'lucide-react';
+import { optimizeImage } from '../utils/optimizeImage.js';
 
 interface AboutProps {
   onOpenQuoteModal: () => void;
@@ -75,7 +76,6 @@ export default function About({ onOpenQuoteModal }: AboutProps) {
               <h2 className="text-3xl font-display font-black text-primary">Securing Tamil Nadu's Balconies & Projects Since 2014</h2>
               <p className="text-sm text-slate-500 leading-relaxed font-sans">
                 Star Safety Enterprises was established with a singular focus: to engineer and install elite high-altitude safety netting that prevents fatal household balcony slips and sanitizes commercial sites. Finding that cheap, raw domestic nets decay and rip easily under the Chennai sun, we pioneered the import and supply of UV-treated industrial HDPE co-polymers.
-import { optimizeImage } from '../utils/optimizeImage.js';
               </p>
               <p className="text-sm text-slate-500 leading-relaxed font-sans">
                 Today, with regional hubs in Coimbatore, Trichy, and Madurai, our expert technicians serve residential societies, schools, corporate IT parks, and factories, ensuring flawless safety certifications and written warranty peace of mind.

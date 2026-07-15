@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
+import { optimizeImage } from '../utils/optimizeImage.js';
 
 interface Review {
   id: string;

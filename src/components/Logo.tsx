@@ -1,4 +1,5 @@
 import React from 'react';
+import { optimizeImage } from '../utils/optimizeImage.js';
 
 interface LogoProps {
   className?: string;

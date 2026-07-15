@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { X, ZoomIn, Images, Loader2, ImageOff, ChevronLeft, ChevronRight } from 'lucide-react';
+import { optimizeImage } from '../utils/optimizeImage.js';
 
 interface GalleryImage {
   id: string;
