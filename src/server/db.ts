@@ -300,13 +300,67 @@ function getDatabase(): DatabaseSchema {
   return initialDB;
 }
 
-function saveDatabase(db: DatabaseSchema) {
+let memoryDb: DatabaseSchema | null = null;
+let initialized = false;
+let initPromise: Promise<void> | null = null;
+
+async function loadFromVercelKV(): Promise<DatabaseSchema | null> {
+  const url = process.env.KV_REST_API_URL;
+  const token = process.env.KV_REST_API_TOKEN;
+  if (!url || !token) return null;
+
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(['GET', 'star_safety_db'])
+    });
+    if (!res.ok) {
+      console.error('[db] Vercel KV GET status error:', res.status);
+      return null;
+    }
+    const data = await res.json() as { result: string | null };
+    if (data && data.result) {
+      return JSON.parse(data.result) as DatabaseSchema;
+    }
+  } catch (err) {
+    console.error('[db] Error reading from Vercel KV:', err);
+  }
+  return null;
+}
+
+async function saveToVercelKV(dbData: DatabaseSchema): Promise<void> {
+  const url = process.env.KV_REST_API_URL;
+  const token = process.env.KV_REST_API_TOKEN;
+  if (!url || !token) return;
+
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(['SET', 'star_safety_db', JSON.stringify(dbData)])
+    });
+    if (!res.ok) {
+      console.error('[db] Vercel KV SET status error:', res.status);
+    }
+  } catch (err) {
+    console.error('[db] Error writing to Vercel KV:', err);
+  }
+}
+
+function saveDatabase(dbData: DatabaseSchema) {
   // On Vercel, /tmp always exists and mkdirSync can throw — skip it
   if (!isVercel && !fs.existsSync(DATA_DIR)) {
     fs.mkdirSync(DATA_DIR, { recursive: true });
   }
   try {
-    fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2), 'utf-8');
+    fs.writeFileSync(DB_FILE, JSON.stringify(dbData, null, 2), 'utf-8');
   } catch (e) {
     console.error('[db] Failed to write database file:', e);
   }
@@ -314,17 +368,56 @@ function saveDatabase(db: DatabaseSchema) {
 
 // DB Instance API
 export const db = {
-  get: () => {
-    const data = getDatabase();
-    // Ensure gallery array always exists (for databases created before this field was added)
-    if (!data.gallery) data.gallery = [];
-    return data;
+  init: async () => {
+    if (initialized) return;
+
+    if (!initPromise) {
+      initPromise = (async () => {
+        if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
+          console.log('[db] Vercel KV is configured. Loading database...');
+          const kvData = await loadFromVercelKV();
+          if (kvData) {
+            memoryDb = kvData;
+            console.log('[db] Loaded database successfully from Vercel KV.');
+            initialized = true;
+            return;
+          }
+          console.warn('[db] Vercel KV load returned null. Falling back to local file seed.');
+        }
+
+        memoryDb = getDatabase();
+        initialized = true;
+      })();
+    }
+
+    await initPromise;
   },
-  save: (data: DatabaseSchema) => saveDatabase(data),
+
+  get: () => {
+    if (!initialized || !memoryDb) {
+      console.warn('[db] db.get() called before init() finished. Returning fallback seed.');
+      return getDatabase();
+    }
+    if (!memoryDb.gallery) memoryDb.gallery = [];
+    return memoryDb;
+  },
+
+  save: (data: DatabaseSchema) => {
+    memoryDb = data;
+    // Local save synchronously
+    saveDatabase(data);
+
+    // Vercel KV save asynchronously in the background
+    if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
+      saveToVercelKV(data).catch(err => {
+        console.error('[db] Asynchronous Vercel KV write failed:', err);
+      });
+    }
+  },
 
   // Auth Operations
   validateUser: (email: string, password: string): AdminUser | null => {
-    const data = getDatabase();
+    const data = db.get();
     const user = data.users.find(u => u.email.toLowerCase() === email.toLowerCase());
     if (!user) return null;
 
@@ -337,7 +430,7 @@ export const db = {
   },
 
   logActivity: (action: string, details: string, user: string) => {
-    const data = getDatabase();
+    const data = db.get();
     const log: ActivityLog = {
       id: 'log-' + Math.random().toString(36).substring(2, 9),
       action,
@@ -350,6 +443,6 @@ export const db = {
     if (data.logs.length > 100) {
       data.logs = data.logs.slice(0, 100);
     }
-    saveDatabase(data);
+    db.save(data);
   }
 };

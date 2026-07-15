@@ -247,6 +247,90 @@
   ],
   "logs": [
     {
+      "id": "log-1ogeo6a",
+      "action": "DELETE_BLOG",
+      "details": "Deleted blog post \"Updated Temporary Test Blog\"",
+      "user": "admin@starsafety.com",
+      "timestamp": "2026-07-15T06:10:17.980Z"
+    },
+    {
+      "id": "log-30l25w0",
+      "action": "UPDATE_BLOG",
+      "details": "Updated blog post \"Updated Temporary Test Blog\"",
+      "user": "admin@starsafety.com",
+      "timestamp": "2026-07-15T06:10:17.949Z"
+    },
+    {
+      "id": "log-m0mso4b",
+      "action": "CREATE_BLOG",
+      "details": "Created blog post \"Temporary Test Blog\"",
+      "user": "admin@starsafety.com",
+      "timestamp": "2026-07-15T06:10:17.932Z"
+    },
+    {
+      "id": "log-em86e8i",
+      "action": "LOGIN",
+      "details": "User admin@starsafety.com logged in successfully.",
+      "user": "admin@starsafety.com",
+      "timestamp": "2026-07-15T06:10:15.766Z"
+    },
+    {
+      "id": "log-34dodt0",
+      "action": "DELETE_BLOG",
+      "details": "Deleted blog post \"Updated Temporary Test Blog\"",
+      "user": "admin@starsafety.com",
+      "timestamp": "2026-07-15T06:03:46.988Z"
+    },
+    {
+      "id": "log-31wzsic",
+      "action": "UPDATE_BLOG",
+      "details": "Updated blog post \"Updated Temporary Test Blog\"",
+      "user": "admin@starsafety.com",
+      "timestamp": "2026-07-15T06:03:46.961Z"
+    },
+    {
+      "id": "log-kepklu8",
+      "action": "CREATE_BLOG",
+      "details": "Created blog post \"Temporary Test Blog\"",
+      "user": "admin@starsafety.com",
+      "timestamp": "2026-07-15T06:03:46.938Z"
+    },
+    {
+      "id": "log-s10wij7",
+      "action": "LOGIN",
+      "details": "User admin@starsafety.com logged in successfully.",
+      "user": "admin@starsafety.com",
+      "timestamp": "2026-07-15T06:03:44.222Z"
+    },
+    {
+      "id": "log-8lrr4ci",
+      "action": "DELETE_BLOG",
+      "details": "Deleted blog post \"Updated Temporary Test Blog\"",
+      "user": "admin@starsafety.com",
+      "timestamp": "2026-07-15T05:55:26.339Z"
+    },
+    {
+      "id": "log-3alm193",
+      "action": "UPDATE_BLOG",
+      "details": "Updated blog post \"Updated Temporary Test Blog\"",
+      "user": "admin@starsafety.com",
+      "timestamp": "2026-07-15T05:55:26.314Z"
+    },
+    {
+      "id": "log-p6bnqmm",
+      "action": "CREATE_BLOG",
+      "details": "Created blog post \"Temporary Test Blog\"",
+      "user": "admin@starsafety.com",
+      "timestamp": "2026-07-15T05:55:26.272Z"
+    },
+    {
+      "id": "log-z1aqmy3",
+      "action": "LOGIN",
+      "details": "User admin@starsafety.com logged in successfully.",
+      "user": "admin@starsafety.com",
+      "timestamp": "2026-07-15T05:55:23.697Z"
+    },
+    {
       "id": "log-x00dz6m",
       "action": "LOGIN",
       "details": "User admin@starsafety.com logged in via /api/login",

@@ -67,6 +67,17 @@ function verifyToken(token: string): TokenPayload | null {
 app.use(express.json({ limit: '50mb' })); // support large image base64 uploads
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
+// Database initialization middleware
+app.use(async (req, res, next) => {
+  try {
+    await db.init();
+    next();
+  } catch (err: any) {
+    console.error('Failed to initialize database:', err);
+    res.status(500).json({ error: 'Database initialization failed: ' + err.message });
+  }
+});
+
 // Ensure upload directory exists (on Vercel, use /tmp which is writable)
 const isVercel = Boolean(process.env.VERCEL || process.env.VERCEL_ENV);
 const UPLOADS_DIR = isVercel
