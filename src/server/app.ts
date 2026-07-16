@@ -875,4 +875,62 @@ app.delete('/api/gallery/:id', authMiddleware, async (req: Request, res: Respons
   res.json({ success: true });
 });
 
+// ================= DYNAMIC SITEMAP.XML API =================
+
+app.get('/sitemap.xml', (req: Request, res: Response): void => {
+  const data = db.get();
+  const baseUrl = 'https://starchennaisafetynets.vercel.app';
+  const today = new Date().toISOString().split('T')[0];
+
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+  xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+
+  // 1. Static Routes
+  const staticRoutes = [
+    { path: '', changefreq: 'daily', priority: '1.0' },
+    { path: '#/about', changefreq: 'monthly', priority: '0.8' },
+    { path: '#/services', changefreq: 'weekly', priority: '0.9' },
+    { path: '#/gallery', changefreq: 'weekly', priority: '0.7' },
+    { path: '#/blog', changefreq: 'daily', priority: '0.8' },
+    { path: '#/contact', changefreq: 'monthly', priority: '0.8' }
+  ];
+
+  staticRoutes.forEach(r => {
+    xml += `  <url>\n`;
+    xml += `    <loc>${baseUrl}/${r.path}</loc>\n`;
+    xml += `    <lastmod>${today}</lastmod>\n`;
+    xml += `    <changefreq>${r.changefreq}</changefreq>\n`;
+    xml += `    <priority>${r.priority}</priority>\n`;
+    xml += `  </url>\n`;
+  });
+
+  // 2. Localized Landing Pages
+  const cities = ['trichy', 'pondicherry', 'chengalpattu', 'tambaram'];
+  cities.forEach(city => {
+    xml += `  <url>\n`;
+    xml += `    <loc>${baseUrl}/#/safety-nets-${city}</loc>\n`;
+    xml += `    <lastmod>${today}</lastmod>\n`;
+    xml += `    <changefreq>weekly</changefreq>\n`;
+    xml += `    <priority>0.8</priority>\n`;
+    xml += `  </url>\n`;
+  });
+
+  // 3. Dynamic Blog Articles
+  const publishedBlogs = data.blogs.filter(b => b.status === 'published');
+  publishedBlogs.forEach(blog => {
+    const lastmod = blog.publishDate ? blog.publishDate.split('T')[0] : today;
+    xml += `  <url>\n`;
+    xml += `    <loc>${baseUrl}/#/blog/${blog.slug}</loc>\n`;
+    xml += `    <lastmod>${lastmod}</lastmod>\n`;
+    xml += `    <changefreq>monthly</changefreq>\n`;
+    xml += `    <priority>0.7</priority>\n`;
+    xml += `  </url>\n`;
+  });
+
+  xml += `</urlset>`;
+
+  res.header('Content-Type', 'application/xml');
+  res.status(200).send(xml);
+});
+
 export default app;

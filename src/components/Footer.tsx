@@ -24,8 +24,15 @@ export default function Footer({ onChangePage }: FooterProps) {
   ];
 
   const cities = [
-    'Chennai', 'Coimbatore', 'Madurai', 'Trichy', 'Salem', 'Tiruppur', 'Erode', 'Vellore', 'Hosur', 'Tirunelveli', 'Chengalpattu', 'Kanchipuram', 'Thanjavur'
+    'Chennai', 'Coimbatore', 'Madurai', 'Trichy', 'Pondicherry', 'Tambaram', 'Chengalpattu', 'Salem', 'Tiruppur', 'Erode', 'Vellore', 'Hosur', 'Tirunelveli', 'Kanchipuram', 'Thanjavur'
   ];
+
+  const handleCityClick = (city: string) => {
+    const pageId = `safety-nets-${city.toLowerCase()}`;
+    onChangePage(pageId);
+    window.location.hash = `#/${pageId}`;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <footer className="bg-primary text-gray-300 border-t border-white/5 pt-16 pb-8">
@@ -134,9 +141,13 @@ export default function Footer({ onChangePage }: FooterProps) {
           <h5 className="font-display font-bold text-xs text-white uppercase tracking-widest mb-4">Areas We Serve Across Tamil Nadu:</h5>
           <div className="flex flex-wrap gap-x-3 gap-y-2">
             {cities.map((city, idx) => (
-              <span key={idx} className="text-xs text-gray-500 font-medium hover:text-accent transition-colors cursor-default">
+              <button 
+                key={idx} 
+                onClick={() => handleCityClick(city)}
+                className="text-xs text-gray-500 font-medium hover:text-accent transition-colors cursor-pointer text-left focus:outline-none"
+              >
                 {city} {idx < cities.length - 1 ? '•' : ''}
-              </span>
+              </button>
             ))}
             <span className="text-xs text-gray-400 font-semibold italic ml-1">and all major cities across Tamil Nadu.</span>
           </div>

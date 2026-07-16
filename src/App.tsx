@@ -8,6 +8,7 @@ import Services from './pages/Services.js';
 import Contact from './pages/Contact.js';
 import BlogPage from './pages/Blog.js';
 import GalleryPage from './pages/Gallery.js';
+import LocationPage from './pages/Location.js';
 import AdminLayout from './components/AdminLayout.js';
 import { 
   ShieldCheck, Lock, Eye, EyeOff, X, Send, CheckCircle, 
@@ -49,12 +50,24 @@ export default function App() {
         setIsAdminPortal(false);
         setActivePage('blog');
         setBlogSlug(slug);
+      } else if (hash.startsWith('#/safety-nets-')) {
+        const city = hash.replace('#/safety-nets-', '');
+        setIsAdminPortal(false);
+        setBlogSlug(null);
+        setActivePage(`safety-nets-${city}`);
+        
+        // Scroll to top and set page title dynamically
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        const cityCap = city.charAt(0).toUpperCase() + city.slice(1);
+        document.title = `Safety Nets in ${cityCap} | Premium Installation Services`;
       } else {
         setIsAdminPortal(false);
         setBlogSlug(null);
         // Match home, about, services, blog, contact
         const page = hash.replace('#/', '');
         if (['home', 'about', 'services', 'blog', 'contact', 'gallery'].includes(page)) {
+          setActivePage(page);
+        } else if (page.startsWith('safety-nets-')) {
           setActivePage(page);
         } else {
           setActivePage('home');
@@ -66,8 +79,134 @@ export default function App() {
     // Initial load parse
     handleHashChange();
 
-    return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
+
+  // Dynamic SEO & Structured Data (JSON-LD) Injector
+  useEffect(() => {
+    // 1. Skip if it's a blog detail page (handled inside Blog.tsx)
+    if (activePage === 'blog' && blogSlug) return;
+
+    let title = 'Star Safety Enterprises - Premium Safety Net Installation Services';
+    let desc = 'Premium, industrial-grade safety net installation services across Tamil Nadu. Balcony safety nets, pigeon safety, child safety, construction safety, and sports nets.';
+    let url = `https://starchennaisafetynets.vercel.app/#/${activePage}`;
+
+    if (activePage === 'home') {
+      title = 'Star Safety Enterprises - Premium Safety Net Installation Services in Tamil Nadu';
+      desc = 'Premium safety net installation services across Tamil Nadu. Balcony safety, pigeon protection, child safety, construction safety, and sports nets with robust warranty.';
+      url = 'https://starchennaisafetynets.vercel.app/';
+    } else if (activePage === 'about') {
+      title = 'About Star Safety Enterprises | Safety Net Installation Experts';
+      desc = 'Securing Tamil Nadu\'s balconies and industrial projects since 2014. Meet our certified climbing technicians and learn about our ISO 9001:2015 quality standards.';
+    } else if (activePage === 'services') {
+      title = 'Safety Net Installation Services | Balcony, Pigeon & Children Safety';
+      desc = 'Explore our safety net installations including balconies, AC ducts, monkey deterrents, sports enclosures, and modern stainless steel invisible grills.';
+    } else if (activePage === 'gallery') {
+      title = 'Photo Gallery | Real Installations & Workmanship | Star Safety';
+      desc = 'See our real safety net installation work across apartments, villas, construction sites, and sports pitches in Chennai, Coimbatore, and other cities.';
+    } else if (activePage === 'contact') {
+      title = 'Contact Us for Free Site Inspection & Quote | Star Safety';
+      desc = 'Get in touch for same-day safety net measurements and quotation in Chennai, Coimbatore, Madurai, Trichy, and Hosur. Open 24/7.';
+    } else if (activePage === 'blog') {
+      title = 'Expert Safety Net Blog | Material Standards & Pigeon Prevention';
+      desc = 'In-depth articles about safety standards (IS-11057), material comparisons (HDPE vs Nylon), bird repelling techniques, and professional advice.';
+    } else if (activePage.startsWith('safety-nets-')) {
+      const city = activePage.replace('safety-nets-', '');
+      const cityCap = city.charAt(0).toUpperCase() + city.slice(1);
+      title = `Safety Nets in ${cityCap === 'trichy' ? 'Trichy (Tiruchirappalli)' : cityCap === 'pondicherry' ? 'Puducherry (Pondicherry)' : cityCap} | Premium Installation`;
+      
+      if (city === 'trichy') {
+        desc = 'Professional safety net installation services in Trichy. Balcony netting, pigeon screens, and construction nets with stainless steel brackets.';
+      } else if (city === 'pondicherry') {
+        desc = 'Premium safety nets and invisible grills in Pondicherry. Long-lasting coastal-grade SS316 anchors that resist salt air corrosion.';
+      } else if (city === 'chengalpattu') {
+        desc = 'Certified safety net installation in Chengalpattu and Mahindra World City. Construction nets, pigeon nets, and duct cover screens.';
+      } else if (city === 'tambaram') {
+        desc = 'Leading safety net installer in East & West Tambaram, Selaiyur, and Chromepet. Heavy-duty child safety nets and premium window mosquito screens.';
+      } else {
+        desc = `Professional safety net installation services in ${cityCap}. Balcony safety, pigeon netting, and invisible grills with written warranty.`;
+      }
+    }
+
+    // Set DOM Title
+    document.title = title;
+
+    // Set Meta Description
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute('content', desc);
+    }
+
+    // Set OG Title & Description
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', title);
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute('content', desc);
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.setAttribute('content', url);
+
+    // Set Twitter Title & Description
+    const twTitle = document.querySelector('meta[property="twitter:title"]');
+    if (twTitle) twTitle.setAttribute('content', title);
+    const twDesc = document.querySelector('meta[property="twitter:description"]');
+    if (twDesc) twDesc.setAttribute('content', desc);
+
+    // Set/Update Canonical Link Tag
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', url);
+
+    // LocalBusiness JSON-LD Structured Data
+    if (activePage === 'home') {
+      let schemaScript = document.getElementById('local-business-schema');
+      if (!schemaScript) {
+        schemaScript = document.createElement('script');
+        schemaScript.setAttribute('id', 'local-business-schema');
+        schemaScript.setAttribute('type', 'application/ld+json');
+        document.head.appendChild(schemaScript);
+      }
+      const schemaData = {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Star Safety Enterprises",
+        "image": "https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938508/starchennaisafetynets/chennai_hero_backdrop.jpg",
+        "telephone": "+919840245678",
+        "email": "info@starsafetyenterprises.com",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "24/18, Nehru Street, Adyar",
+          "addressLocality": "Chennai",
+          "addressRegion": "Tamil Nadu",
+          "postalCode": "600020",
+          "addressCountry": "IN"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "13.0063",
+          "longitude": "80.2574"
+        },
+        "url": "https://starchennaisafetynets.vercel.app/",
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+          ],
+          "opens": "00:00",
+          "closes": "23:59"
+        },
+        "priceRange": "₹₹"
+      };
+      schemaScript.textContent = JSON.stringify(schemaData, null, 2);
+    } else {
+      const schemaScript = document.getElementById('local-business-schema');
+      if (schemaScript) {
+        schemaScript.remove();
+      }
+    }
+  }, [activePage, blogSlug]);
 
   const changePage = (page: string) => {
     setActivePage(page);
@@ -294,6 +433,9 @@ export default function App() {
             )}
             {activePage === 'gallery' && (
               <GalleryPage onOpenQuoteModal={openQuoteModal} />
+            )}
+            {activePage.startsWith('safety-nets-') && (
+              <LocationPage city={activePage.replace('safety-nets-', '')} onOpenQuoteModal={openQuoteModal} />
             )}
           </main>
 

@@ -558,39 +558,31 @@ export default function Home({ onChangePage, onOpenQuoteModal }: HomeProps) {
   };
 
   const features = [
-    { title: 'Experienced Team', desc: 'Over 12 years of professional rope-access climbing and safety installations across Tamil Nadu.' },
-    { title: 'Premium Quality Materials', desc: 'UV-stabilized, high-density polyethylene (HDPE) and transparent monofilament nets built to last.' },
-    { title: 'Affordable Pricing', desc: 'Competitive transparent per-square-foot rates with zero hidden material surcharges.' },
-    { title: 'Fast Installation', desc: 'Same-day site measurement and complete expert installation within 3 to 5 hours.' },
-    { title: 'Durable Warranty', desc: 'We provide written warranty certificate support ranging from 3 to 10 years.' },
-    { title: 'Professional Service', desc: 'Fully trained installers wearing certified safety harnesses, helmets, and ropes.' },
-    { title: 'Tamil Nadu Wide Coverage', desc: 'Offices in Chennai, Coimbatore, Madurai, Trichy, Salem, Hosur, and major districts.' },
-    { title: 'Free Site Inspection', desc: 'Enjoy 100% free site inspections, catalog walkthroughs, and precise measurements.' }
+    { title: 'Chennai Safety Net Dealers', desc: 'Over 12 years of professional safety net installation services across Chennai and Tamil Nadu.' },
+    { title: 'Balcony Safety Net Material', desc: 'UV-stabilized, high-density polyethylene (HDPE) and transparent nylon monofilament nets built for tropical weather.' },
+    { title: 'Best Mosquito Net Options', desc: 'Premium mosquito screens for windows and doors using Phifer and Saint Gobain fabrics.' },
+    { title: 'Fast Local Installation', desc: 'Same-day site measurement and complete balcony safety net setup within 3 to 5 hours.' },
+    { title: 'Written Warranty Support', desc: 'Official written warranty certificates ranging from 3 to 10 years on all safety nets.' },
+    { title: 'Certified Climbing Crew', desc: 'Technicians are trained rope-access climbers wearing safety helmets and harnesses.' },
+    { title: 'Tamil Nadu Regional Hubs', desc: 'Local offices serving Chennai, Coimbatore, Madurai, Trichy, Pondicherry, and Salem.' },
+    { title: 'Free Measurement & Quote', desc: 'No-obligation laser measurement, material catalogs, and transparent quote per square foot.' }
   ];
 
   const steps = [
-    { num: '1', title: 'Contact Us', desc: 'Call us or request a WhatsApp quote to share your basic safety requirements.' },
-    { num: '2', title: 'Site Inspection', desc: 'Our technician visits your property for a free precise measurement and catalog showcase.' },
-    { num: '3', title: 'Installation', desc: 'Our certified climbing experts mount rust-proof anchors and stretch nets under perfect tension.' },
-    { num: '4', title: 'Final Quality Check', desc: 'Complete structural tension and border anchor audit to certify the warranty certificate.' }
+    { num: '1', title: 'Request Free Visit', desc: 'Call us or request a WhatsApp quote to schedule safety net dealers near you.' },
+    { num: '2', title: 'Laser Measurement', desc: 'Our technician visits with HDPE safety net and mosquito screen samples to measure.' },
+    { num: '3', title: 'Tension Installation', desc: 'Climbing experts anchor marine-grade stainless steel hooks and stretch the nets under high tension.' },
+    { num: '4', title: 'Warranty Handoff', desc: 'Final load testing check (up to 150 kg) and written warranty certificate handoff.' }
   ];
 
   const faqs = [
-    { q: 'What types of safety nets do you offer?', a: 'We offer an extensive catalog including Balcony Safety Nets, Pigeon & Bird Protection Nets, Children Safety Nets, Construction/Industrial Safety Nets, Coconut Tree Nets, AC Duct/Shaft Nets, and specialized building sports nets.' },
-    { q: 'What material is used in balcony safety nets?', a: 'We use high-grade UV-stabilized, 100% co-polymer Nylon or High-Density Polyethylene (HDPE) materials. Our nets are resistant to weather changes, extreme summer heat, and monsoon rain, maintaining high tensile strength for years.' },
-    { q: 'How long do these safety nets typically last?', a: 'Depending on the material weight (e.g. 0.7mm nylon vs 1.2mm HDPE), our nets are highly durable and last anywhere from 5 to 8+ years under tropical climate conditions across Tamil Nadu.' },
-    { q: 'Do you offer a written warranty on installations?', a: 'Yes. Star Safety Enterprises provides a written warranty ranging from 3 to 10 years, depending on the netting ply and brand you select during measurement.' },
-    { q: 'How much does safety net installation cost?', a: 'Pricing is based on a transparent per-square-foot rate. We provide highly competitive pricing with zero hidden charges. You can call or request a free site measurement to get a final quotation.' },
-    { q: 'Is the site measurement and inspection really free?', a: 'Yes, 100% free. We send our safety technicians to your home, school, or factory anywhere in Tamil Nadu to measure and give you samples without any obligation to purchase.' },
-    { q: 'Do transparent monofilament safety nets block air or light?', a: 'Not at all. Our transparent safety nets maintain 98% of your natural view, let in maximum sunlight, and support complete ventilation/airflow.' },
-    { q: 'Will bird protection nets harm the birds?', a: 'No, we value animal safety. Our bird protection nets act strictly as a physical barrier that humane, bird-safe, and pesticide-free, preventing pigeons from nesting without causing any harm.' },
-    { q: 'Are safety nets strong enough to protect domestic pets like cats?', a: 'Absolutely. We install tight-mesh pet protection nets (usually 25mm mesh) that prevent cats, dogs, or puppies from climbing through or slipping past high-rise railings.' },
-    { q: 'How much load weight can child safety nets support?', a: 'Our high-tensile children safety nets are reinforced with solid steel border anchor clips and can safely support a structural impact load of up to 150 kilograms.' },
-    { q: 'What mesh size is recommended for stopping pigeons?', a: 'We highly recommend our 35mm or 40mm mesh nets. They are small enough to prevent pigeons from squeezing through but open enough to look aesthetically pleasing.' },
-    { q: 'Do you cover deep AC duct shafts in high-rise IT parks or apartments?', a: 'Yes. Our technicians are certified rope-access climbers trained in industrial height safety. We can easily secure deep shafts and AC duct channels safely at any height.' },
-    { q: 'How long does a standard balcony installation take?', a: 'For a standard balcony, our expert team usually completes the anchor mounting, border wiring, and netting tensioning within 2 to 4 hours.' },
-    { q: 'Can safety nets be removed and re-installed during home painting?', a: 'Yes. Our keyhole anchorage system allows the nets to be carefully unhooked and re-tensioned after painting is complete. Our team can assist with re-installation service at a nominal charge.' },
-    { q: 'Which cities do you serve in Tamil Nadu?', a: 'We provide immediate safety net services in Chennai, Coimbatore, Madurai, Trichy, Salem, Tiruppur, Erode, Vellore, Hosur, Tirunelveli, Chengalpattu, Kanchipuram, Thanjavur, and all surrounding districts.' }
+    { q: 'What is the balcony safety nets price per square feet in chennai?', a: 'Pricing is based on a transparent per-square-foot rate. Standard pigeon net for balcony starts at ₹20 - ₹35 per sq. ft., while premium transparent nylon nets range from ₹25 - ₹40 per sq. ft., including custom sizing and professional installation with rust-proof anchors.' },
+    { q: 'Why should I install pigeon safety nets in chennai balconies?', a: 'Pigeons nesting in AC ducts and shafts cause severe sanitation issues and health hazards. A high-tensile 35mm-50mm pigeon safety net acts as a humane physical barrier that keeps birds away without harming them.' },
+    { q: 'Which is the best mosquito net in chennai for apartment windows?', a: 'For windows, pleated retractable mosquito nets or velcro screen borders are highly popular. We recommend Phifer and Saint Gobain glass fiber meshes, which block insects, maintain 98% ventilation, and do not rot under direct sunlight.' },
+    { q: 'Are balcony safety nets safe enough for active toddlers and cats?', a: 'Absolutely. Our double-mesh HDPE child safety nets are reinforced with steel border wires and heavy anchor brackets, certified to hold sudden impact drops of up to 150 kilograms.' },
+    { q: 'Do you install invisible grills in chennai apartments?', a: 'Yes! Invisible grills in chennai are a modern replacement for iron grates. They use 316-grade stainless steel wire cables spaced at 2" or 3" intervals to secure balconies and windows without blocking views.' },
+    { q: 'Why do safety net hooks rust, and how do you prevent it?', a: 'Chennai\'s coastal salt air corrodes standard iron hooks, causing rust stains. Star Safety Enterprises exclusively uses SS304/SS316 stainless steel fasteners, ensuring they remain completely rust-free.' },
+    { q: 'How long does the safety net installation process take?', a: 'A standard residential balcony safety net or window mosquito screen installation is completed by our local team within 2 to 4 hours, with zero clean-up required from your end.' }
   ];
 
   return (
@@ -631,13 +623,13 @@ export default function Home({ onChangePage, onOpenQuoteModal }: HomeProps) {
             </div>
 
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-display font-black text-white leading-tight tracking-tight">
-              Premium Safety Net <br />
-              <span className="text-accent">Installation Services</span> <br />
-              Across Tamil Nadu
+              Balcony Safety Nets & <br />
+              <span className="text-accent">Pigeon Netting Chennai</span> <br />
+              Tamil Nadu Services
             </h1>
 
             <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-sans">
-              Protect your loved ones, children, pets, and high-rise structures. Star Safety Enterprises provides industrial-grade durability, 10-year warranty options, and same-day expert installations in Chennai, Coimbatore, Madurai, Trichy, and beyond.
+              Secure your home with Chennai's trusted safety net dealers. We install premium, UV-resistant balcony safety nets, pigeon safety nets, and rust-proof invisible grills with same-day measurement and a written warranty.
             </p>
 
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
@@ -797,10 +789,10 @@ export default function Home({ onChangePage, onOpenQuoteModal }: HomeProps) {
                 ⚡ Complimentary On-Site Estimation
               </div>
               <h3 className="font-display font-black text-white text-3xl sm:text-4xl tracking-tight leading-tight">
-                Schedule Your Free <br className="hidden sm:inline" />Site Measurement Visit
+                Schedule Your Free <br className="hidden sm:inline" />Safety Net Measurement
               </h3>
               <p className="text-sm text-slate-300 leading-relaxed font-sans max-w-xl mx-auto lg:mx-0">
-                A skilled Star Safety Enterprises technician will visit your location anywhere in Tamil Nadu, bring durable co-polymer and monofilament net samples, perform professional laser-accurate measurements, and outline a customized per-square-foot quotation on the spot.
+                Our expert safety net installers will visit your premises anywhere in Chennai or Tamil Nadu. We bring material samples of HDPE nets, transparent Nylon nets, and window mosquito screens to provide a laser-accurate, no-obligation price quote per square foot.
               </p>
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-2 text-xs text-slate-400 font-mono font-semibold">
                 <span className="flex items-center gap-1.5 text-accent">✓ Same-day booking slots</span>
@@ -936,10 +928,10 @@ export default function Home({ onChangePage, onOpenQuoteModal }: HomeProps) {
             {/* Right Feature Grid */}
             <div className="flex-1 space-y-8">
               <div className="space-y-3 text-center lg:text-left">
-                <span className="text-xs font-mono font-bold text-accent uppercase tracking-widest block">Why Choose Star Safety</span>
-                <h2 className="text-3xl sm:text-4xl font-display font-black text-primary leading-tight">Engineered for Lifelong Protection</h2>
-                <p className="text-sm text-slate-500 leading-relaxed">
-                  When it comes to the safety of your family or workers, compromises are not allowed. Here is why property managers across Tamil Nadu rate us #1.
+                <span className="text-xs font-mono font-bold text-accent uppercase tracking-widest block">Top Rated Safety Net Dealers</span>
+                <h2 className="text-3xl sm:text-4xl font-display font-black text-primary leading-tight">Durable Balcony & Pigeon Netting Chennai</h2>
+                <p className="text-sm text-slate-500 leading-relaxed font-sans">
+                  When it comes to balcony safety nets and pigeon protection screens, quality and tension are critical. As leading safety net installers in Tamil Nadu, we engineer setups that resist weather, bird bites, and structural stress.
                 </p>
               </div>
 
@@ -1011,10 +1003,10 @@ export default function Home({ onChangePage, onOpenQuoteModal }: HomeProps) {
       <section className="py-20 bg-slate-50/50 border-t border-gray-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-            <span className="text-xs font-mono font-bold text-accent uppercase tracking-widest block">Got Questions?</span>
-            <h2 className="text-3xl sm:text-4xl font-display font-black text-primary">Frequently Asked Questions</h2>
-            <p className="text-sm text-slate-500 leading-relaxed">
-              Find instant, detailed answers to common inquiries about materials, pricing, warranties, and safe installations.
+            <span className="text-xs font-mono font-bold text-accent uppercase tracking-widest block">Chennai Safety Net FAQ</span>
+            <h2 className="text-3xl sm:text-4xl font-display font-black text-primary">Safety & Pigeon Nets Frequently Asked Questions</h2>
+            <p className="text-sm text-slate-500 leading-relaxed font-sans">
+              Find direct answers regarding balcony safety net pricing, mesh sizes, Phifer vs Saint Gobain window mosquito nets, and invisible grill installations in Chennai.
             </p>
           </div>
 
@@ -1059,10 +1051,10 @@ export default function Home({ onChangePage, onOpenQuoteModal }: HomeProps) {
         </div>
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-black leading-tight">
-            Need Premium Safety Nets Installed Today?
+            Get Professional Balcony Safety Nets Installed Today
           </h2>
           <p className="text-base sm:text-lg text-slate-300 max-w-3xl mx-auto font-sans leading-relaxed">
-            Don't delay security. Contact us now to book a free immediate site measurement visit and receive custom quote options for your balcony or building.
+            Secure your home or office now. Book a free same-day site measurement with Chennai's top safety net dealers to get premium pigeon nets, pet barriers, or invisible grills installed.
           </p>
 
           <div className="flex flex-wrap justify-center gap-4 pt-4">
