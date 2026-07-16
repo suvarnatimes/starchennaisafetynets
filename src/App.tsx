@@ -206,6 +206,158 @@ export default function App() {
         schemaScript.remove();
       }
     }
+
+    // 2. FAQ Page JSON-LD Structured Data (Answer Engine Optimization - AEO)
+    let faqSchemaScript = document.getElementById('faq-schema');
+    let faqData: { question: string; answer: string }[] = [];
+
+    if (activePage === 'home') {
+      faqData = [
+        {
+          question: "What is the balcony safety nets price per square feet in chennai?",
+          answer: "Pricing is based on a transparent per-square-foot rate. Standard pigeon net for balcony starts at ₹20 - ₹35 per sq. ft., while premium transparent nylon nets range from ₹25 - ₹40 per sq. ft., including custom sizing and professional installation with rust-proof anchors."
+        },
+        {
+          question: "Why should I install pigeon safety nets in chennai balconies?",
+          answer: "Pigeons nesting in AC ducts and shafts cause severe sanitation issues and health hazards. A high-tensile 35mm-50mm pigeon safety net acts as a humane physical barrier that keeps birds away without harming them."
+        },
+        {
+          question: "Which is the best mosquito net in chennai for apartment windows?",
+          answer: "For windows, pleated retractable mosquito nets or velcro screen borders are highly popular. We recommend Phifer and Saint Gobain glass fiber meshes, which block insects, maintain 98% ventilation, and do not rot under direct sunlight."
+        },
+        {
+          question: "Are balcony safety nets safe enough for active toddlers and cats?",
+          answer: "Absolutely. Our double-mesh HDPE child safety nets are reinforced with steel border wires and heavy anchor brackets, certified to hold sudden impact drops of up to 150 kilograms."
+        }
+      ];
+    } else if (activePage === 'safety-nets-trichy') {
+      faqData = [
+        {
+          question: "How long does it take for installation in Trichy?",
+          answer: "We offer same-day site measurement and installation services in Trichy. The actual fitting process takes about 2 to 4 hours depending on balcony size."
+        },
+        {
+          question: "Do you cover Srirangam and surrounding villages?",
+          answer: "Yes, our local Trichy crew serves Srirangam, Lalgudi, Tiruverumbur, Woraiyur, and all surrounding areas within a 30km radius."
+        }
+      ];
+    } else if (activePage === 'safety-nets-pondicherry') {
+      faqData = [
+        {
+          question: "Will the salt air rust my safety net fasteners in Pondicherry?",
+          answer: "Absolutely not. Unlike local contractors who use iron brackets, we exclusively use premium SS304 and SS316 stainless steel anchors that are 100% rust-proof in coastal areas."
+        },
+        {
+          question: "Do you provide services in Lawspet and Oulgaret?",
+          answer: "Yes, our Puducherry team provides same-day inspections and installations in Lawspet, Oulgaret, Muthialpet, and nearby tourist zones."
+        }
+      ];
+    } else if (activePage === 'safety-nets-chengalpattu') {
+      faqData = [
+        {
+          question: "Do you issue test certificates for construction nets?",
+          answer: "Yes. All our industrial and construction safety nets come with manufacturer test certificates specifying tensile strength and load limits."
+        },
+        {
+          question: "Can your team visit Mahindra World City for residential netting?",
+          answer: "Yes. We routinely service apartments inside Mahindra World City, Maraimalai Nagar, and surrounding residential complexes."
+        }
+      ];
+    } else if (activePage === 'safety-nets-tambaram') {
+      faqData = [
+        {
+          question: "Why are mosquito screens essential in Tambaram?",
+          answer: "Tambaram's proximity to water bodies like Selaiyur Lake leads to heavy mosquito breeding. Retractable or velcro screens allow fresh evening air while blocking insects."
+        },
+        {
+          question: "Do you offer bulk discounts for apartment societies in Selaiyur?",
+          answer: "Yes. We offer special society discounts (up to 20% off) if multiple flat owners coordinate a bulk safety net order together."
+        }
+      ];
+    }
+
+    if (faqData.length > 0) {
+      if (!faqSchemaScript) {
+        faqSchemaScript = document.createElement('script');
+        faqSchemaScript.setAttribute('id', 'faq-schema');
+        faqSchemaScript.setAttribute('type', 'application/ld+json');
+        document.head.appendChild(faqSchemaScript);
+      }
+      const schemaData = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faqData.map(f => ({
+          "@type": "Question",
+          "name": f.question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": f.answer
+          }
+        }))
+      };
+      faqSchemaScript.textContent = JSON.stringify(schemaData, null, 2);
+    } else {
+      const existingFaqScript = document.getElementById('faq-schema');
+      if (existingFaqScript) {
+        existingFaqScript.remove();
+      }
+    }
+
+    // 3. Service list structured data for Services page
+    let serviceSchemaScript = document.getElementById('service-schema');
+    if (activePage === 'services') {
+      if (!serviceSchemaScript) {
+        serviceSchemaScript = document.createElement('script');
+        serviceSchemaScript.setAttribute('id', 'service-schema');
+        serviceSchemaScript.setAttribute('type', 'application/ld+json');
+        document.head.appendChild(serviceSchemaScript);
+      }
+      const schemaData = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Safety Net Installation Services",
+        "description": "Premium safety net and screen installation services by Star Safety Enterprises.",
+        "itemListElement": [
+          {
+            "@type": "Service",
+            "position": 1,
+            "name": "Balcony Safety Nets",
+            "description": "Secure balconies from accidental falls using high-tensile UV-stabilized HDPE and Nylon co-polymer nets.",
+            "provider": {
+              "@type": "LocalBusiness",
+              "name": "Star Safety Enterprises"
+            }
+          },
+          {
+            "@type": "Service",
+            "position": 2,
+            "name": "Pigeon & Bird Protection Nets",
+            "description": "Humane netting physical barriers (25mm-50mm mesh) to prevent pigeon and bird infestations on balconies.",
+            "provider": {
+              "@type": "LocalBusiness",
+              "name": "Star Safety Enterprises"
+            }
+          },
+          {
+            "@type": "Service",
+            "position": 3,
+            "name": "Stainless Steel Invisible Grills",
+            "description": "Modern safety barriers for high-rise balconies and windows using marine-grade 316 stainless steel wires.",
+            "provider": {
+              "@type": "LocalBusiness",
+              "name": "Star Safety Enterprises"
+            }
+          }
+        ]
+      };
+      serviceSchemaScript.textContent = JSON.stringify(schemaData, null, 2);
+    } else {
+      const existingServiceScript = document.getElementById('service-schema');
+      if (existingServiceScript) {
+        existingServiceScript.remove();
+      }
+    }
+
   }, [activePage, blogSlug]);
 
   const changePage = (page: string) => {
