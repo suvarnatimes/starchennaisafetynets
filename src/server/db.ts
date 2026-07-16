@@ -2,6 +2,14 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import { AdminUser, Category, Tag, Blog, ActivityLog, Inquiry, Session, GalleryImage } from '../types.js';
+import { v2 as cloudinary } from 'cloudinary';
+
+// Configure Cloudinary for DB backup/sync if Vercel KV is not configured
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME || process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY || process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 const isVercel = Boolean(process.env.VERCEL || process.env.VERCEL_ENV);
 const DATA_DIR = isVercel ? '/tmp' : path.join(process.cwd(), 'data');
@@ -301,8 +309,9 @@ function getDatabase(): DatabaseSchema {
 }
 
 let memoryDb: DatabaseSchema | null = null;
-let initialized = false;
-let initPromise: Promise<void> | null = null;
+let lastLoadedTime = 0;
+let currentLoadPromise: Promise<void> | null = null;
+const CACHE_TTL_MS = 5000; // 5 seconds cache Time-To-Live
 
 async function loadFromVercelKV(): Promise<DatabaseSchema | null> {
   const url = process.env.KV_REST_API_URL;
@@ -354,6 +363,66 @@ async function saveToVercelKV(dbData: DatabaseSchema): Promise<void> {
   }
 }
 
+async function loadFromCloudinary(): Promise<DatabaseSchema | null> {
+  const cloudName = process.env.CLOUDINARY_CLOUD_NAME || process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+  const apiKey = process.env.CLOUDINARY_API_KEY || process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY;
+  const apiSecret = process.env.CLOUDINARY_API_SECRET;
+  if (!cloudName || !apiKey || !apiSecret) return null;
+
+  try {
+    const url = cloudinary.url('starchennaisafetynets_db.json', {
+      resource_type: 'raw',
+      secure: true
+    }) + '?cb=' + Date.now(); // cb prevents caching
+
+    console.log('[db] Fetching database from Cloudinary URL:', url);
+    const res = await fetch(url);
+    if (!res.ok) {
+      if (res.status === 404 || res.status === 400) {
+        console.log('[db] Database file not found on Cloudinary (first run).');
+        return null;
+      }
+      console.error('[db] Cloudinary GET status error:', res.status);
+      return null;
+    }
+    const text = await res.text();
+    if (text && text.trim().startsWith('{')) {
+      return JSON.parse(text) as DatabaseSchema;
+    }
+    console.error('[db] Received invalid database format from Cloudinary');
+    return null;
+  } catch (err) {
+    console.error('[db] Error loading database from Cloudinary:', err);
+    return null;
+  }
+}
+
+async function saveToCloudinary(dbData: DatabaseSchema): Promise<void> {
+  const cloudName = process.env.CLOUDINARY_CLOUD_NAME || process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+  const apiKey = process.env.CLOUDINARY_API_KEY || process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY;
+  const apiSecret = process.env.CLOUDINARY_API_SECRET;
+  if (!cloudName || !apiKey || !apiSecret) return;
+
+  try {
+    const tempFile = path.join(isVercel ? '/tmp' : DATA_DIR, 'db_temp.json');
+    fs.writeFileSync(tempFile, JSON.stringify(dbData, null, 2), 'utf-8');
+
+    await cloudinary.uploader.upload(tempFile, {
+      resource_type: 'raw',
+      public_id: 'starchennaisafetynets_db.json',
+      overwrite: true,
+      invalidate: true
+    });
+
+    if (fs.existsSync(tempFile)) {
+      fs.unlinkSync(tempFile);
+    }
+    console.log('[db] Successfully saved database to Cloudinary.');
+  } catch (err) {
+    console.error('[db] Error saving database to Cloudinary:', err);
+  }
+}
+
 function saveDatabase(dbData: DatabaseSchema) {
   // On Vercel, /tmp always exists and mkdirSync can throw — skip it
   if (!isVercel && !fs.existsSync(DATA_DIR)) {
@@ -369,32 +438,64 @@ function saveDatabase(dbData: DatabaseSchema) {
 // DB Instance API
 export const db = {
   init: async () => {
-    if (initialized) return;
+    const now = Date.now();
+    if (memoryDb && (now - lastLoadedTime < CACHE_TTL_MS)) {
+      return;
+    }
 
-    if (!initPromise) {
-      initPromise = (async () => {
+    if (currentLoadPromise) {
+      await currentLoadPromise;
+      return;
+    }
+
+    currentLoadPromise = (async () => {
+      try {
         if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
           console.log('[db] Vercel KV is configured. Loading database...');
           const kvData = await loadFromVercelKV();
           if (kvData) {
             memoryDb = kvData;
             console.log('[db] Loaded database successfully from Vercel KV.');
-            initialized = true;
+            lastLoadedTime = Date.now();
             return;
           }
-          console.warn('[db] Vercel KV load returned null. Falling back to local file seed.');
+          console.warn('[db] Vercel KV load returned null. Falling back.');
         }
 
-        memoryDb = getDatabase();
-        initialized = true;
-      })();
-    }
+        const cloudName = process.env.CLOUDINARY_CLOUD_NAME || process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+        const apiKey = process.env.CLOUDINARY_API_KEY || process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY;
+        const apiSecret = process.env.CLOUDINARY_API_SECRET;
+        if (cloudName && apiKey && apiSecret) {
+          console.log('[db] Cloudinary is configured. Loading database...');
+          const cloudData = await loadFromCloudinary();
+          if (cloudData) {
+            memoryDb = cloudData;
+            console.log('[db] Loaded database successfully from Cloudinary.');
+            lastLoadedTime = Date.now();
+            return;
+          }
+          console.warn('[db] Cloudinary load returned null. Falling back to local file.');
+        }
 
-    await initPromise;
+        console.log('[db] Loading database from local file...');
+        memoryDb = getDatabase();
+        lastLoadedTime = Date.now();
+      } catch (err) {
+        console.error('[db] Error initializing database:', err);
+        if (!memoryDb) {
+          memoryDb = getDatabase();
+          lastLoadedTime = Date.now();
+        }
+      } finally {
+        currentLoadPromise = null;
+      }
+    })();
+
+    await currentLoadPromise;
   },
 
   get: () => {
-    if (!initialized || !memoryDb) {
+    if (!memoryDb) {
       console.warn('[db] db.get() called before init() finished. Returning fallback seed.');
       return getDatabase();
     }
@@ -402,16 +503,33 @@ export const db = {
     return memoryDb;
   },
 
-  save: (data: DatabaseSchema) => {
+  save: async (data: DatabaseSchema): Promise<void> => {
     memoryDb = data;
+    lastLoadedTime = Date.now(); // update cache timestamp immediately
+
     // Local save synchronously
     saveDatabase(data);
 
-    // Vercel KV save asynchronously in the background
+    // Persistent saves in parallel
+    const promises: Promise<any>[] = [];
+
     if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
-      saveToVercelKV(data).catch(err => {
-        console.error('[db] Asynchronous Vercel KV write failed:', err);
-      });
+      promises.push(saveToVercelKV(data).catch(err => {
+        console.error('[db] Vercel KV write failed:', err);
+      }));
+    }
+
+    const cloudName = process.env.CLOUDINARY_CLOUD_NAME || process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+    const apiKey = process.env.CLOUDINARY_API_KEY || process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY;
+    const apiSecret = process.env.CLOUDINARY_API_SECRET;
+    if (cloudName && apiKey && apiSecret) {
+      promises.push(saveToCloudinary(data).catch(err => {
+        console.error('[db] Cloudinary write failed:', err);
+      }));
+    }
+
+    if (promises.length > 0) {
+      await Promise.all(promises);
     }
   },
 
@@ -429,7 +547,7 @@ export const db = {
     return null;
   },
 
-  logActivity: (action: string, details: string, user: string) => {
+  logActivity: async (action: string, details: string, user: string): Promise<void> => {
     const data = db.get();
     const log: ActivityLog = {
       id: 'log-' + Math.random().toString(36).substring(2, 9),
@@ -443,6 +561,6 @@ export const db = {
     if (data.logs.length > 100) {
       data.logs = data.logs.slice(0, 100);
     }
-    db.save(data);
+    await db.save(data);
   }
 };

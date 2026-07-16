@@ -192,7 +192,7 @@ app.get('/api/auth/session', authMiddleware, (req: Request, res: Response): void
 
 // ================= BLOGS API =================
 
-app.get('/api/blogs', (req: Request, res: Response): void => {
+app.get('/api/blogs', async (req: Request, res: Response): Promise<void> => {
   const { status, category, tag, search, sort } = req.query;
   const data = db.get();
   let list = [...data.blogs];
@@ -211,7 +211,7 @@ app.get('/api/blogs', (req: Request, res: Response): void => {
       }
     });
     if (hasChanged) {
-      db.save(data);
+      await db.save(data);
     }
 
     const authHeader = req.headers.authorization;
@@ -262,7 +262,7 @@ app.get('/api/blogs', (req: Request, res: Response): void => {
   res.json(list);
 });
 
-app.get('/api/blogs/:slug', (req: Request, res: Response): void => {
+app.get('/api/blogs/:slug', async (req: Request, res: Response): Promise<void> => {
   const { slug } = req.params;
   const data = db.get();
   const blog = data.blogs.find(b => b.slug === slug);
@@ -287,7 +287,7 @@ app.get('/api/blogs/:slug', (req: Request, res: Response): void => {
       if (blog.status === 'scheduled' && blog.scheduledDate && new Date(blog.scheduledDate) <= now) {
         blog.status = 'published';
         blog.publishDate = blog.scheduledDate;
-        db.save(data);
+        await db.save(data);
       } else {
         res.status(404).json({ error: 'Blog not found' });
         return;
@@ -298,7 +298,7 @@ app.get('/api/blogs/:slug', (req: Request, res: Response): void => {
   res.json(blog);
 });
 
-app.post('/api/blogs', authMiddleware, (req: Request, res: Response): void => {
+app.post('/api/blogs', authMiddleware, async (req: Request, res: Response): Promise<void> => {
   const data = db.get();
   const blogData = req.body;
 
@@ -337,14 +337,12 @@ app.post('/api/blogs', authMiddleware, (req: Request, res: Response): void => {
   };
 
   data.blogs.push(newBlog);
-  db.save(data);
-
-  db.logActivity('CREATE_BLOG', `Created blog post "${newBlog.title}"`, (req as any).user.email);
+  await db.logActivity('CREATE_BLOG', `Created blog post "${newBlog.title}"`, (req as any).user.email);
 
   res.status(201).json(newBlog);
 });
 
-app.put('/api/blogs/:id', authMiddleware, (req: Request, res: Response): void => {
+app.put('/api/blogs/:id', authMiddleware, async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
   const data = db.get();
   const blogIndex = data.blogs.findIndex(b => b.id === id);
@@ -379,14 +377,12 @@ app.put('/api/blogs/:id', authMiddleware, (req: Request, res: Response): void =>
   };
 
   data.blogs[blogIndex] = updatedBlog;
-  db.save(data);
-
-  db.logActivity('UPDATE_BLOG', `Updated blog post "${updatedBlog.title}"`, (req as any).user.email);
+  await db.logActivity('UPDATE_BLOG', `Updated blog post "${updatedBlog.title}"`, (req as any).user.email);
 
   res.json(updatedBlog);
 });
 
-app.delete('/api/blogs/:id', authMiddleware, (req: Request, res: Response): void => {
+app.delete('/api/blogs/:id', authMiddleware, async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
   const data = db.get();
   const blog = data.blogs.find(b => b.id === id);
@@ -397,14 +393,12 @@ app.delete('/api/blogs/:id', authMiddleware, (req: Request, res: Response): void
   }
 
   data.blogs = data.blogs.filter(b => b.id !== id);
-  db.save(data);
-
-  db.logActivity('DELETE_BLOG', `Deleted blog post "${blog.title}"`, (req as any).user.email);
+  await db.logActivity('DELETE_BLOG', `Deleted blog post "${blog.title}"`, (req as any).user.email);
 
   res.json({ success: true });
 });
 
-app.post('/api/blogs/:id/duplicate', authMiddleware, (req: Request, res: Response): void => {
+app.post('/api/blogs/:id/duplicate', authMiddleware, async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
   const data = db.get();
   const blog = data.blogs.find(b => b.id === id);
@@ -429,14 +423,12 @@ app.post('/api/blogs/:id/duplicate', authMiddleware, (req: Request, res: Respons
   };
 
   data.blogs.push(duplicated);
-  db.save(data);
-
-  db.logActivity('CREATE_BLOG', `Duplicated blog post "${blog.title}" to "${duplicated.title}"`, (req as any).user.email);
+  await db.logActivity('CREATE_BLOG', `Duplicated blog post "${blog.title}" to "${duplicated.title}"`, (req as any).user.email);
 
   res.status(201).json(duplicated);
 });
 
-app.post('/api/blogs/bulk', authMiddleware, (req: Request, res: Response): void => {
+app.post('/api/blogs/bulk', authMiddleware, async (req: Request, res: Response): Promise<void> => {
   const { ids, action } = req.body;
   if (!ids || !Array.isArray(ids) || !action) {
     res.status(400).json({ error: 'Invalid parameters' });
@@ -455,7 +447,7 @@ app.post('/api/blogs/bulk', authMiddleware, (req: Request, res: Response): void 
       }
       return true;
     });
-    db.logActivity('DELETE_BLOG', `Bulk deleted ${updatedCount} blog posts.`, (req as any).user.email);
+    await db.logActivity('DELETE_BLOG', `Bulk deleted ${updatedCount} blog posts.`, (req as any).user.email);
   } else if (action === 'publish') {
     data.blogs = data.blogs.map(b => {
       if (ids.includes(b.id) && b.status !== 'published') {
@@ -464,7 +456,7 @@ app.post('/api/blogs/bulk', authMiddleware, (req: Request, res: Response): void 
       }
       return b;
     });
-    db.logActivity('UPDATE_BLOG', `Bulk published ${updatedCount} blog posts.`, (req as any).user.email);
+    await db.logActivity('UPDATE_BLOG', `Bulk published ${updatedCount} blog posts.`, (req as any).user.email);
   } else if (action === 'unpublish') {
     data.blogs = data.blogs.map(b => {
       if (ids.includes(b.id) && b.status === 'published') {
@@ -473,10 +465,9 @@ app.post('/api/blogs/bulk', authMiddleware, (req: Request, res: Response): void 
       }
       return b;
     });
-    db.logActivity('UPDATE_BLOG', `Bulk unpublished ${updatedCount} blog posts.`, (req as any).user.email);
+    await db.logActivity('UPDATE_BLOG', `Bulk unpublished ${updatedCount} blog posts.`, (req as any).user.email);
   }
 
-  db.save(data);
   res.json({ success: true, count: updatedCount });
 });
 
@@ -487,7 +478,7 @@ app.get('/api/categories', (req: Request, res: Response): void => {
   res.json(data.categories);
 });
 
-app.post('/api/categories', authMiddleware, (req: Request, res: Response): void => {
+app.post('/api/categories', authMiddleware, async (req: Request, res: Response): Promise<void> => {
   const { name, slug, description } = req.body;
   if (!name || !slug) {
     res.status(400).json({ error: 'Name and slug are required' });
@@ -509,14 +500,12 @@ app.post('/api/categories', authMiddleware, (req: Request, res: Response): void 
   };
 
   data.categories.push(newCategory);
-  db.save(data);
-
-  db.logActivity('CREATE_CATEGORY', `Created category "${newCategory.name}"`, (req as any).user.email);
+  await db.logActivity('CREATE_CATEGORY', `Created category "${newCategory.name}"`, (req as any).user.email);
 
   res.status(201).json(newCategory);
 });
 
-app.put('/api/categories/:id', authMiddleware, (req: Request, res: Response): void => {
+app.put('/api/categories/:id', authMiddleware, async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
   const { name, slug, description } = req.body;
   const data = db.get();
@@ -542,14 +531,12 @@ app.put('/api/categories/:id', authMiddleware, (req: Request, res: Response): vo
   };
 
   data.categories[index] = updatedCategory;
-  db.save(data);
-
-  db.logActivity('UPDATE_CATEGORY', `Updated category "${updatedCategory.name}"`, (req as any).user.email);
+  await db.logActivity('UPDATE_CATEGORY', `Updated category "${updatedCategory.name}"`, (req as any).user.email);
 
   res.json(updatedCategory);
 });
 
-app.delete('/api/categories/:id', authMiddleware, (req: Request, res: Response): void => {
+app.delete('/api/categories/:id', authMiddleware, async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
   const data = db.get();
   const category = data.categories.find(c => c.id === id);
@@ -565,8 +552,7 @@ app.delete('/api/categories/:id', authMiddleware, (req: Request, res: Response):
     categories: b.categories.filter(cId => cId !== id)
   }));
 
-  db.save(data);
-  db.logActivity('DELETE_CATEGORY', `Deleted category "${category.name}" and references.`, (req as any).user.email);
+  await db.logActivity('DELETE_CATEGORY', `Deleted category "${category.name}" and references.`, (req as any).user.email);
 
   res.json({ success: true });
 });
@@ -578,7 +564,7 @@ app.get('/api/tags', (req: Request, res: Response): void => {
   res.json(data.tags);
 });
 
-app.post('/api/tags', authMiddleware, (req: Request, res: Response): void => {
+app.post('/api/tags', authMiddleware, async (req: Request, res: Response): Promise<void> => {
   const { name, slug } = req.body;
   if (!name || !slug) {
     res.status(400).json({ error: 'Name and slug are required' });
@@ -599,14 +585,12 @@ app.post('/api/tags', authMiddleware, (req: Request, res: Response): void => {
   };
 
   data.tags.push(newTag);
-  db.save(data);
-
-  db.logActivity('CREATE_TAG', `Created tag "${newTag.name}"`, (req as any).user.email);
+  await db.logActivity('CREATE_TAG', `Created tag "${newTag.name}"`, (req as any).user.email);
 
   res.status(201).json(newTag);
 });
 
-app.put('/api/tags/:id', authMiddleware, (req: Request, res: Response): void => {
+app.put('/api/tags/:id', authMiddleware, async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
   const { name, slug } = req.body;
   const data = db.get();
@@ -631,14 +615,12 @@ app.put('/api/tags/:id', authMiddleware, (req: Request, res: Response): void => 
   };
 
   data.tags[index] = updatedTag;
-  db.save(data);
-
-  db.logActivity('UPDATE_TAG', `Updated tag "${updatedTag.name}"`, (req as any).user.email);
+  await db.logActivity('UPDATE_TAG', `Updated tag "${updatedTag.name}"`, (req as any).user.email);
 
   res.json(updatedTag);
 });
 
-app.delete('/api/tags/:id', authMiddleware, (req: Request, res: Response): void => {
+app.delete('/api/tags/:id', authMiddleware, async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
   const data = db.get();
   const tag = data.tags.find(t => t.id === id);
@@ -654,15 +636,14 @@ app.delete('/api/tags/:id', authMiddleware, (req: Request, res: Response): void 
     tags: b.tags.filter(tId => tId !== id)
   }));
 
-  db.save(data);
-  db.logActivity('DELETE_TAG', `Deleted tag "${tag.name}" and references.`, (req as any).user.email);
+  await db.logActivity('DELETE_TAG', `Deleted tag "${tag.name}" and references.`, (req as any).user.email);
 
   res.json({ success: true });
 });
 
 // ================= INQUIRIES API =================
 
-app.post('/api/inquiries', (req: Request, res: Response): void => {
+app.post('/api/inquiries', async (req: Request, res: Response): Promise<void> => {
   const { name, phone, email, city, service, message } = req.body;
 
   if (!name || !phone || !city || !service) {
@@ -684,9 +665,7 @@ app.post('/api/inquiries', (req: Request, res: Response): void => {
   };
 
   data.inquiries.unshift(newInquiry);
-  db.save(data);
-
-  db.logActivity('CUSTOMER_INQUIRY', `Customer ${name} from ${city} submitted an inquiry for "${service}"`, 'visitor');
+  await db.logActivity('CUSTOMER_INQUIRY', `Customer ${name} from ${city} submitted an inquiry for "${service}"`, 'visitor');
 
   res.status(201).json(newInquiry);
 });
@@ -696,7 +675,7 @@ app.get('/api/inquiries', authMiddleware, (req: Request, res: Response): void =>
   res.json(data.inquiries);
 });
 
-app.put('/api/inquiries/:id', authMiddleware, (req: Request, res: Response): void => {
+app.put('/api/inquiries/:id', authMiddleware, async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
   const { status } = req.body;
 
@@ -719,14 +698,12 @@ app.put('/api/inquiries/:id', authMiddleware, (req: Request, res: Response): voi
   };
 
   data.inquiries[inquiryIndex] = updatedInquiry;
-  db.save(data);
-
-  db.logActivity('UPDATE_INQUIRY', `Marked inquiry of ${updatedInquiry.name} as ${status}`, (req as any).user.email);
+  await db.logActivity('UPDATE_INQUIRY', `Marked inquiry of ${updatedInquiry.name} as ${status}`, (req as any).user.email);
 
   res.json(updatedInquiry);
 });
 
-app.delete('/api/inquiries/:id', authMiddleware, (req: Request, res: Response): void => {
+app.delete('/api/inquiries/:id', authMiddleware, async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
   const data = db.get();
   const inquiry = data.inquiries.find(i => i.id === id);
@@ -737,9 +714,7 @@ app.delete('/api/inquiries/:id', authMiddleware, (req: Request, res: Response): 
   }
 
   data.inquiries = data.inquiries.filter(i => i.id !== id);
-  db.save(data);
-
-  db.logActivity('DELETE_INQUIRY', `Deleted inquiry of ${inquiry.name}.`, (req as any).user.email);
+  await db.logActivity('DELETE_INQUIRY', `Deleted inquiry of ${inquiry.name}.`, (req as any).user.email);
 
   res.json({ success: true });
 });
@@ -866,9 +841,7 @@ app.post('/api/gallery', authMiddleware, async (req: Request, res: Response): Pr
 
   data.gallery = data.gallery || [];
   data.gallery.push(newImage);
-  db.save(data);
-
-  db.logActivity('CREATE_GALLERY', `Added gallery image under "${category}"`, (req as any).user.email);
+  await db.logActivity('CREATE_GALLERY', `Added gallery image under "${category}"`, (req as any).user.email);
 
   res.status(201).json(newImage);
 });
@@ -897,9 +870,7 @@ app.delete('/api/gallery/:id', authMiddleware, async (req: Request, res: Respons
   }
 
   data.gallery = (data.gallery || []).filter(img => img.id !== id);
-  db.save(data);
-
-  db.logActivity('DELETE_GALLERY', `Deleted gallery image${image.caption ? ` "${image.caption}"` : ''}`, (req as any).user.email);
+  await db.logActivity('DELETE_GALLERY', `Deleted gallery image${image.caption ? ` "${image.caption}"` : ''}`, (req as any).user.email);
 
   res.json({ success: true });
 });
