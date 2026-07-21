@@ -317,7 +317,7 @@ export default function BlogPage({ onOpenQuoteModal, initialSlug, onSlugChange }
               <p className="text-xs md:text-sm text-slate-300 max-w-xl mx-auto leading-relaxed">Book a same-day site measurement with our local Tamil Nadu crew. Free catalogs, net weight tests, and instant estimates.</p>
               <div className="flex justify-center gap-3">
                 <a 
-                  href="tel:+919840245678" 
+                  href="tel:+919043717064" 
                   className="group relative overflow-hidden bg-accent hover:bg-accent-light text-white font-bold text-xs px-5 py-3 rounded-xl transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95 flex items-center gap-1.5"
                 >
                   <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 ease-out pointer-events-none" />

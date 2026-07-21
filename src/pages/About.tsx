@@ -228,7 +228,7 @@ export default function About({ onOpenQuoteModal }: AboutProps) {
           </p>
           <div className="flex justify-center gap-4">
             <a 
-              href="tel:+919840245678" 
+              href="tel:+919043717064" 
               className="group relative overflow-hidden bg-accent hover:bg-accent-light text-white font-bold text-sm px-6 py-3.5 rounded-xl transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] active:scale-95 shadow-lg hover:shadow-accent/40"
             >
               <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 ease-out pointer-events-none" />

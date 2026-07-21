@@ -116,14 +116,14 @@ export default function Footer({ onChangePage }: FooterProps) {
               </div>
               <div className="flex items-center gap-2.5">
                 <Phone className="h-4 w-4 text-accent flex-shrink-0" />
-                <a href="tel:+919840245678" className="hover:text-accent transition-colors">
-                  +91 98402 45678
+                <a href="tel:+919043717064" className="hover:text-accent transition-colors">
+                  +91 90437 17064
                 </a>
               </div>
               <div className="flex items-center gap-2.5">
                 <Mail className="h-4 w-4 text-accent flex-shrink-0" />
-                <a href="mailto:info@starsafetyenterprises.com" className="hover:text-accent transition-colors">
-                  info@starsafetyenterprises.com
+                <a href="mailto:info@starbalconysafetynetschennai.com" className="hover:text-accent transition-colors">
+                  info@starbalconysafetynetschennai.com
                 </a>
               </div>
               <div className="flex items-center gap-2.5">

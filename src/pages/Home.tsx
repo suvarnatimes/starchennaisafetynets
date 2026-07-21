@@ -634,17 +634,17 @@ export default function Home({ onChangePage, onOpenQuoteModal }: HomeProps) {
 
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
               <a 
-                href="tel:+919840245678"
+                href="tel:+919043717064"
                 className="group relative overflow-hidden flex items-center gap-2 bg-accent hover:bg-accent-light text-white font-bold text-base px-6 py-3.5 rounded-xl shadow-xl shadow-accent/20 hover:shadow-accent/40 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] active:scale-95"
               >
                 {/* Premium Shimmer element */}
                 <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 ease-out pointer-events-none" />
                 
                 <Phone className="h-5 w-5 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300 relative z-10" />
-                <span className="relative z-10">Call Now (+91 98402 45678)</span>
+                <span className="relative z-10">Call Now (+91 90437 17064)</span>
               </a>
               <a 
-                href="https://wa.me/919840245678?text=Hi%20Star%20Safety,%20I'm%20looking%20for%20safety%20net%20installation%20services.%20Please%20share%20quotation."
+                href="https://wa.me/919043717064?text=Hi%20Star%20Safety,%20I'm%20looking%20for%20safety%20net%20installation%20services.%20Please%20share%20quotation."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative overflow-hidden flex items-center gap-2 bg-[#25D366] hover:bg-[#20ba56] text-white font-bold text-base px-6 py-3.5 rounded-xl shadow-xl shadow-green-500/10 hover:shadow-green-500/30 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] active:scale-95"
@@ -852,7 +852,7 @@ export default function Home({ onChangePage, onOpenQuoteModal }: HomeProps) {
                     type="tel" 
                     name="custPhone" 
                     required 
-                    placeholder="e.g., 9840245678" 
+                    placeholder="e.g., 9043717064" 
                     className="w-full bg-slate-50 border border-slate-200/80 rounded-xl px-4 py-3 text-xs text-primary placeholder-slate-400 focus:outline-none focus:border-accent font-mono"
                   />
                 </div>
@@ -1059,15 +1059,15 @@ export default function Home({ onChangePage, onOpenQuoteModal }: HomeProps) {
 
           <div className="flex flex-wrap justify-center gap-4 pt-4">
             <a 
-              href="tel:+919840245678"
+              href="tel:+919043717064"
               className="group relative overflow-hidden flex items-center gap-2 bg-accent hover:bg-accent-light text-white font-bold px-6 py-3.5 rounded-xl shadow-lg hover:shadow-accent/40 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] active:scale-95"
             >
               <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 ease-out pointer-events-none" />
               <Phone className="h-4.5 w-4.5 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300 relative z-10" />
-              <span className="relative z-10">Call Now (+91 98402 45678)</span>
+              <span className="relative z-10">Call Now (+91 90437 17064)</span>
             </a>
             <a 
-              href="https://wa.me/919840245678?text=Hello%20Star%20Safety,%20I'm%20looking%20for%20safety%20net%20installation%20services.%20Please%20share%20quotation."
+              href="https://wa.me/919043717064?text=Hello%20Star%20Safety,%20I'm%20looking%20for%20safety%20net%20installation%20services.%20Please%20share%20quotation."
               target="_blank"
               rel="noopener noreferrer"
               className="group relative overflow-hidden flex items-center gap-2 bg-[#25D366] hover:bg-[#20ba56] text-white font-bold px-6 py-3.5 rounded-xl shadow-lg hover:shadow-green-500/30 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] active:scale-95"

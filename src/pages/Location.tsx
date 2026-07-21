@@ -161,10 +161,10 @@ export default function LocationPage({ city, onOpenQuoteModal }: LocationPagePro
               Book Free Site Visit <ArrowRight className="h-4 w-4" />
             </button>
             <a 
-              href="tel:+919840245678"
+              href="tel:+919043717064"
               className="bg-white/10 hover:bg-white/20 text-white font-bold text-xs px-6 py-3.5 rounded-xl transition-all flex items-center gap-1.5 border border-white/10"
             >
-              <Phone className="h-4 w-4" /> Call: +91 98402 45678
+              <Phone className="h-4 w-4" /> Call: +91 90437 17064
             </a>
           </div>
         </div>
@@ -316,7 +316,7 @@ export default function LocationPage({ city, onOpenQuoteModal }: LocationPagePro
               Schedule Free Visit
             </button>
             <a 
-              href="https://wa.me/919840245678"
+              href="https://wa.me/919043717064"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center gap-1.5"

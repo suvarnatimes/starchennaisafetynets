@@ -1,8 +1,8 @@
 import { Phone, MessageCircle, Image } from 'lucide-react';
 
 export default function FloatingButtons() {
-  const phoneNumber = '+919840245678';
-  const whatsappNumber = '919840245678';
+  const phoneNumber = '+919043717064';
+  const whatsappNumber = '919043717064';
   const whatsappMessage = encodeURIComponent("Hello Star Safety Enterprises, I'm interested in your safety net installation services. Please share details.");
 
   return (

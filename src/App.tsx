@@ -173,8 +173,8 @@ export default function App() {
         "@type": "LocalBusiness",
         "name": "Star Safety Enterprises",
         "image": "https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938508/starchennaisafetynets/chennai_hero_backdrop.jpg",
-        "telephone": "+919840245678",
-        "email": "info@starsafetyenterprises.com",
+        "telephone": "+919043717064",
+        "email": "info@starbalconysafetynetschennai.com",
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "24/18, Nehru Street, Adyar",
@@ -499,7 +499,7 @@ export default function App() {
                     required
                     value={loginEmail}
                     onChange={(e) => setLoginEmail(e.target.value)}
-                    placeholder="admin@starsafetyenterprises.com"
+                    placeholder="admin@starbalconysafetynetschennai.com"
                     className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-accent"
                   />
                 </div>
@@ -652,7 +652,7 @@ export default function App() {
                         required
                         value={quotePhone}
                         onChange={(e) => setQuotePhone(e.target.value)}
-                        placeholder="e.g., 9840245678"
+                        placeholder="e.g., 9043717064"
                         className="w-full bg-slate-50 border border-slate-200/80 rounded-xl px-3 py-2.5 text-xs text-primary focus:outline-none focus:border-accent font-mono"
                       />
                     </div>

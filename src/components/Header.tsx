@@ -79,7 +79,7 @@ export default function Header({ activePage, onChangePage }: HeaderProps) {
           {/* Desktop CTA Button */}
           <div className="hidden lg:flex items-center">
             <a
-              href="tel:+919840245678"
+              href="tel:+919043717064"
               className="group relative overflow-hidden flex items-center gap-2 bg-accent hover:bg-accent-light text-white font-semibold text-sm px-5 py-2.5 rounded-xl shadow-lg shadow-accent/15 transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95"
             >
               <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 ease-out pointer-events-none" />
@@ -120,12 +120,12 @@ export default function Header({ activePage, onChangePage }: HeaderProps) {
             ))}
             <div className="pt-4 px-4">
               <a
-                href="tel:+919840245678"
+                href="tel:+919043717064"
                 className="group relative overflow-hidden flex items-center justify-center gap-2 w-full bg-accent hover:bg-accent-light text-white font-semibold py-3 rounded-xl shadow-lg transition-all duration-300 hover:scale-[1.01] active:scale-95"
               >
                 <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 ease-out pointer-events-none" />
                 <Phone className="h-4 w-4 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300 relative z-10" />
-                <span className="relative z-10">Call Now (+91 98402 45678)</span>
+                <span className="relative z-10">Call Now (+91 90437 17064)</span>
               </a>
             </div>
           </div>

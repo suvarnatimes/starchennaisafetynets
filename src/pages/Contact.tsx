@@ -61,20 +61,20 @@ export default function Contact() {
     {
       icon: Phone,
       title: 'Telephone Hotline',
-      desc: '+91 98402 45678',
-      link: 'tel:+919840245678'
+      desc: '+91 90437 17064',
+      link: 'tel:+919043717064'
     },
     {
       icon: MessageSquare,
       title: 'WhatsApp Enquiries',
-      desc: '+91 98402 45678',
-      link: 'https://wa.me/919840245678'
+      desc: '+91 90437 17064',
+      link: 'https://wa.me/919043717064'
     },
     {
       icon: Mail,
       title: 'Email Address',
-      desc: 'info@starsafetyenterprises.com',
-      link: 'mailto:info@starsafetyenterprises.com'
+      desc: 'info@starbalconysafetynetschennai.com',
+      link: 'mailto:info@starbalconysafetynetschennai.com'
     },
     {
       icon: Clock,
@@ -196,7 +196,7 @@ export default function Contact() {
                         required
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        placeholder="e.g., +91 9840245678"
+                        placeholder="e.g., +91 9043717064"
                         className="w-full bg-white border border-slate-200/80 rounded-xl px-4 py-2.5 text-xs text-primary focus:outline-none focus:border-accent font-mono"
                       />
                     </div>
