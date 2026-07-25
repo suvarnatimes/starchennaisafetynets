@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://starchennaisafetynets.vercel.app/sitemap.xml
+Sitemap: https://starbalconysafetynetschennai.com/sitemap.xml
+Sitemap: https://starbalconysafetynetschennai.com/sitemap-index.xml

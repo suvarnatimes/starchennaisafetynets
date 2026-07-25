@@ -875,52 +875,50 @@ app.delete('/api/gallery/:id', authMiddleware, async (req: Request, res: Respons
   res.json({ success: true });
 });
 
-// ================= DYNAMIC SITEMAP.XML API =================
+// ================= SEO SITEMAP ROUTES =================
+
+function getBaseUrl(req: Request): string {
+  const host = req.get('x-forwarded-host') || req.get('host') || 'starbalconysafetynetschennai.com';
+  const protocol = req.get('x-forwarded-proto') || 'https';
+  return `${protocol}://${host}`;
+}
 
 app.get('/sitemap.xml', (req: Request, res: Response): void => {
   const data = db.get();
-  const baseUrl = 'https://starchennaisafetynets.vercel.app';
+  const baseUrl = getBaseUrl(req);
   const today = new Date().toISOString().split('T')[0];
 
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
   xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
 
-  // 1. Static Routes
   const staticRoutes = [
-    { path: '', changefreq: 'daily', priority: '1.0' },
-    { path: '#/about', changefreq: 'monthly', priority: '0.8' },
-    { path: '#/services', changefreq: 'weekly', priority: '0.9' },
-    { path: '#/gallery', changefreq: 'weekly', priority: '0.7' },
-    { path: '#/blog', changefreq: 'daily', priority: '0.8' },
-    { path: '#/contact', changefreq: 'monthly', priority: '0.8' }
+    { path: '/', changefreq: 'daily', priority: '1.0' },
+    { path: '/about', changefreq: 'monthly', priority: '0.8' },
+    { path: '/services', changefreq: 'weekly', priority: '0.9' },
+    { path: '/gallery', changefreq: 'weekly', priority: '0.7' },
+    { path: '/blog', changefreq: 'daily', priority: '0.8' },
+    { path: '/contact', changefreq: 'monthly', priority: '0.8' },
+    { path: '/sitemap', changefreq: 'weekly', priority: '0.6' },
+    { path: '/safety-nets-trichy', changefreq: 'weekly', priority: '0.8' },
+    { path: '/safety-nets-pondicherry', changefreq: 'weekly', priority: '0.8' },
+    { path: '/safety-nets-chengalpattu', changefreq: 'weekly', priority: '0.8' },
+    { path: '/safety-nets-tambaram', changefreq: 'weekly', priority: '0.8' }
   ];
 
   staticRoutes.forEach(r => {
     xml += `  <url>\n`;
-    xml += `    <loc>${baseUrl}/${r.path}</loc>\n`;
+    xml += `    <loc>${baseUrl}${r.path}</loc>\n`;
     xml += `    <lastmod>${today}</lastmod>\n`;
     xml += `    <changefreq>${r.changefreq}</changefreq>\n`;
     xml += `    <priority>${r.priority}</priority>\n`;
     xml += `  </url>\n`;
   });
 
-  // 2. Localized Landing Pages
-  const cities = ['trichy', 'pondicherry', 'chengalpattu', 'tambaram'];
-  cities.forEach(city => {
-    xml += `  <url>\n`;
-    xml += `    <loc>${baseUrl}/#/safety-nets-${city}</loc>\n`;
-    xml += `    <lastmod>${today}</lastmod>\n`;
-    xml += `    <changefreq>weekly</changefreq>\n`;
-    xml += `    <priority>0.8</priority>\n`;
-    xml += `  </url>\n`;
-  });
-
-  // 3. Dynamic Blog Articles
   const publishedBlogs = data.blogs.filter(b => b.status === 'published');
   publishedBlogs.forEach(blog => {
     const lastmod = blog.publishDate ? blog.publishDate.split('T')[0] : today;
     xml += `  <url>\n`;
-    xml += `    <loc>${baseUrl}/#/blog/${blog.slug}</loc>\n`;
+    xml += `    <loc>${baseUrl}/blog/${blog.slug}</loc>\n`;
     xml += `    <lastmod>${lastmod}</lastmod>\n`;
     xml += `    <changefreq>monthly</changefreq>\n`;
     xml += `    <priority>0.7</priority>\n`;
@@ -928,6 +926,22 @@ app.get('/sitemap.xml', (req: Request, res: Response): void => {
   });
 
   xml += `</urlset>`;
+
+  res.header('Content-Type', 'application/xml');
+  res.status(200).send(xml);
+});
+
+app.get('/sitemap-index.xml', (req: Request, res: Response): void => {
+  const baseUrl = getBaseUrl(req);
+  const today = new Date().toISOString().split('T')[0];
+
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+  xml += `<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+  xml += `  <sitemap>\n`;
+  xml += `    <loc>${baseUrl}/sitemap.xml</loc>\n`;
+  xml += `    <lastmod>${today}</lastmod>\n`;
+  xml += `  </sitemap>\n`;
+  xml += `</sitemapindex>\n`;
 
   res.header('Content-Type', 'application/xml');
   res.status(200).send(xml);

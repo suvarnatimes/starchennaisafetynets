@@ -9,6 +9,7 @@ import Contact from './pages/Contact.js';
 import BlogPage from './pages/Blog.js';
 import GalleryPage from './pages/Gallery.js';
 import LocationPage from './pages/Location.js';
+import SitemapPage from './pages/SitemapPage.js';
 import AdminLayout from './components/AdminLayout.js';
 import { 
   ShieldCheck, Lock, Eye, EyeOff, X, Send, CheckCircle, 
@@ -65,7 +66,7 @@ export default function App() {
         setBlogSlug(null);
         // Match home, about, services, blog, contact
         const page = hash.replace('#/', '');
-        if (['home', 'about', 'services', 'blog', 'contact', 'gallery'].includes(page)) {
+        if (['home', 'about', 'services', 'blog', 'contact', 'gallery', 'sitemap'].includes(page)) {
           setActivePage(page);
         } else if (page.startsWith('safety-nets-')) {
           setActivePage(page);
@@ -106,6 +107,9 @@ export default function App() {
     } else if (activePage === 'contact') {
       title = 'Contact Us for Free Site Inspection & Quote | Star Safety';
       desc = 'Get in touch for same-day safety net measurements and quotation in Chennai, Coimbatore, Madurai, Trichy, and Hosur. Open 24/7.';
+    } else if (activePage === 'sitemap') {
+      title = 'Sitemap | Star Safety Enterprises';
+      desc = 'Browse the complete sitemap of Star Safety Enterprises including service pages and published blog articles.';
     } else if (activePage === 'blog') {
       title = 'Expert Safety Net Blog | Material Standards & Pigeon Prevention';
       desc = 'In-depth articles about safety standards (IS-11057), material comparisons (HDPE vs Nylon), bird repelling techniques, and professional advice.';
@@ -172,7 +176,11 @@ export default function App() {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         "name": "Star Safety Enterprises",
+        "alternateName": ["Star Safety Nets", "Star Balcony Safety Nets Chennai"],
+        "legalName": "Star Safety Enterprises",
+        "description": "Premium balcony, pigeon, child, construction, and industrial safety net installation services across Tamil Nadu.",
         "image": "https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938508/starchennaisafetynets/chennai_hero_backdrop.jpg",
+        "logo": "https://starchennaisafetynets.vercel.app/icon1.png",
         "telephone": "+919043717064",
         "email": "info@starbalconysafetynetschennai.com",
         "address": {
@@ -189,6 +197,7 @@ export default function App() {
           "longitude": "80.2574"
         },
         "url": "https://starchennaisafetynets.vercel.app/",
+        "areaServed": ["Chennai", "Coimbatore", "Madurai", "Trichy", "Puducherry", "Chengalpattu", "Tambaram", "Tamil Nadu"],
         "openingHoursSpecification": {
           "@type": "OpeningHoursSpecification",
           "dayOfWeek": [
@@ -585,6 +594,9 @@ export default function App() {
             )}
             {activePage === 'gallery' && (
               <GalleryPage onOpenQuoteModal={openQuoteModal} />
+            )}
+            {activePage === 'sitemap' && (
+              <SitemapPage />
             )}
             {activePage.startsWith('safety-nets-') && (
               <LocationPage city={activePage.replace('safety-nets-', '')} onOpenQuoteModal={openQuoteModal} />
