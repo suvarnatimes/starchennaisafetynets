@@ -50,7 +50,7 @@ export default function About({ onOpenQuoteModal }: AboutProps) {
         <div className="absolute inset-0 z-0">
           <img 
             src="https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938508/starchennaisafetynets/chennai_hero_backdrop.jpg" 
-            alt="About Star Safety" 
+            alt="About Star Safety Enterprises and local safety net installation services in Tamil Nadu" 
             referrerPolicy="no-referrer"
             className="w-full h-full object-cover opacity-15 select-none"
           />
@@ -61,8 +61,14 @@ export default function About({ onOpenQuoteModal }: AboutProps) {
           <span className="text-xs font-mono font-bold text-accent uppercase tracking-widest block">Learn Our Story</span>
           <h1 className="text-3xl sm:text-5xl font-display font-black tracking-tight leading-tight">About Star Safety Enterprises</h1>
           <p className="text-base sm:text-lg text-slate-300 max-w-3xl mx-auto font-sans leading-relaxed">
-            The pioneer of high-tensile co-polymer and monofilament safety net installation across Tamil Nadu. Combining expert industrial rope climbing with premium materials.
+            We are a Tamil Nadu-based safety net installation company helping families and builders secure balconies, terraces, children’s spaces, and construction sites with durable, certified solutions.
           </p>
+          <div className="rounded-2xl border border-white/15 bg-white/10 p-4 text-left max-w-2xl mx-auto">
+            <p className="text-[11px] font-mono font-bold uppercase tracking-[0.25em] text-accent">Quick answer</p>
+            <p className="mt-2 text-sm text-slate-200 leading-relaxed">
+              Star Safety Enterprises provides balcony safety nets, pigeon protection, invisible grills, child safety nets, and construction safety nets across Chennai, Coimbatore, Madurai, Trichy, Salem, Hosur, and nearby Tamil Nadu cities.
+            </p>
+          </div>
         </div>
       </section>
 

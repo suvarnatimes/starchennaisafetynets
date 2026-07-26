@@ -91,6 +91,32 @@ export default function Contact() {
         <div className="absolute inset-0 z-0">
           <img 
             src="https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938508/starchennaisafetynets/chennai_hero_backdrop.jpg" 
+            alt="Contact Star Safety Enterprises for a free safety net inspection in Chennai" 
+            referrerPolicy="no-referrer"
+            className="w-full h-full object-cover opacity-15 select-none"
+          />
+          <div className="absolute inset-0 bg-primary/95" />
+        </div>
+
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+          <span className="text-xs font-mono font-bold text-accent uppercase tracking-widest block">Get Connected</span>
+          <h1 className="text-3xl sm:text-5xl font-display font-black tracking-tight leading-tight">Contact Star Safety Enterprises</h1>
+          <p className="text-base sm:text-lg text-slate-300 max-w-3xl mx-auto font-sans leading-relaxed">
+            Reach out for same-day professional site inspections, transparent quotations, and custom balcony safety net and invisible grill solutions across Tamil Nadu.
+          </p>
+          <div className="rounded-2xl border border-white/15 bg-white/10 p-4 text-left max-w-2xl mx-auto">
+            <p className="text-[11px] font-mono font-bold uppercase tracking-[0.25em] text-accent">Quick answer</p>
+            <p className="mt-2 text-sm text-slate-200 leading-relaxed">
+              Share your city, balcony size, and the safety issue you want solved. We will reply with a practical quote, installation guidance, and a free measurement suggestion.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative py-24 bg-primary text-white overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938508/starchennaisafetynets/chennai_hero_backdrop.jpg" 
             alt="Contact Star Safety" 
             referrerPolicy="no-referrer"
             className="w-full h-full object-cover opacity-15 select-none"

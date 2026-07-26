@@ -277,6 +277,32 @@ export default function Services({ onOpenQuoteModal, initialService }: ServicesP
         <div className="absolute inset-0 z-0">
           <img 
             src="https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938508/starchennaisafetynets/chennai_hero_backdrop.jpg" 
+            alt="Safety net installation services in Chennai and Tamil Nadu" 
+            referrerPolicy="no-referrer"
+            className="w-full h-full object-cover opacity-15 select-none"
+          />
+          <div className="absolute inset-0 bg-primary/95" />
+        </div>
+
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+          <span className="text-xs font-mono font-bold text-accent uppercase tracking-widest block">Explore Our Offerings</span>
+          <h1 className="text-3xl sm:text-5xl font-display font-black tracking-tight leading-tight">Safety Net Installation Services in Chennai and Tamil Nadu</h1>
+          <p className="text-base sm:text-lg text-slate-300 max-w-3xl mx-auto font-sans leading-relaxed">
+            Discover durable balcony safety nets, pigeon protection, invisible grills, monkey barriers, child safety mesh, and construction safety nets designed for apartment balconies, terraces, villas, schools, and industrial projects.
+          </p>
+          <div className="rounded-2xl border border-white/15 bg-white/10 p-4 text-left max-w-2xl mx-auto">
+            <p className="text-[11px] font-mono font-bold uppercase tracking-[0.25em] text-accent">Quick answer</p>
+            <p className="mt-2 text-sm text-slate-200 leading-relaxed">
+              The best safety net for your balcony depends on the problem you need to solve. Choose bird or pigeon netting for hygiene, invisible grills for child safety without blocking views, and heavy-duty construction nets for builder and industrial safety.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative py-24 bg-primary text-white overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938508/starchennaisafetynets/chennai_hero_backdrop.jpg" 
             alt="Star Safety Services" 
             referrerPolicy="no-referrer"
             className="w-full h-full object-cover opacity-15 select-none"

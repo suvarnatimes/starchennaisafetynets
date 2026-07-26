@@ -629,8 +629,15 @@ export default function Home({ onChangePage, onOpenQuoteModal }: HomeProps) {
             </h1>
 
             <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-sans">
-              Secure your home with Chennai's trusted safety net dealers. We install premium, UV-resistant balcony safety nets, pigeon safety nets, and rust-proof invisible grills with same-day measurement and a written warranty.
+              Secure your home with Chennai's trusted safety net dealers. We install premium, UV-resistant balcony safety nets, pigeon safety nets, and rust-proof invisible grills with same-day measurement and a written warranty for homes, apartments, builders, and commercial sites across Tamil Nadu.
             </p>
+
+            <div className="rounded-2xl border border-white/15 bg-white/10 p-4 text-left max-w-xl">
+              <p className="text-[11px] font-mono font-bold uppercase tracking-[0.25em] text-accent">Quick answer</p>
+              <p className="mt-2 text-sm text-slate-200 leading-relaxed">
+                If you need a balcony safety net in Chennai, pigeon netting for apartments, or invisible grills that preserve your view, we provide free site inspection, custom sizing, and professional installation with stainless steel anchors.
+              </p>
+            </div>
 
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
               <a 
@@ -696,6 +703,29 @@ export default function Home({ onChangePage, onOpenQuoteModal }: HomeProps) {
       </section>
 
       {/* 3. SERVICES SECTION */}
+      <section className="py-12 bg-white border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] items-start">
+            <div className="space-y-4">
+              <span className="text-xs font-mono font-bold text-accent uppercase tracking-widest block">Why homeowners choose us</span>
+              <h2 className="text-3xl sm:text-4xl font-display font-black text-primary leading-tight">Balcony Safety Nets, Pigeon Protection, and Invisible Grills for Tamil Nadu Homes</h2>
+              <p className="text-sm text-slate-500 leading-relaxed">
+                Our team responds to direct questions like “What is the best balcony safety net in Chennai?” and “Do invisible grills block the view?” with practical advice, precise measurements, and durable installation using UV-stabilized mesh and marine-grade stainless steel hardware.
+              </p>
+            </div>
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 space-y-4">
+              <h3 className="font-display font-black text-xl text-primary">Fast answers for common searches</h3>
+              <ul className="space-y-3 text-sm text-slate-600">
+                <li className="flex gap-2"><span className="text-accent">•</span><span>Balcony safety net price per square feet in Chennai</span></li>
+                <li className="flex gap-2"><span className="text-accent">•</span><span>Best pigeon safety net for apartment balconies</span></li>
+                <li className="flex gap-2"><span className="text-accent">•</span><span>Invisible grills Chennai without blocking the view</span></li>
+                <li className="flex gap-2"><span className="text-accent">•</span><span>Child safety net installation with warranty</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="py-12 bg-slate-50/50 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
