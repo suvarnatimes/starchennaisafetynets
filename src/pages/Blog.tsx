@@ -216,10 +216,10 @@ export default function BlogPage({ onOpenQuoteModal, initialSlug, onSlugChange }
             </div>
             <div className="flex gap-3 shrink-0">
               <a
-                href="tel:+919840968538"
+                href="tel:+919043717064"
                 className="bg-slate-950 text-white hover:bg-slate-900 font-bold px-6 py-3 rounded-xl text-sm flex items-center gap-2"
               >
-                <Phone className="w-4 h-4" /> Call +91 98409 68538
+                <Phone className="w-4 h-4" /> Call +91 90437 17064
               </a>
             </div>
           </div>

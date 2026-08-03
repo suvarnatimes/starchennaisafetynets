@@ -35,7 +35,7 @@ export default function ServiceDetailPage({ slug, onOpenQuoteModal }: ServiceDet
     "provider": {
       "@type": "LocalBusiness",
       "name": "Star Safety Enterprises",
-      "telephone": "+91 98409 68538",
+      "telephone": "+91 90437 17064",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "No 14/22, Flat F2, 1st Floor, Bharathiar Street",
@@ -112,7 +112,7 @@ export default function ServiceDetailPage({ slug, onOpenQuoteModal }: ServiceDet
                   <Phone className="w-5 h-5" /> Get Free Quote Now
                 </button>
                 <a
-                  href="https://wa.me/919840968538?text=Hi%20Star%20Safety%20Enterprises,%20I%20need%20a%20quote%20for%20safety%20nets."
+                  href="https://wa.me/919043717064?text=Hi%20Star%20Safety%20Enterprises,%20I%20need%20a%20quote%20for%20safety%20nets."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3.5 rounded-xl shadow-lg transition-all text-center flex items-center justify-center gap-2"
@@ -149,7 +149,7 @@ export default function ServiceDetailPage({ slug, onOpenQuoteModal }: ServiceDet
             <div>
               <h2 className="text-base font-bold text-amber-950 mb-1">Quick Answer Summary</h2>
               <p className="text-slate-800 text-sm sm:text-base leading-relaxed">
-                <strong>What is {service.title} in Chennai?</strong> {service.introSummary} Star Safety Enterprises delivers certified installations using UV-stabilized Garware-grade materials backed by a {service.warranty} across all Chennai localities. Call <strong>+91 98409 68538</strong> for a free site inspection.
+                <strong>What is {service.title} in Chennai?</strong> {service.introSummary} Star Safety Enterprises delivers certified installations using UV-stabilized Garware-grade materials backed by a {service.warranty} across all Chennai localities. Call <strong>+91 90437 17064</strong> for a free site inspection.
               </p>
             </div>
           </div>
@@ -310,7 +310,7 @@ export default function ServiceDetailPage({ slug, onOpenQuoteModal }: ServiceDet
               
               <div className="space-y-3 text-xs text-slate-200 mb-6">
                 <p><strong>Address:</strong> No 14/22, Flat F2, 1st Floor, Bharathiar Street, West Mambalam, Chennai, TN 600033</p>
-                <p><strong>Phone:</strong> +91 98409 68538 / +91 98409 68539</p>
+                <p><strong>Phone:</strong> +91 90437 17064</p>
                 <p><strong>Hours:</strong> Mon - Sun: 8:00 AM - 9:00 PM</p>
               </div>
 

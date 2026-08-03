@@ -176,11 +176,11 @@ export default function Header({ activePage, onChangePage }: HeaderProps) {
           {/* Desktop CTA Button */}
           <div className="hidden lg:flex items-center">
             <a
-              href="tel:+919840968538"
+              href="tel:+919043717064"
               className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-sm px-5 py-2.5 rounded-xl shadow-lg transition-all"
             >
               <Phone className="h-4 w-4" />
-              <span>+91 98409 68538</span>
+              <span>+91 90437 17064</span>
             </a>
           </div>
 
@@ -269,11 +269,11 @@ export default function Header({ activePage, onChangePage }: HeaderProps) {
 
             <div className="pt-4">
               <a
-                href="tel:+919840968538"
+                href="tel:+919043717064"
                 className="flex items-center justify-center gap-2 w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-xl shadow-lg"
               >
                 <Phone className="h-4 w-4" />
-                <span>Call Now (+91 98409 68538)</span>
+                <span>Call Now (+91 90437 17064)</span>
               </a>
             </div>
           </div>

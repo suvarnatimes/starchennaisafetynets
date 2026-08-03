@@ -31,7 +31,7 @@ export default function LocalityDetailPage({ slug, onOpenQuoteModal }: LocalityD
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": `Star Safety Enterprises - ${locality.name} Branch`,
-    "telephone": "+91 98409 68538",
+    "telephone": "+91 90437 17064",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "No 14/22, Flat F2, 1st Floor, Bharathiar Street",
@@ -109,7 +109,7 @@ export default function LocalityDetailPage({ slug, onOpenQuoteModal }: LocalityD
                   <Phone className="w-5 h-5" /> Book Free On-Site Inspection
                 </button>
                 <a
-                  href={`https://wa.me/919840968538?text=Hi%20Star%20Safety%20Enterprises,%20I%20need%20a%20quote%20for%20balcony%20safety%20nets%20in%20${encodeURIComponent(locality.name)}.`}
+                  href={`https://wa.me/919043717064?text=Hi%20Star%20Safety%20Enterprises,%20I%20need%20a%20quote%20for%20balcony%20safety%20nets%20in%20${encodeURIComponent(locality.name)}.`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3.5 rounded-xl shadow-lg transition-all text-center flex items-center justify-center gap-2"
@@ -146,7 +146,7 @@ export default function LocalityDetailPage({ slug, onOpenQuoteModal }: LocalityD
             <div>
               <h2 className="text-base font-bold text-amber-950 mb-1">Local Service Answer</h2>
               <p className="text-slate-800 text-sm sm:text-base leading-relaxed">
-                Looking for <strong>balcony safety nets in {locality.name}, Chennai</strong>? Star Safety Enterprises provides certified balcony safety netting, pigeon protection, and invisible grills near <strong>{locality.landmarks.slice(0, 3).join(', ')}</strong> with a <strong>{locality.responseTimeClaim}</strong>. All installations use Garware UV-stabilized mesh backed by a 7-year warranty. Call <strong>+91 98409 68538</strong> for a free measurement visit today.
+                Looking for <strong>balcony safety nets in {locality.name}, Chennai</strong>? Star Safety Enterprises provides certified balcony safety netting, pigeon protection, and invisible grills near <strong>{locality.landmarks.slice(0, 3).join(', ')}</strong> with a <strong>{locality.responseTimeClaim}</strong>. All installations use Garware UV-stabilized mesh backed by a 7-year warranty. Call <strong>+91 90437 17064</strong> for a free measurement visit today.
               </p>
             </div>
           </div>
@@ -259,7 +259,7 @@ export default function LocalityDetailPage({ slug, onOpenQuoteModal }: LocalityD
               
               <div className="space-y-3 text-xs text-slate-200 mb-6">
                 <p><strong>Address:</strong> No 14/22, Flat F2, 1st Floor, Bharathiar Street, West Mambalam, Chennai, TN 600033</p>
-                <p><strong>Phone:</strong> +91 98409 68538 / +91 98409 68539</p>
+                <p><strong>Phone:</strong> +91 90437 17064</p>
                 <p><strong>Hours:</strong> Mon - Sun: 8:00 AM - 9:00 PM</p>
               </div>
 

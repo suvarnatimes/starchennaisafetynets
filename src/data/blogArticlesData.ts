@@ -32,7 +32,7 @@ export const blogArticlesData: Record<string, BlogArticleData> = {
     title: 'Invisible Grill vs Safety Net in Chennai: Which is Better?',
     h1: 'Invisible Grill vs Safety Net in Chennai: Comprehensive Comparison',
     metaTitle: 'Invisible Grill vs Safety Net Chennai | Star Net',
-    metaDescription: 'Compare cost, view, child safety & pigeon control: Invisible Grill vs Safety Net in Chennai. Call +91 98409 68538.',
+    metaDescription: 'Compare cost, view, child safety & pigeon control: Invisible Grill vs Safety Net in Chennai. Call +91 90437 17064.',
     canonicalUrl: 'https://starchennaisafetynets.vercel.app/#/blog/invisible-grill-vs-safety-net-chennai',
     primaryKeyword: 'invisible grill vs safety net Chennai',
     publishDate: '2026-08-01',
@@ -92,7 +92,7 @@ export const blogArticlesData: Record<string, BlogArticleData> = {
     title: 'Balcony Safety Net Cost Per Sq Ft in Chennai (2026 Guide)',
     h1: 'Balcony Safety Net Cost Per Sq Ft in Chennai (2026 Pricing Breakdown)',
     metaTitle: 'Balcony Safety Net Cost Per Sq Ft Chennai (2026)',
-    metaDescription: 'Complete price guide for balcony safety nets in Chennai per sq ft (Nylon vs HDPE). Call +91 98409 68538 for quote.',
+    metaDescription: 'Complete price guide for balcony safety nets in Chennai per sq ft (Nylon vs HDPE). Call +91 90437 17064 for quote.',
     canonicalUrl: 'https://starchennaisafetynets.vercel.app/#/blog/balcony-safety-net-cost-per-sq-ft-chennai',
     primaryKeyword: 'balcony safety net cost per sq ft Chennai',
     publishDate: '2026-08-01',
@@ -100,7 +100,7 @@ export const blogArticlesData: Record<string, BlogArticleData> = {
     author: 'Star Safety Valuation Specialist',
     heroImage: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954795/starchennaisafetynets/balcony_safety_1.jpg',
     imageAlt: 'Measuring balcony square footage for safety net installation cost estimation in Chennai',
-    quickAnswer: 'In Chennai, balcony safety net installation costs typically range between Rs 15 to Rs 35 per square foot, including materials, stainless steel fasteners, and professional fitting. Standard Garware-grade UV HDPE mesh costs Rs 18–25/sq ft, transparent Nylon costs Rs 22–30/sq ft, and extra-heavy monkey netting costs Rs 28–35/sq ft. Call Star Safety Enterprises at +91 98409 68538 for an instant free site measurement.',
+    quickAnswer: 'In Chennai, balcony safety net installation costs typically range between Rs 15 to Rs 35 per square foot, including materials, stainless steel fasteners, and professional fitting. Standard Garware-grade UV HDPE mesh costs Rs 18–25/sq ft, transparent Nylon costs Rs 22–30/sq ft, and extra-heavy monkey netting costs Rs 28–35/sq ft. Call Star Safety Enterprises at +91 90437 17064 for an instant free site measurement.',
     sections: [
       {
         heading: 'Understanding Balcony Safety Net Pricing in Chennai',
@@ -141,7 +141,7 @@ export const blogArticlesData: Record<string, BlogArticleData> = {
     title: 'How Long Does Balcony Safety Net Installation Take?',
     h1: 'Balcony Safety Net Installation Timeline in Chennai',
     metaTitle: 'Balcony Safety Net Installation Time | Star Net',
-    metaDescription: 'Learn how long balcony safety net installation takes (2-3 hrs). Fast same-day setup in Chennai. Call +91 98409 68538.',
+    metaDescription: 'Learn how long balcony safety net installation takes (2-3 hrs). Fast same-day setup in Chennai. Call +91 90437 17064.',
     canonicalUrl: 'https://starchennaisafetynets.vercel.app/#/blog/how-long-does-balcony-safety-net-installation-take',
     primaryKeyword: 'balcony safety net installation time Chennai',
     publishDate: '2026-08-01',
@@ -149,7 +149,7 @@ export const blogArticlesData: Record<string, BlogArticleData> = {
     author: 'Star Installation Operations Lead',
     heroImage: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954797/starchennaisafetynets/balcony_safety_2.jpg',
     imageAlt: 'Technician installing balcony safety net with stainless steel hooks in Chennai',
-    quickAnswer: 'Installing a balcony safety net in a standard Chennai apartment takes between 2 to 3 hours per balcony. The process includes site measurement (20 mins), perimeter anchor drilling (45 mins), wire framing and mesh tensioning (60 mins), and final load stress verification (15 mins). Same-day booking and installation is available across Chennai by calling +91 98409 68538.',
+    quickAnswer: 'Installing a balcony safety net in a standard Chennai apartment takes between 2 to 3 hours per balcony. The process includes site measurement (20 mins), perimeter anchor drilling (45 mins), wire framing and mesh tensioning (60 mins), and final load stress verification (15 mins). Same-day booking and installation is available across Chennai by calling +91 90437 17064.',
     sections: [
       {
         heading: 'Fast & Efficient Safety Net Installation Process',
@@ -185,7 +185,7 @@ export const blogArticlesData: Record<string, BlogArticleData> = {
     title: 'Nylon vs HDPE Safety Nets: Which Should You Choose?',
     h1: 'Nylon vs HDPE Safety Nets: Complete Technical Comparison',
     metaTitle: 'Nylon vs HDPE Safety Nets Comparison | Star Net',
-    metaDescription: 'Compare Nylon vs Virgin HDPE safety nets for Chennai weather, UV life & tensile strength. Call +91 98409 68538 for advice.',
+    metaDescription: 'Compare Nylon vs Virgin HDPE safety nets for Chennai weather, UV life & tensile strength. Call +91 90437 17064 for advice.',
     canonicalUrl: 'https://starchennaisafetynets.vercel.app/#/blog/nylon-vs-hdpe-safety-nets-comparison',
     primaryKeyword: 'nylon vs hdpe safety net Chennai',
     publishDate: '2026-08-01',
@@ -231,7 +231,7 @@ export const blogArticlesData: Record<string, BlogArticleData> = {
     title: 'How to Maintain Your Balcony Safety Net (Monsoon Care Tips)',
     h1: 'Balcony Safety Net Maintenance & Monsoon Care Guide',
     metaTitle: 'Balcony Safety Net Maintenance & Monsoon Care',
-    metaDescription: 'Essential cleaning & monsoon maintenance tips for balcony safety nets in Chennai. Keep nets taut! Call +91 98409 68538.',
+    metaDescription: 'Essential cleaning & monsoon maintenance tips for balcony safety nets in Chennai. Keep nets taut! Call +91 90437 17064.',
     canonicalUrl: 'https://starchennaisafetynets.vercel.app/#/blog/how-to-maintain-balcony-safety-net-monsoon-care',
     primaryKeyword: 'maintain balcony safety net monsoon Chennai',
     publishDate: '2026-08-01',
@@ -239,7 +239,7 @@ export const blogArticlesData: Record<string, BlogArticleData> = {
     author: 'Star Customer Care Specialist',
     heroImage: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783954795/starchennaisafetynets/balcony_safety_1.jpg',
     imageAlt: 'Cleaning and inspecting balcony safety net anchors after monsoon rain in Chennai',
-    quickAnswer: 'To maintain your balcony safety net in Chennai, wash it twice a year using mild soapy water and a soft hose to clear dust and bird droppings. Inspect stainless steel wall hooks for rust or loosening before and after the northeast monsoon (October-December). Never use harsh bleach or acid cleaners, as they weaken UV polymer coatings. Call Star Safety Enterprises at +91 98409 68538 for annual safety checkups.',
+    quickAnswer: 'To maintain your balcony safety net in Chennai, wash it twice a year using mild soapy water and a soft hose to clear dust and bird droppings. Inspect stainless steel wall hooks for rust or loosening before and after the northeast monsoon (October-December). Never use harsh bleach or acid cleaners, as they weaken UV polymer coatings. Call Star Safety Enterprises at +91 90437 17064 for annual safety checkups.',
     sections: [
       {
         heading: 'Why Regular Maintenance Matters for Balcony Safety Nets',

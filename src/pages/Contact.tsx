@@ -61,20 +61,20 @@ export default function Contact() {
     {
       icon: Phone,
       title: 'Primary Phone Hotline',
-      desc: '+91 98409 68538',
-      link: 'tel:+919840968538'
+      desc: '+91 90437 17064',
+      link: 'tel:+919043717064'
     },
     {
       icon: MessageSquare,
-      title: 'Alternate / WhatsApp',
-      desc: '+91 98409 68539',
-      link: 'https://wa.me/919840968539'
+      title: 'WhatsApp Contact',
+      desc: '+91 90437 17064',
+      link: 'https://wa.me/919043717064'
     },
     {
       icon: Mail,
       title: 'Email Address',
-      desc: 'info@starbalconysafetynetschennai.com',
-      link: 'mailto:info@starbalconysafetynetschennai.com'
+      desc: 'dudaprasad12345@gmail.com',
+      link: 'mailto:dudaprasad12345@gmail.com'
     },
     {
       icon: Clock,

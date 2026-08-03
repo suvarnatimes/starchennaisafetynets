@@ -1,7 +1,7 @@
 # Ongoing SEO & Local Ranking Maintenance Checklist
 **Business Name**: Star Safety Enterprises  
 **Primary Location**: Chennai, Tamil Nadu  
-**Standardized Primary Phone**: +91 98409 68538  
+**Standardized Primary Phone**: +91 90437 17064  
 
 This document serves as the official recurring SEO maintenance schedule to ensure **Star Safety Enterprises** maintains top rankings in Chennai for balcony safety nets, pigeon netting, invisible grills, and sports nets.
 
@@ -30,7 +30,7 @@ This document serves as the official recurring SEO maintenance schedule to ensur
 - [ ] **NAP Consistency Verification**: Verify character-for-character NAP across all pages:
   - **Name**: `Star Safety Enterprises`
   - **Address**: `No 14/22, Flat F2, 1st Floor, Bharathiar Street, West Mambalam, Chennai, Tamil Nadu 600033`
-  - **Phone**: `+91 98409 68538`
+  - **Phone**: `+91 90437 17064`
 
 ### 3. New Content Publication
 - [ ] **Publish 1 Long-Tail Blog / FAQ Article**: Write and publish one 500-800 word article targeting long-tail Chennai search queries (e.g. *"Best safety net for high-rise balconies in OMR"*).
