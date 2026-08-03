@@ -10,6 +10,11 @@ import BlogPage from './pages/Blog.js';
 import GalleryPage from './pages/Gallery.js';
 import LocationPage from './pages/Location.js';
 import SitemapPage from './pages/SitemapPage.js';
+import ServiceDetailPage from './pages/ServiceDetailPage.js';
+import LocalityDetailPage from './pages/LocalityDetailPage.js';
+import { servicesData } from './data/servicesData.js';
+import { localitiesData } from './data/localitiesData.js';
+import { blogArticlesData } from './data/blogArticlesData.js';
 import AdminLayout from './components/AdminLayout.js';
 import { 
   ShieldCheck, Lock, Eye, EyeOff, X, Send, CheckCircle, 
@@ -51,6 +56,18 @@ export default function App() {
         setIsAdminPortal(false);
         setActivePage('blog');
         setBlogSlug(slug);
+      } else if (hash.startsWith('#/services/')) {
+        const slug = hash.replace('#/services/', '');
+        setIsAdminPortal(false);
+        setBlogSlug(null);
+        setActivePage(`services-${slug}`);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (hash.startsWith('#/locality/')) {
+        const slug = hash.replace('#/locality/', '');
+        setIsAdminPortal(false);
+        setBlogSlug(null);
+        setActivePage(`locality-${slug}`);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } else if (hash.startsWith('#/safety-nets-')) {
         const city = hash.replace('#/safety-nets-', '');
         setIsAdminPortal(false);
@@ -68,6 +85,10 @@ export default function App() {
         const page = hash.replace('#/', '');
         if (['home', 'about', 'services', 'blog', 'contact', 'gallery', 'sitemap'].includes(page)) {
           setActivePage(page);
+        } else if (page.startsWith('services-')) {
+          setActivePage(page);
+        } else if (page.startsWith('locality-')) {
+          setActivePage(page);
         } else if (page.startsWith('safety-nets-')) {
           setActivePage(page);
         } else {
@@ -84,8 +105,16 @@ export default function App() {
 
   // Dynamic SEO & Structured Data (JSON-LD) Injector
   useEffect(() => {
-    // 1. Skip if it's a blog detail page (handled inside Blog.tsx)
-    if (activePage === 'blog' && blogSlug) return;
+    // 1. Check if blog detail page has local article metadata
+    if (activePage === 'blog' && blogSlug) {
+      if (blogArticlesData[blogSlug]) {
+        const bData = blogArticlesData[blogSlug];
+        document.title = bData.metaTitle;
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) metaDesc.setAttribute('content', bData.metaDescription);
+      }
+      return;
+    }
 
     let title = 'Star Safety Enterprises - Premium Safety Net Installation Services';
     let desc = 'Premium, industrial-grade safety net installation services across Tamil Nadu. Balcony safety nets, pigeon safety, child safety, construction safety, and sports nets.';
@@ -113,6 +142,22 @@ export default function App() {
     } else if (activePage === 'blog') {
       title = 'Expert Safety Net Blog | Material Standards & Pigeon Prevention';
       desc = 'In-depth articles about safety standards (IS-11057), material comparisons (HDPE vs Nylon), bird repelling techniques, and professional advice.';
+    } else if (activePage.startsWith('services-')) {
+      const sSlug = activePage.replace('services-', '');
+      const sData = servicesData[sSlug];
+      if (sData) {
+        title = sData.metaTitle;
+        desc = sData.metaDescription;
+        url = sData.canonicalUrl;
+      }
+    } else if (activePage.startsWith('locality-')) {
+      const lSlug = activePage.replace('locality-', '');
+      const lData = localitiesData[lSlug];
+      if (lData) {
+        title = lData.metaTitle;
+        desc = lData.metaDescription;
+        url = lData.canonicalUrl;
+      }
     } else if (activePage.startsWith('safety-nets-')) {
       const city = activePage.replace('safety-nets-', '');
       const cityCap = city.charAt(0).toUpperCase() + city.slice(1);
@@ -597,6 +642,12 @@ export default function App() {
             )}
             {activePage === 'sitemap' && (
               <SitemapPage />
+            )}
+            {activePage.startsWith('services-') && (
+              <ServiceDetailPage slug={activePage.replace('services-', '')} onOpenQuoteModal={openQuoteModal} />
+            )}
+            {activePage.startsWith('locality-') && (
+              <LocalityDetailPage slug={activePage.replace('locality-', '')} onOpenQuoteModal={openQuoteModal} />
             )}
             {activePage.startsWith('safety-nets-') && (
               <LocationPage city={activePage.replace('safety-nets-', '')} onOpenQuoteModal={openQuoteModal} />

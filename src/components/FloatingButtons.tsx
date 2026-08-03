@@ -1,8 +1,8 @@
 import { Phone, MessageCircle, Image } from 'lucide-react';
 
 export default function FloatingButtons() {
-  const phoneNumber = '+919043717064';
-  const whatsappNumber = '919043717064';
+  const phoneNumber = '+919840968538';
+  const whatsappNumber = '919840968538';
   const whatsappMessage = encodeURIComponent("Hello Star Safety Enterprises, I'm interested in your safety net installation services. Please share details.");
 
   return (
@@ -25,7 +25,7 @@ export default function FloatingButtons() {
       <a
         href="#/gallery"
         aria-label="View Gallery"
-        className="group flex h-12 w-12 items-center justify-center rounded-full bg-accent text-white shadow-lg transition-all duration-300 hover:scale-115 hover:bg-accent-light active:scale-95 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 md:h-14 md:w-14"
+        className="group flex h-12 w-12 items-center justify-center rounded-full bg-amber-500 text-slate-950 shadow-lg transition-all duration-300 hover:scale-115 hover:bg-amber-600 active:scale-95 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 md:h-14 md:w-14"
       >
         <Image className="h-5 w-5 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300" />
         <span className="pointer-events-none absolute right-14 scale-0 rounded bg-gray-900 px-2 py-1 text-xs font-medium text-white shadow transition-all group-hover:scale-100 whitespace-nowrap">
@@ -41,7 +41,7 @@ export default function FloatingButtons() {
       >
         <Phone className="h-5 w-5 group-hover:scale-110 group-hover:-rotate-12 transition-transform duration-300" />
         <span className="pointer-events-none absolute right-14 scale-0 rounded bg-gray-900 px-2 py-1 text-xs font-medium text-white shadow transition-all group-hover:scale-100 whitespace-nowrap">
-          Call Us
+          Call Us (+91 98409 68538)
         </span>
       </a>
     </div>

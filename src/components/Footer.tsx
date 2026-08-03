@@ -1,6 +1,8 @@
 import React from 'react';
-import { ShieldCheck, MapPin, Phone, Mail, Clock, MessageSquare } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, ShieldCheck, Heart } from 'lucide-react';
 import Logo from './Logo.js';
+import { servicesData } from '../data/servicesData.js';
+import { localitiesData } from '../data/localitiesData.js';
 
 interface FooterProps {
   onChangePage: (page: string) => void;
@@ -14,151 +16,116 @@ export default function Footer({ onChangePage }: FooterProps) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const services = [
-    { label: 'Balcony Safety Nets', slug: 'balcony-safety-nets' },
-    { label: 'Bird Protection Nets', slug: 'bird-protection-nets' },
-    { label: 'Pigeon Safety Nets', slug: 'pigeon-safety-nets' },
-    { label: 'Children\'s Safety Nets', slug: 'children-safety-nets' },
-    { label: 'Construction Safety Nets', slug: 'construction-safety-nets' },
-    { label: 'Coconut Tree Safety Nets', slug: 'coconut-tree-safety-nets' }
-  ];
-
-  const cities = [
-    'Chennai', 'Coimbatore', 'Madurai', 'Trichy', 'Pondicherry', 'Tambaram', 'Chengalpattu', 'Salem', 'Tiruppur', 'Erode', 'Vellore', 'Hosur', 'Tirunelveli', 'Kanchipuram', 'Thanjavur'
-  ];
-
-  const handleCityClick = (city: string) => {
-    const pageId = `safety-nets-${city.toLowerCase()}`;
-    onChangePage(pageId);
-    window.location.hash = `#/${pageId}`;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  const servicesList = Object.values(servicesData);
+  const localitiesList = Object.values(localitiesData);
 
   return (
-    <footer className="bg-primary text-gray-300 border-t border-white/5 pt-16 pb-8">
+    <footer className="bg-slate-950 text-slate-300 border-t border-slate-800 pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+          
           {/* Column 1: Company Profile */}
           <div className="space-y-6">
             <div className="cursor-pointer select-none group" onClick={() => handleNavClick('home')}>
               <Logo height="36px" />
             </div>
-            <p className="text-sm text-gray-400 leading-relaxed font-sans">
-              Tamil Nadu's premium and most trusted professional safety net installation service. Providing industrial-grade durability and expert rope-access safety solutions for high-rises, commercial offices, and homes.
+            <p className="text-sm text-slate-400 leading-relaxed">
+              Chennai's premier certified safety net installation company. Specializing in Garware-grade balcony safety nets, pigeon protection, invisible grills, and industrial netting across all Chennai neighborhoods.
             </p>
             <div className="pt-2">
-              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/15 border border-accent/25 text-xs text-accent font-semibold font-mono">
-                ✓ 10-Year Warranty Options
+              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-xs text-amber-400 font-semibold">
+                <ShieldCheck className="w-4 h-4 text-amber-400" /> ISO 9001:2015 & Garware Certified
               </span>
             </div>
           </div>
 
-          {/* Column 2: Quick Links */}
+          {/* Column 2: 14 Dedicated Services */}
           <div>
-            <h4 className="font-display font-bold text-white text-base tracking-wide mb-6">Quick Links</h4>
-            <ul className="space-y-3.5 text-sm">
-              <li>
-                <button onClick={() => handleNavClick('home')} className="hover:text-accent transition-colors flex items-center gap-1.5 hover:translate-x-1 duration-200">
-                  <span>→</span> Home
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNavClick('about')} className="hover:text-accent transition-colors flex items-center gap-1.5 hover:translate-x-1 duration-200">
-                  <span>→</span> About Us
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNavClick('services')} className="hover:text-accent transition-colors flex items-center gap-1.5 hover:translate-x-1 duration-200">
-                  <span>→</span> Our Services
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNavClick('blog')} className="hover:text-accent transition-colors flex items-center gap-1.5 hover:translate-x-1 duration-200">
-                  <span>→</span> Expert Blog
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNavClick('gallery')} className="hover:text-accent transition-colors flex items-center gap-1.5 hover:translate-x-1 duration-200">
-                  <span>→</span> Photo Gallery
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNavClick('contact')} className="hover:text-accent transition-colors flex items-center gap-1.5 hover:translate-x-1 duration-200">
-                  <span>→</span> Contact Us
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Column 3: Core Services */}
-          <div>
-            <h4 className="font-display font-bold text-white text-base tracking-wide mb-6">Our Core Services</h4>
-            <ul className="space-y-3.5 text-sm">
-              {services.map((srv, idx) => (
-                <li key={idx}>
-                  <button onClick={() => handleNavClick('services')} className="hover:text-accent transition-colors flex items-center gap-1.5 hover:translate-x-1 duration-200 text-left">
-                    <span>•</span> {srv.label}
+            <h4 className="font-bold text-white text-base tracking-wide mb-4 text-amber-400">Our 14 Safety Net Services</h4>
+            <ul className="grid grid-cols-1 gap-2 text-xs">
+              {servicesList.map((srv) => (
+                <li key={srv.slug}>
+                  <button
+                    onClick={() => handleNavClick(`services-${srv.slug}`)}
+                    className="hover:text-amber-400 transition-colors text-slate-400 text-left flex items-center gap-1.5"
+                  >
+                    <span className="text-amber-500">•</span> {srv.title}
                   </button>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 4: Contact & Operations */}
+          {/* Column 3: Priority Chennai Localities */}
+          <div>
+            <h4 className="font-bold text-white text-base tracking-wide mb-4 text-amber-400">Chennai Areas We Serve</h4>
+            <ul className="grid grid-cols-1 gap-2 text-xs">
+              {localitiesList.map((loc) => (
+                <li key={loc.slug}>
+                  <button
+                    onClick={() => handleNavClick(`locality-${loc.slug}`)}
+                    className="hover:text-amber-400 transition-colors text-slate-400 text-left flex items-center gap-1.5"
+                  >
+                    <MapPin className="w-3 h-3 text-red-400 shrink-0" /> Safety Nets in {loc.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4: Official NAP (Name, Address, Phone) */}
           <div className="space-y-4">
-            <h4 className="font-display font-bold text-white text-base tracking-wide mb-6">Get In Touch</h4>
-            <div className="space-y-3.5 text-sm">
+            <h4 className="font-bold text-white text-base tracking-wide mb-4 text-amber-400">Google Profile NAP Details</h4>
+            <div className="space-y-3.5 text-xs text-slate-300">
               <div className="flex items-start gap-2.5">
-                <MapPin className="h-5 w-5 text-accent mt-0.5 flex-shrink-0" />
-                <span className="text-gray-400">
-                  Star Safety Enterprises, 24/18, Nehru Street, Adyar, Chennai - 600020
-                </span>
+                <MapPin className="h-5 w-5 text-amber-400 shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-white block font-semibold mb-0.5">Star Safety Enterprises</strong>
+                  <span className="text-slate-400 leading-relaxed block">
+                    No 14/22, Flat F2, 1st Floor, Bharathiar Street, West Mambalam, Chennai, Tamil Nadu 600033
+                  </span>
+                </div>
               </div>
+
               <div className="flex items-center gap-2.5">
-                <Phone className="h-4 w-4 text-accent flex-shrink-0" />
-                <a href="tel:+919043717064" className="hover:text-accent transition-colors">
-                  +91 90437 17064
-                </a>
+                <Phone className="h-4 w-4 text-amber-400 shrink-0" />
+                <div>
+                  <a href="tel:+919840968538" className="hover:text-amber-400 transition-colors font-bold text-white block">
+                    +91 98409 68538
+                  </a>
+                  <a href="tel:+919840968539" className="hover:text-amber-400 transition-colors text-slate-400 block">
+                    +91 98409 68539
+                  </a>
+                </div>
               </div>
+
               <div className="flex items-center gap-2.5">
-                <Mail className="h-4 w-4 text-accent flex-shrink-0" />
-                <a href="mailto:info@starbalconysafetynetschennai.com" className="hover:text-accent transition-colors">
+                <Mail className="h-4 w-4 text-amber-400 shrink-0" />
+                <a href="mailto:info@starbalconysafetynetschennai.com" className="hover:text-amber-400 transition-colors text-slate-400">
                   info@starbalconysafetynetschennai.com
                 </a>
               </div>
+
               <div className="flex items-center gap-2.5">
-                <Clock className="h-4 w-4 text-accent flex-shrink-0" />
-                <span className="text-gray-400">
-                  Open 24/7 (Mon - Sun)
+                <Clock className="h-4 w-4 text-amber-400 shrink-0" />
+                <span className="text-slate-400">
+                  Mon - Sun: 8:00 AM - 9:00 PM (Daily)
                 </span>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Cities Served Panel */}
-        <div className="mt-12 pt-8 border-t border-white/5">
-          <h5 className="font-display font-bold text-xs text-white uppercase tracking-widest mb-4">Areas We Serve Across Tamil Nadu:</h5>
-          <div className="flex flex-wrap gap-x-3 gap-y-2">
-            {cities.map((city, idx) => (
-              <button 
-                key={idx} 
-                onClick={() => handleCityClick(city)}
-                className="text-xs text-gray-500 font-medium hover:text-accent transition-colors cursor-pointer text-left focus:outline-none"
-              >
-                {city} {idx < cities.length - 1 ? '•' : ''}
-              </button>
-            ))}
-            <span className="text-xs text-gray-400 font-semibold italic ml-1">and all major cities across Tamil Nadu.</span>
-          </div>
         </div>
 
         {/* Footer Bottom */}
-        <div className="mt-12 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500 font-mono">
+        <div className="mt-12 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>© {currentYear} Star Safety Enterprises. All rights reserved.</p>
-          <div className="flex gap-6">
-            <span>ISO 9001:2015 Certified</span>
-            <span>Premium Safety Net Installation Services</span>
+          <div className="flex gap-4">
+            <a href="#/sitemap" className="hover:text-amber-400 transition-colors">Sitemap</a>
+            <span>•</span>
+            <span>Garware-Grade UV Safety Nets</span>
+            <span>•</span>
+            <span>Chennai Local SEO Optimized</span>
           </div>
         </div>
       </div>

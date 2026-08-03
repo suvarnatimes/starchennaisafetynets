@@ -56,19 +56,19 @@ export default function Contact() {
     {
       icon: MapPin,
       title: 'Business Address',
-      desc: 'Star Safety Enterprises, 24/18, Nehru Street, Adyar, Chennai - 600020'
+      desc: 'Star Safety Enterprises, No 14/22, Flat F2, 1st Floor, Bharathiar Street, West Mambalam, Chennai, Tamil Nadu 600033'
     },
     {
       icon: Phone,
-      title: 'Telephone Hotline',
-      desc: '+91 90437 17064',
-      link: 'tel:+919043717064'
+      title: 'Primary Phone Hotline',
+      desc: '+91 98409 68538',
+      link: 'tel:+919840968538'
     },
     {
       icon: MessageSquare,
-      title: 'WhatsApp Enquiries',
-      desc: '+91 90437 17064',
-      link: 'https://wa.me/919043717064'
+      title: 'Alternate / WhatsApp',
+      desc: '+91 98409 68539',
+      link: 'https://wa.me/919840968539'
     },
     {
       icon: Mail,
@@ -79,7 +79,7 @@ export default function Contact() {
     {
       icon: Clock,
       title: 'Working Hours',
-      desc: 'Open 24/7 (Monday to Sunday)'
+      desc: 'Mon - Sun: 8:00 AM - 9:00 PM (Daily)'
     }
   ];
 
