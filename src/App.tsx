@@ -12,6 +12,8 @@ import LocationPage from './pages/Location.js';
 import SitemapPage from './pages/SitemapPage.js';
 import ServiceDetailPage from './pages/ServiceDetailPage.js';
 import LocalityDetailPage from './pages/LocalityDetailPage.js';
+import PrivacyPolicyPage from './pages/PrivacyPolicy.js';
+import FAQPage from './pages/FAQPage.js';
 import { servicesData } from './data/servicesData.js';
 import { localitiesData } from './data/localitiesData.js';
 import { blogArticlesData } from './data/blogArticlesData.js';
@@ -44,63 +46,60 @@ export default function App() {
   const [quoteSubmitting, setQuoteSubmitting] = useState<boolean>(false);
   const [quoteSuccess, setQuoteSuccess] = useState<boolean>(false);
 
-  // Hash Routing Parser
+  // Unified Path & Hash Routing Parser
   useEffect(() => {
-    const handleHashChange = () => {
+    const parseRoute = () => {
+      const pathname = window.location.pathname.replace(/\/$/, '');
       const hash = window.location.hash;
-      if (hash === '#/star-admin-portal-8472') {
+
+      let routePath = pathname || '/';
+      if (hash && hash.startsWith('#/')) {
+        routePath = hash.replace('#', '');
+      }
+
+      setIsAdminPortal(false);
+      setBlogSlug(null);
+
+      if (routePath === '/star-admin-portal-8472') {
         setIsAdminPortal(true);
         setActivePage('admin');
-      } else if (hash.startsWith('#/blog/')) {
-        const slug = hash.replace('#/blog/', '');
-        setIsAdminPortal(false);
+      } else if (routePath.startsWith('/services/')) {
+        const slug = routePath.replace('/services/', '');
+        setActivePage(`services-${slug}`);
+      } else if (routePath.startsWith('/locality/')) {
+        const slug = routePath.replace('/locality/', '');
+        setActivePage(`locality-${slug}`);
+      } else if (routePath.startsWith('/safety-nets-')) {
+        // Standardize legacy /safety-nets-[city] to /locality/[city]
+        const city = routePath.replace('/safety-nets-', '');
+        setActivePage(`locality-${city}`);
+      } else if (routePath.startsWith('/blog/')) {
+        const slug = routePath.replace('/blog/', '');
         setActivePage('blog');
         setBlogSlug(slug);
-      } else if (hash.startsWith('#/services/')) {
-        const slug = hash.replace('#/services/', '');
-        setIsAdminPortal(false);
-        setBlogSlug(null);
-        setActivePage(`services-${slug}`);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else if (hash.startsWith('#/locality/')) {
-        const slug = hash.replace('#/locality/', '');
-        setIsAdminPortal(false);
-        setBlogSlug(null);
-        setActivePage(`locality-${slug}`);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else if (hash.startsWith('#/safety-nets-')) {
-        const city = hash.replace('#/safety-nets-', '');
-        setIsAdminPortal(false);
-        setBlogSlug(null);
-        setActivePage(`safety-nets-${city}`);
-        
-        // Scroll to top and set page title dynamically
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        const cityCap = city.charAt(0).toUpperCase() + city.slice(1);
-        document.title = `Safety Nets in ${cityCap} | Premium Installation Services`;
+      } else if (routePath === '/privacy-policy') {
+        setActivePage('privacy-policy');
+      } else if (routePath === '/faq') {
+        setActivePage('faq');
       } else {
-        setIsAdminPortal(false);
-        setBlogSlug(null);
-        // Match home, about, services, blog, contact
-        const page = hash.replace('#/', '');
-        if (['home', 'about', 'services', 'blog', 'contact', 'gallery', 'sitemap'].includes(page)) {
-          setActivePage(page);
-        } else if (page.startsWith('services-')) {
-          setActivePage(page);
-        } else if (page.startsWith('locality-')) {
-          setActivePage(page);
-        } else if (page.startsWith('safety-nets-')) {
+        const page = routePath.replace('/', '');
+        if (['about', 'services', 'blog', 'contact', 'gallery', 'sitemap'].includes(page)) {
           setActivePage(page);
         } else {
           setActivePage('home');
         }
       }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    window.addEventListener('hashchange', handleHashChange);
-    // Initial load parse
-    handleHashChange();
+    window.addEventListener('popstate', parseRoute);
+    window.addEventListener('hashchange', parseRoute);
+    parseRoute();
 
+    return () => {
+      window.removeEventListener('popstate', parseRoute);
+      window.removeEventListener('hashchange', parseRoute);
+    };
   }, []);
 
   // Dynamic SEO & Structured Data (JSON-LD) Injector
@@ -643,6 +642,12 @@ export default function App() {
             {activePage === 'sitemap' && (
               <SitemapPage />
             )}
+            {activePage === 'privacy-policy' && (
+              <PrivacyPolicyPage />
+            )}
+            {activePage === 'faq' && (
+              <FAQPage onOpenQuoteModal={openQuoteModal} />
+            )}
             {activePage.startsWith('services-') && (
               <ServiceDetailPage slug={activePage.replace('services-', '')} onOpenQuoteModal={openQuoteModal} />
             )}
@@ -650,7 +655,7 @@ export default function App() {
               <LocalityDetailPage slug={activePage.replace('locality-', '')} onOpenQuoteModal={openQuoteModal} />
             )}
             {activePage.startsWith('safety-nets-') && (
-              <LocationPage city={activePage.replace('safety-nets-', '')} onOpenQuoteModal={openQuoteModal} />
+              <LocalityDetailPage slug={activePage.replace('safety-nets-', '')} onOpenQuoteModal={openQuoteModal} />
             )}
           </main>
 

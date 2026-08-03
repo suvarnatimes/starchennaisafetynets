@@ -910,7 +910,7 @@ app.get('/sitemap.xml', (req: Request, res: Response): void => {
     { path: '/services/duct-area-safety-nets', changefreq: 'weekly', priority: '0.8' },
     { path: '/services/cricket-practice-nets', changefreq: 'weekly', priority: '0.8' },
     { path: '/services/sports-nets-installation', changefreq: 'weekly', priority: '0.8' },
-    // 9 Priority Chennai Localities
+    // 14 Localities & Major Cities
     { path: '/locality/t-nagar', changefreq: 'weekly', priority: '0.8' },
     { path: '/locality/anna-nagar', changefreq: 'weekly', priority: '0.8' },
     { path: '/locality/velachery', changefreq: 'weekly', priority: '0.8' },
@@ -920,15 +920,18 @@ app.get('/sitemap.xml', (req: Request, res: Response): void => {
     { path: '/locality/nungambakkam', changefreq: 'weekly', priority: '0.8' },
     { path: '/locality/tambaram', changefreq: 'weekly', priority: '0.8' },
     { path: '/locality/kodambakkam', changefreq: 'weekly', priority: '0.8' },
-    // Other Cities
+    { path: '/locality/coimbatore', changefreq: 'weekly', priority: '0.8' },
+    { path: '/locality/madurai', changefreq: 'weekly', priority: '0.8' },
+    { path: '/locality/trichy', changefreq: 'weekly', priority: '0.8' },
+    { path: '/locality/pondicherry', changefreq: 'weekly', priority: '0.8' },
+    { path: '/locality/chengalpattu', changefreq: 'weekly', priority: '0.8' },
+    // Trust & Knowledge Pages
     { path: '/gallery', changefreq: 'weekly', priority: '0.7' },
     { path: '/blog', changefreq: 'daily', priority: '0.8' },
     { path: '/contact', changefreq: 'monthly', priority: '0.8' },
-    { path: '/sitemap', changefreq: 'weekly', priority: '0.6' },
-    { path: '/safety-nets-trichy', changefreq: 'weekly', priority: '0.8' },
-    { path: '/safety-nets-pondicherry', changefreq: 'weekly', priority: '0.8' },
-    { path: '/safety-nets-chengalpattu', changefreq: 'weekly', priority: '0.8' },
-    { path: '/safety-nets-tambaram', changefreq: 'weekly', priority: '0.8' }
+    { path: '/privacy-policy', changefreq: 'monthly', priority: '0.6' },
+    { path: '/faq', changefreq: 'weekly', priority: '0.8' },
+    { path: '/sitemap', changefreq: 'weekly', priority: '0.6' }
   ];
 
   staticRoutes.forEach(r => {

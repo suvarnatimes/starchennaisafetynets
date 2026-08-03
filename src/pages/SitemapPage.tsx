@@ -10,7 +10,9 @@ const mainRoutes = [
   { label: 'All Services', path: '#/services' },
   { label: 'Gallery', path: '#/gallery' },
   { label: 'Expert Blog', path: '#/blog' },
-  { label: 'Contact Us', path: '#/contact' }
+  { label: 'Contact Us', path: '#/contact' },
+  { label: 'Privacy Policy', path: '#/privacy-policy' },
+  { label: 'Safety Nets FAQ', path: '#/faq' }
 ];
 
 export default function SitemapPage() {
