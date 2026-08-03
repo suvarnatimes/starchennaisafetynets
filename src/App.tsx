@@ -118,12 +118,12 @@ export default function App() {
 
     let title = 'Star Safety Enterprises - Premium Safety Net Installation Services';
     let desc = 'Premium, industrial-grade safety net installation services across Tamil Nadu. Balcony safety nets, pigeon safety, child safety, construction safety, and sports nets.';
-    let url = `https://starchennaisafetynets.vercel.app/#/${activePage}`;
+    let url = `https://starbalconysafetynetschennai.com/#/${activePage}`;
 
     if (activePage === 'home') {
       title = 'Star Safety Enterprises - Premium Safety Net Installation Services in Tamil Nadu';
       desc = 'Premium safety net installation services across Tamil Nadu. Balcony safety, pigeon protection, child safety, construction safety, and sports nets with robust warranty.';
-      url = 'https://starchennaisafetynets.vercel.app/';
+      url = 'https://starbalconysafetynetschennai.com/';
     } else if (activePage === 'about') {
       title = 'About Star Safety Enterprises | Safety Net Installation Experts';
       desc = 'Securing Tamil Nadu\'s balconies and industrial projects since 2014. Meet our certified climbing technicians and learn about our ISO 9001:2015 quality standards.';
@@ -225,23 +225,23 @@ export default function App() {
         "legalName": "Star Safety Enterprises",
         "description": "Premium balcony, pigeon, child, construction, and industrial safety net installation services across Tamil Nadu.",
         "image": "https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938508/starchennaisafetynets/chennai_hero_backdrop.jpg",
-        "logo": "https://starchennaisafetynets.vercel.app/icon1.png",
+        "logo": "https://starbalconysafetynetschennai.com/icon1.png",
         "telephone": "+919043717064",
-        "email": "info@starbalconysafetynetschennai.com",
+        "email": "dudaprasad12345@gmail.com",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "24/18, Nehru Street, Adyar",
+          "streetAddress": "No 14/22, Flat F2, 1st Floor, Bharathiar Street, West Mambalam",
           "addressLocality": "Chennai",
           "addressRegion": "Tamil Nadu",
-          "postalCode": "600020",
+          "postalCode": "600033",
           "addressCountry": "IN"
         },
         "geo": {
           "@type": "GeoCoordinates",
-          "latitude": "13.0063",
-          "longitude": "80.2574"
+          "latitude": "13.0382",
+          "longitude": "80.2227"
         },
-        "url": "https://starchennaisafetynets.vercel.app/",
+        "url": "https://starbalconysafetynetschennai.com/",
         "areaServed": ["Chennai", "Coimbatore", "Madurai", "Trichy", "Puducherry", "Chengalpattu", "Tambaram", "Tamil Nadu"],
         "openingHoursSpecification": {
           "@type": "OpeningHoursSpecification",
