@@ -1,0 +1,15 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+
+# Local app data (contains user records / password hashes)
+/data/
+
+# Freebuff local tool state
+.freebuff/
+.agents/

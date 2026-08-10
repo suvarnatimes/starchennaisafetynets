@@ -1,0 +1,979 @@
+import dotenv from 'dotenv';
+dotenv.config();
+import express, { Request, Response, NextFunction } from 'express';
+import path from 'path';
+import fs from 'fs';
+import crypto from 'crypto';
+import { v2 as cloudinary } from 'cloudinary';
+import { db } from './db.js';
+import { Blog, Category, Tag, Inquiry } from '../types.js';
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME || process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY || process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+const app = express();
+
+// ================= STATELESS TOKEN LOGIC =================
+const SESSION_SECRET = 'star-safety-nets-secret-key-1837482-stable-fixed-key';
+
+interface TokenPayload {
+  userId: string;
+  email: string;
+  name: string;
+  expiresAt: string;
+}
+
+function generateToken(payload: TokenPayload): string {
+  const payloadStr = JSON.stringify(payload);
+  const payloadBase64 = Buffer.from(payloadStr).toString('base64url');
+  const signature = crypto
+    .createHmac('sha256', SESSION_SECRET)
+    .update(payloadBase64)
+    .digest('base64url');
+  return `${payloadBase64}.${signature}`;
+}
+
+function verifyToken(token: string): TokenPayload | null {
+  try {
+    const parts = token.split('.');
+    if (parts.length !== 2) return null;
+    const [payloadBase64, signature] = parts;
+    const expectedSignature = crypto
+      .createHmac('sha256', SESSION_SECRET)
+      .update(payloadBase64)
+      .digest('base64url');
+    
+    if (signature !== expectedSignature) {
+      return null;
+    }
+
+    const payloadStr = Buffer.from(payloadBase64, 'base64url').toString('utf8');
+    const payload = JSON.parse(payloadStr) as TokenPayload;
+
+    if (new Date(payload.expiresAt) < new Date()) {
+      return null;
+    }
+
+    return payload;
+  } catch (e) {
+    return null;
+  }
+}
+
+// Middleware
+app.use(express.json({ limit: '50mb' })); // support large image base64 uploads
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+
+// Database initialization middleware
+app.use(async (req, res, next) => {
+  try {
+    await db.init();
+    next();
+  } catch (err: any) {
+    console.error('Failed to initialize database:', err);
+    res.status(500).json({ error: 'Database initialization failed: ' + err.message });
+  }
+});
+
+// Ensure upload directory exists (on Vercel, use /tmp which is writable)
+const isVercel = Boolean(process.env.VERCEL || process.env.VERCEL_ENV);
+const UPLOADS_DIR = isVercel
+  ? '/tmp/uploads'
+  : path.join(process.cwd(), 'data', 'uploads');
+
+if (!isVercel && !fs.existsSync(UPLOADS_DIR)) {
+  fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+} else if (isVercel && !fs.existsSync(UPLOADS_DIR)) {
+  try { fs.mkdirSync(UPLOADS_DIR, { recursive: true }); } catch (_) {}
+}
+
+// Static serve for uploads
+app.use('/api/uploads', express.static(UPLOADS_DIR));
+
+// Session authentication middleware
+const authMiddleware = (req: Request, res: Response, next: NextFunction): void => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    res.status(401).json({ error: 'Unauthorized: Missing token' });
+    return;
+  }
+
+  const token = authHeader.split(' ')[1];
+  const payload = verifyToken(token);
+
+  if (!payload) {
+    res.status(401).json({ error: 'Unauthorized: Invalid token' });
+    return;
+  }
+
+  // Attach session context
+  (req as any).user = payload;
+  next();
+};
+
+// ================= AUTH API =================
+
+// Alias for backwards compatibility with the login form in App.tsx
+app.post('/api/login', (req: Request, res: Response): void => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    res.status(400).json({ error: 'Email and password are required' });
+    return;
+  }
+  const user = db.validateUser(email, password);
+  if (!user) {
+    res.status(401).json({ error: 'Invalid email or password' });
+    return;
+  }
+  const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
+  const token = generateToken({
+    userId: user.id,
+    email: user.email,
+    name: user.name,
+    expiresAt
+  });
+
+  db.logActivity('LOGIN', `User ${user.email} logged in via /api/login`, user.email);
+  res.json({ token, user: { id: user.id, email: user.email, name: user.name } });
+});
+
+app.post('/api/auth/login', (req: Request, res: Response): void => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    res.status(400).json({ error: 'Email and password are required' });
+    return;
+  }
+
+  const user = db.validateUser(email, password);
+  if (!user) {
+    res.status(401).json({ error: 'Invalid email or password' });
+    return;
+  }
+
+  // Create a session
+  const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(); // 24 hours
+  const token = generateToken({
+    userId: user.id,
+    email: user.email,
+    name: user.name,
+    expiresAt
+  });
+
+  db.logActivity('LOGIN', `User ${user.email} logged in successfully.`, user.email);
+
+  res.json({
+    token,
+    user: {
+      id: user.id,
+      email: user.email,
+      name: user.name
+    }
+  });
+});
+
+app.post('/api/auth/logout', (req: Request, res: Response): void => {
+  const authHeader = req.headers.authorization;
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    const token = authHeader.split(' ')[1];
+    const payload = verifyToken(token);
+    if (payload) {
+      db.logActivity('LOGOUT', `User ${payload.email} logged out.`, payload.email);
+    }
+  }
+  res.json({ success: true });
+});
+
+app.get('/api/auth/session', authMiddleware, (req: Request, res: Response): void => {
+  res.json({ user: (req as any).user });
+});
+
+// ================= BLOGS API =================
+
+app.get('/api/blogs', async (req: Request, res: Response): Promise<void> => {
+  const { status, category, tag, search, sort } = req.query;
+  const data = db.get();
+  let list = [...data.blogs];
+
+  // Filters
+  if (status) {
+    list = list.filter(b => b.status === status);
+  } else {
+    const now = new Date();
+    let hasChanged = false;
+    list.forEach(b => {
+      if (b.status === 'scheduled' && b.scheduledDate && new Date(b.scheduledDate) <= now) {
+        b.status = 'published';
+        b.publishDate = b.scheduledDate;
+        hasChanged = true;
+      }
+    });
+    if (hasChanged) {
+      await db.save(data);
+    }
+
+    const authHeader = req.headers.authorization;
+    let isAdmin = false;
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      const token = authHeader.split(' ')[1];
+      if (verifyToken(token)) {
+        isAdmin = true;
+      }
+    }
+
+    if (!isAdmin) {
+      list = list.filter(b => b.status === 'published');
+    }
+  }
+
+  if (category) {
+    list = list.filter(b => b.categories.includes(category as string));
+  }
+
+  if (tag) {
+    list = list.filter(b => b.tags.includes(tag as string));
+  }
+
+  if (search) {
+    const term = (search as string).toLowerCase();
+    list = list.filter(
+      b =>
+        b.title.toLowerCase().includes(term) ||
+        b.shortDescription.toLowerCase().includes(term) ||
+        b.content.toLowerCase().includes(term)
+    );
+  }
+
+  // Sort
+  if (sort === 'oldest') {
+    list.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+  } else if (sort === 'title') {
+    list.sort((a, b) => a.title.localeCompare(b.title));
+  } else {
+    list.sort((a, b) => {
+      const timeA = a.publishDate ? new Date(a.publishDate).getTime() : new Date(a.createdAt).getTime();
+      const timeB = b.publishDate ? new Date(b.publishDate).getTime() : new Date(b.createdAt).getTime();
+      return timeB - timeA;
+    });
+  }
+
+  res.json(list);
+});
+
+app.get('/api/blogs/:slug', async (req: Request, res: Response): Promise<void> => {
+  const { slug } = req.params;
+  const data = db.get();
+  const blog = data.blogs.find(b => b.slug === slug);
+
+  if (!blog) {
+    res.status(404).json({ error: 'Blog not found' });
+    return;
+  }
+
+  if (blog.status !== 'published') {
+    const authHeader = req.headers.authorization;
+    let isAdmin = false;
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      const token = authHeader.split(' ')[1];
+      if (verifyToken(token)) {
+        isAdmin = true;
+      }
+    }
+
+    if (!isAdmin) {
+      const now = new Date();
+      if (blog.status === 'scheduled' && blog.scheduledDate && new Date(blog.scheduledDate) <= now) {
+        blog.status = 'published';
+        blog.publishDate = blog.scheduledDate;
+        await db.save(data);
+      } else {
+        res.status(404).json({ error: 'Blog not found' });
+        return;
+      }
+    }
+  }
+
+  res.json(blog);
+});
+
+app.post('/api/blogs', authMiddleware, async (req: Request, res: Response): Promise<void> => {
+  const data = db.get();
+  const blogData = req.body;
+
+  if (!blogData.title || !blogData.slug) {
+    res.status(400).json({ error: 'Title and slug are required' });
+    return;
+  }
+
+  if (data.blogs.some(b => b.slug === blogData.slug)) {
+    res.status(400).json({ error: 'A blog with this slug already exists' });
+    return;
+  }
+
+  const now = new Date().toISOString();
+  const newBlog: Blog = {
+    id: 'blog-' + Math.random().toString(36).substring(2, 9),
+    title: blogData.title,
+    slug: blogData.slug,
+    shortDescription: blogData.shortDescription || '',
+    content: blogData.content || '',
+    featuredImage: blogData.featuredImage || 'https://picsum.photos/seed/blog/800/600',
+    galleryImages: blogData.galleryImages || [],
+    categories: blogData.categories || [],
+    tags: blogData.tags || [],
+    status: blogData.status || 'draft',
+    scheduledDate: blogData.scheduledDate,
+    publishDate: blogData.status === 'published' ? now : undefined,
+    author: blogData.author || (req as any).user.name,
+    readingTime: blogData.readingTime || '5 min read',
+    metaTitle: blogData.metaTitle,
+    metaDescription: blogData.metaDescription,
+    ogImage: blogData.ogImage,
+    faqs: blogData.faqs || [],
+    createdAt: now,
+    updatedAt: now
+  };
+
+  data.blogs.push(newBlog);
+  await db.logActivity('CREATE_BLOG', `Created blog post "${newBlog.title}"`, (req as any).user.email);
+
+  res.status(201).json(newBlog);
+});
+
+app.put('/api/blogs/:id', authMiddleware, async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+  const data = db.get();
+  const blogIndex = data.blogs.findIndex(b => b.id === id);
+
+  if (blogIndex === -1) {
+    res.status(404).json({ error: 'Blog not found' });
+    return;
+  }
+
+  const existingBlog = data.blogs[blogIndex];
+  const updateData = req.body;
+
+  if (updateData.slug && updateData.slug !== existingBlog.slug) {
+    if (data.blogs.some(b => b.slug === updateData.slug && b.id !== id)) {
+      res.status(400).json({ error: 'A blog with this slug already exists' });
+      return;
+    }
+  }
+
+  const now = new Date().toISOString();
+  
+  let publishDate = existingBlog.publishDate;
+  if (updateData.status === 'published' && existingBlog.status !== 'published') {
+    publishDate = now;
+  }
+
+  const updatedBlog: Blog = {
+    ...existingBlog,
+    ...updateData,
+    publishDate,
+    updatedAt: now
+  };
+
+  data.blogs[blogIndex] = updatedBlog;
+  await db.logActivity('UPDATE_BLOG', `Updated blog post "${updatedBlog.title}"`, (req as any).user.email);
+
+  res.json(updatedBlog);
+});
+
+app.delete('/api/blogs/:id', authMiddleware, async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+  const data = db.get();
+  const blog = data.blogs.find(b => b.id === id);
+
+  if (!blog) {
+    res.status(404).json({ error: 'Blog not found' });
+    return;
+  }
+
+  data.blogs = data.blogs.filter(b => b.id !== id);
+  await db.logActivity('DELETE_BLOG', `Deleted blog post "${blog.title}"`, (req as any).user.email);
+
+  res.json({ success: true });
+});
+
+app.post('/api/blogs/:id/duplicate', authMiddleware, async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+  const data = db.get();
+  const blog = data.blogs.find(b => b.id === id);
+
+  if (!blog) {
+    res.status(404).json({ error: 'Blog not found' });
+    return;
+  }
+
+  const now = new Date().toISOString();
+  const duplicateSlug = `${blog.slug}-copy-${Math.random().toString(36).substring(2, 5)}`;
+  const duplicated: Blog = {
+    ...blog,
+    id: 'blog-' + Math.random().toString(36).substring(2, 9),
+    title: `${blog.title} (Copy)`,
+    slug: duplicateSlug,
+    status: 'draft',
+    publishDate: undefined,
+    scheduledDate: undefined,
+    createdAt: now,
+    updatedAt: now
+  };
+
+  data.blogs.push(duplicated);
+  await db.logActivity('CREATE_BLOG', `Duplicated blog post "${blog.title}" to "${duplicated.title}"`, (req as any).user.email);
+
+  res.status(201).json(duplicated);
+});
+
+app.post('/api/blogs/bulk', authMiddleware, async (req: Request, res: Response): Promise<void> => {
+  const { ids, action } = req.body;
+  if (!ids || !Array.isArray(ids) || !action) {
+    res.status(400).json({ error: 'Invalid parameters' });
+    return;
+  }
+
+  const data = db.get();
+  let updatedCount = 0;
+  const now = new Date().toISOString();
+
+  if (action === 'delete') {
+    data.blogs = data.blogs.filter(b => {
+      if (ids.includes(b.id)) {
+        updatedCount++;
+        return false;
+      }
+      return true;
+    });
+    await db.logActivity('DELETE_BLOG', `Bulk deleted ${updatedCount} blog posts.`, (req as any).user.email);
+  } else if (action === 'publish') {
+    data.blogs = data.blogs.map(b => {
+      if (ids.includes(b.id) && b.status !== 'published') {
+        updatedCount++;
+        return { ...b, status: 'published', publishDate: now, updatedAt: now };
+      }
+      return b;
+    });
+    await db.logActivity('UPDATE_BLOG', `Bulk published ${updatedCount} blog posts.`, (req as any).user.email);
+  } else if (action === 'unpublish') {
+    data.blogs = data.blogs.map(b => {
+      if (ids.includes(b.id) && b.status === 'published') {
+        updatedCount++;
+        return { ...b, status: 'draft', publishDate: undefined, updatedAt: now };
+      }
+      return b;
+    });
+    await db.logActivity('UPDATE_BLOG', `Bulk unpublished ${updatedCount} blog posts.`, (req as any).user.email);
+  }
+
+  res.json({ success: true, count: updatedCount });
+});
+
+// ================= CATEGORIES API =================
+
+app.get('/api/categories', (req: Request, res: Response): void => {
+  const data = db.get();
+  res.json(data.categories);
+});
+
+app.post('/api/categories', authMiddleware, async (req: Request, res: Response): Promise<void> => {
+  const { name, slug, description } = req.body;
+  if (!name || !slug) {
+    res.status(400).json({ error: 'Name and slug are required' });
+    return;
+  }
+
+  const data = db.get();
+  if (data.categories.some(c => c.slug === slug)) {
+    res.status(400).json({ error: 'Category with this slug already exists' });
+    return;
+  }
+
+  const newCategory: Category = {
+    id: 'cat-' + Math.random().toString(36).substring(2, 9),
+    name,
+    slug,
+    description,
+    createdAt: new Date().toISOString()
+  };
+
+  data.categories.push(newCategory);
+  await db.logActivity('CREATE_CATEGORY', `Created category "${newCategory.name}"`, (req as any).user.email);
+
+  res.status(201).json(newCategory);
+});
+
+app.put('/api/categories/:id', authMiddleware, async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+  const { name, slug, description } = req.body;
+  const data = db.get();
+
+  const index = data.categories.findIndex(c => c.id === id);
+  if (index === -1) {
+    res.status(404).json({ error: 'Category not found' });
+    return;
+  }
+
+  if (slug && slug !== data.categories[index].slug) {
+    if (data.categories.some(c => c.slug === slug && c.id !== id)) {
+      res.status(400).json({ error: 'Category with this slug already exists' });
+      return;
+    }
+  }
+
+  const updatedCategory = {
+    ...data.categories[index],
+    name: name || data.categories[index].name,
+    slug: slug || data.categories[index].slug,
+    description: description !== undefined ? description : data.categories[index].description
+  };
+
+  data.categories[index] = updatedCategory;
+  await db.logActivity('UPDATE_CATEGORY', `Updated category "${updatedCategory.name}"`, (req as any).user.email);
+
+  res.json(updatedCategory);
+});
+
+app.delete('/api/categories/:id', authMiddleware, async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+  const data = db.get();
+  const category = data.categories.find(c => c.id === id);
+
+  if (!category) {
+    res.status(404).json({ error: 'Category not found' });
+    return;
+  }
+
+  data.categories = data.categories.filter(c => c.id !== id);
+  data.blogs = data.blogs.map(b => ({
+    ...b,
+    categories: b.categories.filter(cId => cId !== id)
+  }));
+
+  await db.logActivity('DELETE_CATEGORY', `Deleted category "${category.name}" and references.`, (req as any).user.email);
+
+  res.json({ success: true });
+});
+
+// ================= TAGS API =================
+
+app.get('/api/tags', (req: Request, res: Response): void => {
+  const data = db.get();
+  res.json(data.tags);
+});
+
+app.post('/api/tags', authMiddleware, async (req: Request, res: Response): Promise<void> => {
+  const { name, slug } = req.body;
+  if (!name || !slug) {
+    res.status(400).json({ error: 'Name and slug are required' });
+    return;
+  }
+
+  const data = db.get();
+  if (data.tags.some(t => t.slug === slug)) {
+    res.status(400).json({ error: 'Tag with this slug already exists' });
+    return;
+  }
+
+  const newTag: Tag = {
+    id: 'tag-' + Math.random().toString(36).substring(2, 9),
+    name,
+    slug,
+    createdAt: new Date().toISOString()
+  };
+
+  data.tags.push(newTag);
+  await db.logActivity('CREATE_TAG', `Created tag "${newTag.name}"`, (req as any).user.email);
+
+  res.status(201).json(newTag);
+});
+
+app.put('/api/tags/:id', authMiddleware, async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+  const { name, slug } = req.body;
+  const data = db.get();
+
+  const index = data.tags.findIndex(t => t.id === id);
+  if (index === -1) {
+    res.status(404).json({ error: 'Tag not found' });
+    return;
+  }
+
+  if (slug && slug !== data.tags[index].slug) {
+    if (data.tags.some(t => t.slug === slug && t.id !== id)) {
+      res.status(400).json({ error: 'Tag with this slug already exists' });
+      return;
+    }
+  }
+
+  const updatedTag = {
+    ...data.tags[index],
+    name: name || data.tags[index].name,
+    slug: slug || data.tags[index].slug
+  };
+
+  data.tags[index] = updatedTag;
+  await db.logActivity('UPDATE_TAG', `Updated tag "${updatedTag.name}"`, (req as any).user.email);
+
+  res.json(updatedTag);
+});
+
+app.delete('/api/tags/:id', authMiddleware, async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+  const data = db.get();
+  const tag = data.tags.find(t => t.id === id);
+
+  if (!tag) {
+    res.status(404).json({ error: 'Tag not found' });
+    return;
+  }
+
+  data.tags = data.tags.filter(t => t.id !== id);
+  data.blogs = data.blogs.map(b => ({
+    ...b,
+    tags: b.tags.filter(tId => tId !== id)
+  }));
+
+  await db.logActivity('DELETE_TAG', `Deleted tag "${tag.name}" and references.`, (req as any).user.email);
+
+  res.json({ success: true });
+});
+
+// ================= INQUIRIES API =================
+
+app.post('/api/inquiries', async (req: Request, res: Response): Promise<void> => {
+  const { name, phone, email, city, service, message } = req.body;
+
+  if (!name || !phone || !city || !service) {
+    res.status(400).json({ error: 'Name, Phone, City, and Service are required' });
+    return;
+  }
+
+  const data = db.get();
+  const newInquiry: Inquiry = {
+    id: 'inq-' + Math.random().toString(36).substring(2, 9),
+    name,
+    phone,
+    email: email || '',
+    city,
+    service,
+    message: message || '',
+    status: 'new',
+    createdAt: new Date().toISOString()
+  };
+
+  data.inquiries.unshift(newInquiry);
+  await db.logActivity('CUSTOMER_INQUIRY', `Customer ${name} from ${city} submitted an inquiry for "${service}"`, 'visitor');
+
+  res.status(201).json(newInquiry);
+});
+
+app.get('/api/inquiries', authMiddleware, (req: Request, res: Response): void => {
+  const data = db.get();
+  res.json(data.inquiries);
+});
+
+app.put('/api/inquiries/:id', authMiddleware, async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  if (!status || !['new', 'contacted', 'resolved'].includes(status)) {
+    res.status(400).json({ error: 'Valid status is required' });
+    return;
+  }
+
+  const data = db.get();
+  const inquiryIndex = data.inquiries.findIndex(i => i.id === id);
+
+  if (inquiryIndex === -1) {
+    res.status(404).json({ error: 'Inquiry not found' });
+    return;
+  }
+
+  const updatedInquiry = {
+    ...data.inquiries[inquiryIndex],
+    status: status as 'new' | 'contacted' | 'resolved'
+  };
+
+  data.inquiries[inquiryIndex] = updatedInquiry;
+  await db.logActivity('UPDATE_INQUIRY', `Marked inquiry of ${updatedInquiry.name} as ${status}`, (req as any).user.email);
+
+  res.json(updatedInquiry);
+});
+
+app.delete('/api/inquiries/:id', authMiddleware, async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+  const data = db.get();
+  const inquiry = data.inquiries.find(i => i.id === id);
+
+  if (!inquiry) {
+    res.status(404).json({ error: 'Inquiry not found' });
+    return;
+  }
+
+  data.inquiries = data.inquiries.filter(i => i.id !== id);
+  await db.logActivity('DELETE_INQUIRY', `Deleted inquiry of ${inquiry.name}.`, (req as any).user.email);
+
+  res.json({ success: true });
+});
+
+// ================= ACTIVITY LOGS API =================
+
+app.get('/api/logs', authMiddleware, (req: Request, res: Response): void => {
+  const data = db.get();
+  res.json(data.logs);
+});
+
+// ================= IMAGE UPLOAD API =================
+
+app.post('/api/upload', authMiddleware, async (req: Request, res: Response): Promise<void> => {
+  const { image, fileName } = req.body;
+
+  if (!image) {
+    res.status(400).json({ error: 'No image data provided' });
+    return;
+  }
+
+  try {
+    if (process.env.CLOUDINARY_CLOUD_NAME || process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME) {
+      const uploadResult = await cloudinary.uploader.upload(image, {
+        folder: 'starchennaisafetynets',
+        public_id: `${Date.now()}-${(fileName || 'upload').replace(/[^a-zA-Z0-9]/g, '-')}`
+      });
+      res.status(201).json({ url: uploadResult.secure_url });
+      return;
+    }
+
+    const matches = image.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+    if (!matches || matches.length !== 3) {
+      res.status(400).json({ error: 'Invalid image format' });
+      return;
+    }
+
+    const imageBuffer = Buffer.from(matches[2], 'base64');
+    const extension = matches[1].split('/')[1] || 'png';
+    const cleanFileName = `${Date.now()}-${(fileName || 'upload').replace(/[^a-zA-Z0-9]/g, '-')}.${extension}`;
+    const filePath = path.join(UPLOADS_DIR, cleanFileName);
+
+    fs.writeFileSync(filePath, imageBuffer);
+
+    const relativeUrl = `/api/uploads/${cleanFileName}`;
+    res.status(201).json({ url: relativeUrl });
+  } catch (err: any) {
+    console.error('Upload Error:', err);
+    res.status(500).json({ error: 'Failed to upload image file: ' + err.message });
+  }
+});
+
+// ================= GALLERY API =================
+
+app.get('/api/gallery', (req: Request, res: Response): void => {
+  const data = db.get();
+  const { category } = req.query;
+  let images = [...(data.gallery || [])];
+  if (category) {
+    images = images.filter(img => img.category === category);
+  }
+  images.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  res.json(images);
+});
+
+app.post('/api/gallery', authMiddleware, async (req: Request, res: Response): Promise<void> => {
+  const { image, url, fileName, caption, category, cloudinaryId } = req.body;
+
+  if (!category) {
+    res.status(400).json({ error: 'Category is required' });
+    return;
+  }
+
+  let finalUrl = url || '';
+  let finalCloudinaryId = cloudinaryId || '';
+
+  if (image) {
+    try {
+      if (process.env.CLOUDINARY_CLOUD_NAME || process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME) {
+        const uploadResult = await cloudinary.uploader.upload(image, {
+          folder: 'starchennaisafetynets',
+          public_id: `${Date.now()}-${(fileName || 'gallery').replace(/[^a-zA-Z0-9]/g, '-')}`
+        });
+        finalUrl = uploadResult.secure_url;
+        finalCloudinaryId = uploadResult.public_id;
+      } else {
+        const matches = image.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+        if (!matches || matches.length !== 3) {
+          res.status(400).json({ error: 'Invalid image format' });
+          return;
+        }
+
+        const imageBuffer = Buffer.from(matches[2], 'base64');
+        const extension = matches[1].split('/')[1] || 'png';
+        const cleanFileName = `${Date.now()}-${(fileName || 'gallery').replace(/[^a-zA-Z0-9]/g, '-')}.${extension}`;
+        const filePath = path.join(UPLOADS_DIR, cleanFileName);
+
+        fs.writeFileSync(filePath, imageBuffer);
+
+        finalUrl = `/api/uploads/${cleanFileName}`;
+        finalCloudinaryId = cleanFileName;
+      }
+    } catch (err: any) {
+      console.error('Gallery Upload Error:', err);
+      res.status(500).json({ error: 'Failed to upload gallery image: ' + err.message });
+      return;
+    }
+  }
+
+  if (!finalUrl) {
+    res.status(400).json({ error: 'Image or URL is required' });
+    return;
+  }
+
+  const data = db.get();
+  const newImage = {
+    id: 'gal-' + Math.random().toString(36).substring(2, 9),
+    url: finalUrl,
+    caption: caption || '',
+    category,
+    cloudinaryId: finalCloudinaryId,
+    createdAt: new Date().toISOString()
+  };
+
+  data.gallery = data.gallery || [];
+  data.gallery.push(newImage);
+  await db.logActivity('CREATE_GALLERY', `Added gallery image under "${category}"`, (req as any).user.email);
+
+  res.status(201).json(newImage);
+});
+
+app.delete('/api/gallery/:id', authMiddleware, async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+  const data = db.get();
+  const imageIndex = (data.gallery || []).findIndex(img => img.id === id);
+
+  if (imageIndex === -1) {
+    res.status(404).json({ error: 'Gallery image not found' });
+    return;
+  }
+
+  const image = data.gallery[imageIndex];
+
+  try {
+    if ((process.env.CLOUDINARY_CLOUD_NAME || process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME) && image.cloudinaryId && !image.cloudinaryId.startsWith('gallery-')) {
+      await cloudinary.uploader.destroy(image.cloudinaryId);
+    } else if (!image.url.startsWith('/api/uploads/') === false) {
+      const localFile = path.join(UPLOADS_DIR, image.cloudinaryId);
+      if (fs.existsSync(localFile)) fs.unlinkSync(localFile);
+    }
+  } catch (err) {
+    console.warn('Cloudinary deletion warning:', err);
+  }
+
+  data.gallery = (data.gallery || []).filter(img => img.id !== id);
+  await db.logActivity('DELETE_GALLERY', `Deleted gallery image${image.caption ? ` "${image.caption}"` : ''}`, (req as any).user.email);
+
+  res.json({ success: true });
+});
+
+// ================= SEO SITEMAP ROUTES =================
+
+function getBaseUrl(req: Request): string {
+  const host = req.get('x-forwarded-host') || req.get('host') || 'starbalconysafetynetschennai.com';
+  const protocol = req.get('x-forwarded-proto') || 'https';
+  return `${protocol}://${host}`;
+}
+
+app.get('/sitemap.xml', (req: Request, res: Response): void => {
+  const data = db.get();
+  const baseUrl = getBaseUrl(req);
+  const today = new Date().toISOString().split('T')[0];
+
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+  xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+
+  const staticRoutes = [
+    { path: '/', changefreq: 'daily', priority: '1.0' },
+    { path: '/about', changefreq: 'monthly', priority: '0.8' },
+    { path: '/services', changefreq: 'weekly', priority: '0.9' },
+    // 14 Dedicated Services
+    { path: '/services/balcony-safety-nets', changefreq: 'weekly', priority: '0.9' },
+    { path: '/services/pigeon-nets', changefreq: 'weekly', priority: '0.9' },
+    { path: '/services/anti-bird-nets', changefreq: 'weekly', priority: '0.8' },
+    { path: '/services/bird-spikes', changefreq: 'weekly', priority: '0.8' },
+    { path: '/services/children-safety-nets', changefreq: 'weekly', priority: '0.9' },
+    { path: '/services/staircase-safety-nets', changefreq: 'weekly', priority: '0.8' },
+    { path: '/services/swimming-pool-safety-nets', changefreq: 'weekly', priority: '0.8' },
+    { path: '/services/car-parking-safety-nets', changefreq: 'weekly', priority: '0.8' },
+    { path: '/services/coconut-tree-safety-nets', changefreq: 'weekly', priority: '0.8' },
+    { path: '/services/monkey-safety-nets', changefreq: 'weekly', priority: '0.9' },
+    { path: '/services/construction-safety-nets', changefreq: 'weekly', priority: '0.8' },
+    { path: '/services/duct-area-safety-nets', changefreq: 'weekly', priority: '0.8' },
+    { path: '/services/cricket-practice-nets', changefreq: 'weekly', priority: '0.8' },
+    { path: '/services/sports-nets-installation', changefreq: 'weekly', priority: '0.8' },
+    // 14 Localities & Major Cities
+    { path: '/locality/t-nagar', changefreq: 'weekly', priority: '0.8' },
+    { path: '/locality/anna-nagar', changefreq: 'weekly', priority: '0.8' },
+    { path: '/locality/velachery', changefreq: 'weekly', priority: '0.8' },
+    { path: '/locality/adyar', changefreq: 'weekly', priority: '0.8' },
+    { path: '/locality/omr', changefreq: 'weekly', priority: '0.8' },
+    { path: '/locality/porur', changefreq: 'weekly', priority: '0.8' },
+    { path: '/locality/nungambakkam', changefreq: 'weekly', priority: '0.8' },
+    { path: '/locality/tambaram', changefreq: 'weekly', priority: '0.8' },
+    { path: '/locality/kodambakkam', changefreq: 'weekly', priority: '0.8' },
+    { path: '/locality/coimbatore', changefreq: 'weekly', priority: '0.8' },
+    { path: '/locality/madurai', changefreq: 'weekly', priority: '0.8' },
+    { path: '/locality/trichy', changefreq: 'weekly', priority: '0.8' },
+    { path: '/locality/pondicherry', changefreq: 'weekly', priority: '0.8' },
+    { path: '/locality/chengalpattu', changefreq: 'weekly', priority: '0.8' },
+    // Trust & Knowledge Pages
+    { path: '/gallery', changefreq: 'weekly', priority: '0.7' },
+    { path: '/blog', changefreq: 'daily', priority: '0.8' },
+    { path: '/contact', changefreq: 'monthly', priority: '0.8' },
+    { path: '/privacy-policy', changefreq: 'monthly', priority: '0.6' },
+    { path: '/faq', changefreq: 'weekly', priority: '0.8' },
+    { path: '/sitemap', changefreq: 'weekly', priority: '0.6' }
+  ];
+
+  staticRoutes.forEach(r => {
+    xml += `  <url>\n`;
+    xml += `    <loc>${baseUrl}${r.path}</loc>\n`;
+    xml += `    <lastmod>${today}</lastmod>\n`;
+    xml += `    <changefreq>${r.changefreq}</changefreq>\n`;
+    xml += `    <priority>${r.priority}</priority>\n`;
+    xml += `  </url>\n`;
+  });
+
+  const publishedBlogs = data.blogs.filter(b => b.status === 'published');
+  publishedBlogs.forEach(blog => {
+    const lastmod = blog.publishDate ? blog.publishDate.split('T')[0] : today;
+    xml += `  <url>\n`;
+    xml += `    <loc>${baseUrl}/blog/${blog.slug}</loc>\n`;
+    xml += `    <lastmod>${lastmod}</lastmod>\n`;
+    xml += `    <changefreq>monthly</changefreq>\n`;
+    xml += `    <priority>0.7</priority>\n`;
+    xml += `  </url>\n`;
+  });
+
+  xml += `</urlset>`;
+
+  res.header('Content-Type', 'application/xml');
+  res.status(200).send(xml);
+});
+
+app.get('/sitemap-index.xml', (req: Request, res: Response): void => {
+  const baseUrl = getBaseUrl(req);
+  const today = new Date().toISOString().split('T')[0];
+
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+  xml += `<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+  xml += `  <sitemap>\n`;
+  xml += `    <loc>${baseUrl}/sitemap.xml</loc>\n`;
+  xml += `    <lastmod>${today}</lastmod>\n`;
+  xml += `  </sitemap>\n`;
+  xml += `</sitemapindex>\n`;
+
+  res.header('Content-Type', 'application/xml');
+  res.status(200).send(xml);
+});
+
+export default app;

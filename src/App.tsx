@@ -1,0 +1,793 @@
+import React, { useState, useEffect } from 'react';
+import Header from './components/Header.js';
+import Footer from './components/Footer.js';
+import FloatingButtons from './components/FloatingButtons.js';
+import Home from './pages/Home.js';
+import About from './pages/About.js';
+import Services from './pages/Services.js';
+import Contact from './pages/Contact.js';
+import BlogPage from './pages/Blog.js';
+import GalleryPage from './pages/Gallery.js';
+import LocationPage from './pages/Location.js';
+import SitemapPage from './pages/SitemapPage.js';
+import ServiceDetailPage from './pages/ServiceDetailPage.js';
+import LocalityDetailPage from './pages/LocalityDetailPage.js';
+import PrivacyPolicyPage from './pages/PrivacyPolicy.js';
+import FAQPage from './pages/FAQPage.js';
+import { servicesData } from './data/servicesData.js';
+import { localitiesData } from './data/localitiesData.js';
+import { blogArticlesData } from './data/blogArticlesData.js';
+import AdminLayout from './components/AdminLayout.js';
+import { 
+  ShieldCheck, Lock, Eye, EyeOff, X, Send, CheckCircle, 
+  RefreshCw, AlertCircle 
+} from 'lucide-react';
+
+export default function App() {
+  const [activePage, setActivePage] = useState<string>('home');
+  const [blogSlug, setBlogSlug] = useState<string | null>(null);
+  const [adminToken, setAdminToken] = useState<string | null>(null);
+
+  // Administrative Login form state
+  const [isAdminPortal, setIsAdminPortal] = useState<boolean>(false);
+  const [loginEmail, setLoginEmail] = useState<string>('');
+  const [loginPassword, setLoginPassword] = useState<string>('');
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [loginLoading, setLoginLoading] = useState<boolean>(false);
+  const [loginError, setLoginError] = useState<string>('');
+
+  // Global Quote Modal state
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState<boolean>(false);
+  const [quoteService, setQuoteService] = useState<string>('');
+  const [quoteName, setQuoteName] = useState<string>('');
+  const [quotePhone, setQuotePhone] = useState<string>('');
+  const [quoteCity, setQuoteCity] = useState<string>('');
+  const [quoteMsg, setQuoteMsg] = useState<string>('');
+  const [quoteSubmitting, setQuoteSubmitting] = useState<boolean>(false);
+  const [quoteSuccess, setQuoteSuccess] = useState<boolean>(false);
+
+  // Unified Path & Hash Routing Parser
+  useEffect(() => {
+    const parseRoute = () => {
+      const pathname = window.location.pathname.replace(/\/$/, '');
+      const hash = window.location.hash;
+
+      let routePath = pathname || '/';
+      if (hash && hash.startsWith('#/')) {
+        routePath = hash.replace('#', '');
+      }
+
+      setIsAdminPortal(false);
+      setBlogSlug(null);
+
+      if (routePath === '/star-admin-portal-8472') {
+        setIsAdminPortal(true);
+        setActivePage('admin');
+      } else if (routePath.startsWith('/services/')) {
+        const slug = routePath.replace('/services/', '');
+        setActivePage(`services-${slug}`);
+      } else if (routePath.startsWith('/locality/')) {
+        const slug = routePath.replace('/locality/', '');
+        setActivePage(`locality-${slug}`);
+      } else if (routePath.startsWith('/safety-nets-')) {
+        // Standardize legacy /safety-nets-[city] to /locality/[city]
+        const city = routePath.replace('/safety-nets-', '');
+        setActivePage(`locality-${city}`);
+      } else if (routePath.startsWith('/blog/')) {
+        const slug = routePath.replace('/blog/', '');
+        setActivePage('blog');
+        setBlogSlug(slug);
+      } else if (routePath === '/privacy-policy') {
+        setActivePage('privacy-policy');
+      } else if (routePath === '/faq') {
+        setActivePage('faq');
+      } else {
+        const page = routePath.replace('/', '');
+        if (['about', 'services', 'blog', 'contact', 'gallery', 'sitemap'].includes(page)) {
+          setActivePage(page);
+        } else {
+          setActivePage('home');
+        }
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    window.addEventListener('popstate', parseRoute);
+    window.addEventListener('hashchange', parseRoute);
+    parseRoute();
+
+    return () => {
+      window.removeEventListener('popstate', parseRoute);
+      window.removeEventListener('hashchange', parseRoute);
+    };
+  }, []);
+
+  // Dynamic SEO & Structured Data (JSON-LD) Injector
+  useEffect(() => {
+    // 1. Check if blog detail page has local article metadata
+    if (activePage === 'blog' && blogSlug) {
+      if (blogArticlesData[blogSlug]) {
+        const bData = blogArticlesData[blogSlug];
+        document.title = bData.metaTitle;
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) metaDesc.setAttribute('content', bData.metaDescription);
+      }
+      return;
+    }
+
+    let title = 'Star Safety Enterprises - Premium Safety Net Installation Services';
+    let desc = 'Premium, industrial-grade safety net installation services across Tamil Nadu. Balcony safety nets, pigeon safety, child safety, construction safety, and sports nets.';
+    let url = `https://starbalconysafetynetschennai.com/#/${activePage}`;
+
+    if (activePage === 'home') {
+      title = 'Star Safety Enterprises - Premium Safety Net Installation Services in Tamil Nadu';
+      desc = 'Premium safety net installation services across Tamil Nadu. Balcony safety, pigeon protection, child safety, construction safety, and sports nets with robust warranty.';
+      url = 'https://starbalconysafetynetschennai.com/';
+    } else if (activePage === 'about') {
+      title = 'About Star Safety Enterprises | Safety Net Installation Experts';
+      desc = 'Securing Tamil Nadu\'s balconies and industrial projects since 2014. Meet our certified climbing technicians and learn about our ISO 9001:2015 quality standards.';
+    } else if (activePage === 'services') {
+      title = 'Safety Net Installation Services | Balcony, Pigeon & Children Safety';
+      desc = 'Explore our safety net installations including balconies, AC ducts, monkey deterrents, sports enclosures, and modern stainless steel invisible grills.';
+    } else if (activePage === 'gallery') {
+      title = 'Photo Gallery | Real Installations & Workmanship | Star Safety';
+      desc = 'See our real safety net installation work across apartments, villas, construction sites, and sports pitches in Chennai, Coimbatore, and other cities.';
+    } else if (activePage === 'contact') {
+      title = 'Contact Us for Free Site Inspection & Quote | Star Safety';
+      desc = 'Get in touch for same-day safety net measurements and quotation in Chennai, Coimbatore, Madurai, Trichy, and Hosur. Open 24/7.';
+    } else if (activePage === 'sitemap') {
+      title = 'Sitemap | Star Safety Enterprises';
+      desc = 'Browse the complete sitemap of Star Safety Enterprises including service pages and published blog articles.';
+    } else if (activePage === 'blog') {
+      title = 'Expert Safety Net Blog | Material Standards & Pigeon Prevention';
+      desc = 'In-depth articles about safety standards (IS-11057), material comparisons (HDPE vs Nylon), bird repelling techniques, and professional advice.';
+    } else if (activePage.startsWith('services-')) {
+      const sSlug = activePage.replace('services-', '');
+      const sData = servicesData[sSlug];
+      if (sData) {
+        title = sData.metaTitle;
+        desc = sData.metaDescription;
+        url = sData.canonicalUrl;
+      }
+    } else if (activePage.startsWith('locality-')) {
+      const lSlug = activePage.replace('locality-', '');
+      const lData = localitiesData[lSlug];
+      if (lData) {
+        title = lData.metaTitle;
+        desc = lData.metaDescription;
+        url = lData.canonicalUrl;
+      }
+    } else if (activePage.startsWith('safety-nets-')) {
+      const city = activePage.replace('safety-nets-', '');
+      const cityCap = city.charAt(0).toUpperCase() + city.slice(1);
+      title = `Safety Nets in ${cityCap === 'trichy' ? 'Trichy (Tiruchirappalli)' : cityCap === 'pondicherry' ? 'Puducherry (Pondicherry)' : cityCap} | Premium Installation`;
+      
+      if (city === 'trichy') {
+        desc = 'Professional safety net installation services in Trichy. Balcony netting, pigeon screens, and construction nets with stainless steel brackets.';
+      } else if (city === 'pondicherry') {
+        desc = 'Premium safety nets and invisible grills in Pondicherry. Long-lasting coastal-grade SS316 anchors that resist salt air corrosion.';
+      } else if (city === 'chengalpattu') {
+        desc = 'Certified safety net installation in Chengalpattu and Mahindra World City. Construction nets, pigeon nets, and duct cover screens.';
+      } else if (city === 'tambaram') {
+        desc = 'Leading safety net installer in East & West Tambaram, Selaiyur, and Chromepet. Heavy-duty child safety nets and premium window mosquito screens.';
+      } else {
+        desc = `Professional safety net installation services in ${cityCap}. Balcony safety, pigeon netting, and invisible grills with written warranty.`;
+      }
+    }
+
+    // Set DOM Title
+    document.title = title;
+
+    // Set Meta Description
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute('content', desc);
+    }
+
+    // Set OG Title & Description
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', title);
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute('content', desc);
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.setAttribute('content', url);
+
+    // Set Twitter Title & Description
+    const twTitle = document.querySelector('meta[property="twitter:title"]');
+    if (twTitle) twTitle.setAttribute('content', title);
+    const twDesc = document.querySelector('meta[property="twitter:description"]');
+    if (twDesc) twDesc.setAttribute('content', desc);
+
+    // Set/Update Canonical Link Tag
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', url);
+
+    // LocalBusiness JSON-LD Structured Data
+    if (activePage === 'home') {
+      let schemaScript = document.getElementById('local-business-schema');
+      if (!schemaScript) {
+        schemaScript = document.createElement('script');
+        schemaScript.setAttribute('id', 'local-business-schema');
+        schemaScript.setAttribute('type', 'application/ld+json');
+        document.head.appendChild(schemaScript);
+      }
+      const schemaData = {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Star Safety Enterprises",
+        "alternateName": ["Star Safety Nets", "Star Balcony Safety Nets Chennai"],
+        "legalName": "Star Safety Enterprises",
+        "description": "Premium balcony, pigeon, child, construction, and industrial safety net installation services across Tamil Nadu.",
+        "image": "https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938508/starchennaisafetynets/chennai_hero_backdrop.jpg",
+        "logo": "https://starbalconysafetynetschennai.com/icon1.png",
+        "telephone": "+919043717064",
+        "email": "dudaprasad12345@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "No 14/22, Flat F2, 1st Floor, Bharathiar Street, West Mambalam",
+          "addressLocality": "Chennai",
+          "addressRegion": "Tamil Nadu",
+          "postalCode": "600033",
+          "addressCountry": "IN"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "13.0382",
+          "longitude": "80.2227"
+        },
+        "url": "https://starbalconysafetynetschennai.com/",
+        "areaServed": ["Chennai", "Coimbatore", "Madurai", "Trichy", "Puducherry", "Chengalpattu", "Tambaram", "Tamil Nadu"],
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+          ],
+          "opens": "00:00",
+          "closes": "23:59"
+        },
+        "priceRange": "₹₹"
+      };
+      schemaScript.textContent = JSON.stringify(schemaData, null, 2);
+    } else {
+      const schemaScript = document.getElementById('local-business-schema');
+      if (schemaScript) {
+        schemaScript.remove();
+      }
+    }
+
+    // 2. FAQ Page JSON-LD Structured Data (Answer Engine Optimization - AEO)
+    let faqSchemaScript = document.getElementById('faq-schema');
+    let faqData: { question: string; answer: string }[] = [];
+
+    if (activePage === 'home') {
+      faqData = [
+        {
+          question: "What is the balcony safety nets price per square feet in chennai?",
+          answer: "Pricing is based on a transparent per-square-foot rate. Standard pigeon net for balcony starts at ₹20 - ₹35 per sq. ft., while premium transparent nylon nets range from ₹25 - ₹40 per sq. ft., including custom sizing and professional installation with rust-proof anchors."
+        },
+        {
+          question: "Why should I install pigeon safety nets in chennai balconies?",
+          answer: "Pigeons nesting in AC ducts and shafts cause severe sanitation issues and health hazards. A high-tensile 35mm-50mm pigeon safety net acts as a humane physical barrier that keeps birds away without harming them."
+        },
+        {
+          question: "Which is the best mosquito net in chennai for apartment windows?",
+          answer: "For windows, pleated retractable mosquito nets or velcro screen borders are highly popular. We recommend Phifer and Saint Gobain glass fiber meshes, which block insects, maintain 98% ventilation, and do not rot under direct sunlight."
+        },
+        {
+          question: "Are balcony safety nets safe enough for active toddlers and cats?",
+          answer: "Absolutely. Our double-mesh HDPE child safety nets are reinforced with steel border wires and heavy anchor brackets, certified to hold sudden impact drops of up to 150 kilograms."
+        }
+      ];
+    } else if (activePage === 'safety-nets-trichy') {
+      faqData = [
+        {
+          question: "How long does it take for installation in Trichy?",
+          answer: "We offer same-day site measurement and installation services in Trichy. The actual fitting process takes about 2 to 4 hours depending on balcony size."
+        },
+        {
+          question: "Do you cover Srirangam and surrounding villages?",
+          answer: "Yes, our local Trichy crew serves Srirangam, Lalgudi, Tiruverumbur, Woraiyur, and all surrounding areas within a 30km radius."
+        }
+      ];
+    } else if (activePage === 'safety-nets-pondicherry') {
+      faqData = [
+        {
+          question: "Will the salt air rust my safety net fasteners in Pondicherry?",
+          answer: "Absolutely not. Unlike local contractors who use iron brackets, we exclusively use premium SS304 and SS316 stainless steel anchors that are 100% rust-proof in coastal areas."
+        },
+        {
+          question: "Do you provide services in Lawspet and Oulgaret?",
+          answer: "Yes, our Puducherry team provides same-day inspections and installations in Lawspet, Oulgaret, Muthialpet, and nearby tourist zones."
+        }
+      ];
+    } else if (activePage === 'safety-nets-chengalpattu') {
+      faqData = [
+        {
+          question: "Do you issue test certificates for construction nets?",
+          answer: "Yes. All our industrial and construction safety nets come with manufacturer test certificates specifying tensile strength and load limits."
+        },
+        {
+          question: "Can your team visit Mahindra World City for residential netting?",
+          answer: "Yes. We routinely service apartments inside Mahindra World City, Maraimalai Nagar, and surrounding residential complexes."
+        }
+      ];
+    } else if (activePage === 'safety-nets-tambaram') {
+      faqData = [
+        {
+          question: "Why are mosquito screens essential in Tambaram?",
+          answer: "Tambaram's proximity to water bodies like Selaiyur Lake leads to heavy mosquito breeding. Retractable or velcro screens allow fresh evening air while blocking insects."
+        },
+        {
+          question: "Do you offer bulk discounts for apartment societies in Selaiyur?",
+          answer: "Yes. We offer special society discounts (up to 20% off) if multiple flat owners coordinate a bulk safety net order together."
+        }
+      ];
+    }
+
+    if (faqData.length > 0) {
+      if (!faqSchemaScript) {
+        faqSchemaScript = document.createElement('script');
+        faqSchemaScript.setAttribute('id', 'faq-schema');
+        faqSchemaScript.setAttribute('type', 'application/ld+json');
+        document.head.appendChild(faqSchemaScript);
+      }
+      const schemaData = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faqData.map(f => ({
+          "@type": "Question",
+          "name": f.question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": f.answer
+          }
+        }))
+      };
+      faqSchemaScript.textContent = JSON.stringify(schemaData, null, 2);
+    } else {
+      const existingFaqScript = document.getElementById('faq-schema');
+      if (existingFaqScript) {
+        existingFaqScript.remove();
+      }
+    }
+
+    // 3. Service list structured data for Services page
+    let serviceSchemaScript = document.getElementById('service-schema');
+    if (activePage === 'services') {
+      if (!serviceSchemaScript) {
+        serviceSchemaScript = document.createElement('script');
+        serviceSchemaScript.setAttribute('id', 'service-schema');
+        serviceSchemaScript.setAttribute('type', 'application/ld+json');
+        document.head.appendChild(serviceSchemaScript);
+      }
+      const schemaData = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Safety Net Installation Services",
+        "description": "Premium safety net and screen installation services by Star Safety Enterprises.",
+        "itemListElement": [
+          {
+            "@type": "Service",
+            "position": 1,
+            "name": "Balcony Safety Nets",
+            "description": "Secure balconies from accidental falls using high-tensile UV-stabilized HDPE and Nylon co-polymer nets.",
+            "provider": {
+              "@type": "LocalBusiness",
+              "name": "Star Safety Enterprises"
+            }
+          },
+          {
+            "@type": "Service",
+            "position": 2,
+            "name": "Pigeon & Bird Protection Nets",
+            "description": "Humane netting physical barriers (25mm-50mm mesh) to prevent pigeon and bird infestations on balconies.",
+            "provider": {
+              "@type": "LocalBusiness",
+              "name": "Star Safety Enterprises"
+            }
+          },
+          {
+            "@type": "Service",
+            "position": 3,
+            "name": "Stainless Steel Invisible Grills",
+            "description": "Modern safety barriers for high-rise balconies and windows using marine-grade 316 stainless steel wires.",
+            "provider": {
+              "@type": "LocalBusiness",
+              "name": "Star Safety Enterprises"
+            }
+          }
+        ]
+      };
+      serviceSchemaScript.textContent = JSON.stringify(schemaData, null, 2);
+    } else {
+      const existingServiceScript = document.getElementById('service-schema');
+      if (existingServiceScript) {
+        existingServiceScript.remove();
+      }
+    }
+
+  }, [activePage, blogSlug]);
+
+  const changePage = (page: string) => {
+    setActivePage(page);
+    setIsAdminPortal(false);
+    setBlogSlug(null);
+    window.location.hash = `#/${page}`;
+  };
+
+  const handleBlogSlugChange = (slug: string | null) => {
+    setBlogSlug(slug);
+    if (slug) {
+      window.location.hash = `#/blog/${slug}`;
+    } else {
+      window.location.hash = `#/blog`;
+    }
+  };
+
+  // Open quote modal from anywhere
+  const openQuoteModal = (serviceName?: string) => {
+    setQuoteService(serviceName || '');
+    setQuoteSuccess(false);
+    setIsQuoteModalOpen(true);
+  };
+
+  // Login handler
+  const handleAdminLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!loginEmail || !loginPassword) {
+      setLoginError('Please enter your email and password.');
+      return;
+    }
+
+    setLoginLoading(true);
+    setLoginError('');
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: loginEmail, password: loginPassword })
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setAdminToken(data.token);
+        // Clear login fields
+        setLoginEmail('');
+        setLoginPassword('');
+      } else {
+        const err = await res.json();
+        setLoginError(err.error || 'Invalid login credentials.');
+      }
+    } catch (err) {
+      setLoginError('Server authentication connection failure.');
+    } finally {
+      setLoginLoading(false);
+    }
+  };
+
+  // Quote form submission handler
+  const handleQuoteSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!quoteName || !quotePhone || !quoteCity || !quoteService) {
+      alert('Please fill out all required fields.');
+      return;
+    }
+
+    setQuoteSubmitting(true);
+    try {
+      const res = await fetch('/api/inquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: quoteName,
+          phone: quotePhone,
+          city: quoteCity,
+          service: quoteService,
+          message: quoteMsg || 'Requested free site measurement visit via popup modal.'
+        })
+      });
+
+      if (res.ok) {
+        setQuoteSuccess(true);
+        setQuoteName('');
+        setQuotePhone('');
+        setQuoteCity('');
+        setQuoteMsg('');
+      } else {
+        alert('Failed to register request, please call us directly for fast booking.');
+      }
+    } catch (err) {
+      alert('Network failure. Please dial our hotline.');
+    } finally {
+      setQuoteSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="bg-white min-h-screen flex flex-col justify-between">
+      
+      {/* 1. ADMIN SYSTEM WRAPPER */}
+      {isAdminPortal ? (
+        adminToken ? (
+          /* Logged In Admin Workspace */
+          <AdminLayout 
+            token={adminToken} 
+            onLogout={() => {
+              setAdminToken(null);
+              setIsAdminPortal(false);
+              changePage('home');
+            }} 
+          />
+        ) : (
+          /* Admin Login Panel Screen */
+          <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 text-slate-100 font-sans">
+            <div className="w-full max-w-md bg-slate-900 rounded-3xl p-8 border border-slate-800 shadow-2xl space-y-6">
+              
+              <div className="text-center space-y-2">
+                <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-accent text-white shadow-lg shadow-accent/20">
+                  <ShieldCheck className="h-6 w-6" />
+                </div>
+                <h1 className="font-display font-black text-xl tracking-tight uppercase">Star Safety</h1>
+                <p className="text-xs font-mono font-bold text-accent">SECURE ADMINISTRATIVE PORTAL</p>
+                <p className="text-[10px] text-slate-500 leading-relaxed font-sans max-w-xs mx-auto">This area is confidential and monitored. Unauthorized access is strictly prohibited under Indian Cyber laws.</p>
+              </div>
+
+              {loginError && (
+                <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-3 rounded-xl text-xs flex items-center gap-2 font-semibold">
+                  <AlertCircle className="h-4 w-4" />
+                  {loginError}
+                </div>
+              )}
+
+              <form onSubmit={handleAdminLogin} className="space-y-4">
+                <div>
+                  <label className="block text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-1">Administrative Email</label>
+                  <input 
+                    type="email"
+                    required
+                    value={loginEmail}
+                    onChange={(e) => setLoginEmail(e.target.value)}
+                    placeholder="dudaprasad12345@gmail.com"
+                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-accent"
+                  />
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest">Portal Password</label>
+                  </div>
+                  <div className="relative">
+                    <input 
+                      type={showPassword ? 'text' : 'password'}
+                      required
+                      value={loginPassword}
+                      onChange={(e) => setLoginPassword(e.target.value)}
+                      placeholder="••••••••••••"
+                      className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-4 pr-10 py-2.5 text-xs text-white focus:outline-none focus:border-accent"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-2.5 text-slate-500 hover:text-white transition-colors"
+                    >
+                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loginLoading}
+                  className="w-full bg-accent hover:bg-accent-light text-white font-bold text-xs py-3 rounded-xl shadow-lg transition-all flex items-center justify-center gap-1.5"
+                >
+                  {loginLoading ? (
+                    <>
+                      <RefreshCw className="h-3.5 w-3.5 animate-spin" />
+                      Authorizing portal key...
+                    </>
+                  ) : (
+                    <>
+                      <Lock className="h-3.5 w-3.5" />
+                      Unlock Administrative Portal
+                    </>
+                  )}
+                </button>
+              </form>
+
+              <div className="text-center">
+                <button 
+                  onClick={() => changePage('home')}
+                  className="text-[10px] font-mono font-bold text-slate-500 hover:text-white transition-colors"
+                >
+                  ← Return to public website
+                </button>
+              </div>
+
+            </div>
+          </div>
+        )
+      ) : (
+        /* ================= PUBLIC WEBSITE VIEWPORT ================= */
+        <div className="flex flex-col min-h-screen">
+          <Header activePage={activePage} onChangePage={changePage} />
+
+          <main className="flex-grow">
+            {activePage === 'home' && (
+              <Home onChangePage={changePage} onOpenQuoteModal={openQuoteModal} />
+            )}
+            {activePage === 'about' && (
+              <About onOpenQuoteModal={() => openQuoteModal()} />
+            )}
+            {activePage === 'services' && (
+              <Services initialService={blogSlug || ''} onOpenQuoteModal={openQuoteModal} />
+            )}
+            {activePage === 'blog' && (
+              <BlogPage 
+                onOpenQuoteModal={openQuoteModal} 
+                initialSlug={blogSlug} 
+                onSlugChange={handleBlogSlugChange} 
+              />
+            )}
+            {activePage === 'contact' && (
+              <Contact />
+            )}
+            {activePage === 'gallery' && (
+              <GalleryPage onOpenQuoteModal={openQuoteModal} />
+            )}
+            {activePage === 'sitemap' && (
+              <SitemapPage />
+            )}
+            {activePage === 'privacy-policy' && (
+              <PrivacyPolicyPage />
+            )}
+            {activePage === 'faq' && (
+              <FAQPage onOpenQuoteModal={openQuoteModal} />
+            )}
+            {activePage.startsWith('services-') && (
+              <ServiceDetailPage slug={activePage.replace('services-', '')} onOpenQuoteModal={openQuoteModal} />
+            )}
+            {activePage.startsWith('locality-') && (
+              <LocalityDetailPage slug={activePage.replace('locality-', '')} onOpenQuoteModal={openQuoteModal} />
+            )}
+            {activePage.startsWith('safety-nets-') && (
+              <LocalityDetailPage slug={activePage.replace('safety-nets-', '')} onOpenQuoteModal={openQuoteModal} />
+            )}
+          </main>
+
+          <Footer onChangePage={changePage} />
+          
+          {/* Action floating widgets */}
+          <FloatingButtons />
+        </div>
+      )}
+
+      {/* ================= GLOBAL FREE MEASUREMENT POPUP MODAL ================= */}
+      {isQuoteModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-primary/80 backdrop-blur-sm animate-fadeIn">
+          <div className="relative w-full max-w-md bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-100 animate-scaleIn text-slate-700">
+            {/* Close */}
+            <button
+              onClick={() => setIsQuoteModalOpen(false)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-primary transition-colors p-1"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            {quoteSuccess ? (
+              <div className="text-center space-y-4 py-6">
+                <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500 text-white shadow">
+                  <CheckCircle className="h-6 w-6" />
+                </div>
+                <h3 className="font-display font-black text-primary text-lg">Inspection Booked Successfully!</h3>
+                <p className="text-xs text-slate-500 leading-relaxed max-w-xs mx-auto">Thank you. Our site technician has received your measurement request and will call you within 2 hours to confirm details.</p>
+                <button
+                  onClick={() => setIsQuoteModalOpen(false)}
+                  className="bg-accent hover:bg-accent-light text-white font-bold text-xs px-6 py-2.5 rounded-xl shadow-lg transition-all"
+                >
+                  Close Window
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div>
+                  <h3 className="font-display font-black text-primary text-xl">Request Free Site Inspection</h3>
+                  <p className="text-xs text-slate-400 mt-0.5">Fill out your details to schedule a local technician visit anywhere in Tamil Nadu.</p>
+                </div>
+
+                <form onSubmit={handleQuoteSubmit} className="space-y-3.5">
+                  <div>
+                    <label className="block text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-1">Your Full Name <span className="text-rose-400">*</span></label>
+                    <input 
+                      type="text"
+                      required
+                      value={quoteName}
+                      onChange={(e) => setQuoteName(e.target.value)}
+                      placeholder="e.g., Anbu Selvan"
+                      className="w-full bg-slate-50 border border-slate-200/80 rounded-xl px-4 py-2.5 text-xs text-primary focus:outline-none focus:border-accent"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-1">Phone Number <span className="text-rose-400">*</span></label>
+                      <input 
+                        type="tel"
+                        required
+                        value={quotePhone}
+                        onChange={(e) => setQuotePhone(e.target.value)}
+                        placeholder="e.g., 9043717064"
+                        className="w-full bg-slate-50 border border-slate-200/80 rounded-xl px-3 py-2.5 text-xs text-primary focus:outline-none focus:border-accent font-mono"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-1">Your City <span className="text-rose-400">*</span></label>
+                      <select 
+                        required
+                        value={quoteCity}
+                        onChange={(e) => setQuoteCity(e.target.value)}
+                        className="w-full bg-slate-50 border border-slate-200/80 rounded-xl px-2.5 py-2.5 text-xs text-primary focus:outline-none focus:border-accent font-semibold"
+                      >
+                        <option value="">Select City</option>
+                        <option value="Chennai">Chennai</option>
+                        <option value="Coimbatore">Coimbatore</option>
+                        <option value="Madurai">Madurai</option>
+                        <option value="Trichy">Trichy</option>
+                        <option value="Salem">Salem</option>
+                        <option value="Hosur">Hosur</option>
+                        <option value="Other">Other City</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-1">Select Net Specialty <span className="text-rose-400">*</span></label>
+                    <select 
+                      required
+                      value={quoteService}
+                      onChange={(e) => setQuoteService(e.target.value)}
+                      className="w-full bg-slate-50 border border-slate-200/80 rounded-xl px-2.5 py-2.5 text-xs text-primary focus:outline-none focus:border-accent font-semibold"
+                    >
+                      <option value="">Select Safety Net Type</option>
+                      <option value="Balcony Safety Nets">Balcony Safety Nets</option>
+                      <option value="Pigeon Safety Nets">Pigeon Safety Nets</option>
+                      <option value="Bird Protection Nets">Bird Protection Nets</option>
+                      <option value="Children Safety Nets">Children Safety Nets</option>
+                      <option value="Construction Safety Nets">Construction Safety Nets</option>
+                      <option value="Coconut Tree Safety Nets">Coconut Tree Safety Nets</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-1">Requirements (Optional)</label>
+                    <textarea 
+                      rows={2}
+                      value={quoteMsg}
+                      onChange={(e) => setQuoteMsg(e.target.value)}
+                      placeholder="e.g. Dimensions, preferred day/time of visit..."
+                      className="w-full bg-slate-50 border border-slate-200/80 rounded-xl px-4 py-2.5 text-xs text-primary focus:outline-none focus:border-accent"
+                    />
+                  </div>
+
+                  <button 
+                    type="submit"
+                    disabled={quoteSubmitting}
+                    className="w-full bg-accent hover:bg-accent-light text-white font-bold text-xs py-3 rounded-xl shadow-lg transition-all flex items-center justify-center gap-1.5"
+                  >
+                    <Send className="h-3.5 w-3.5" />
+                    {quoteSubmitting ? 'Booking measurement...' : 'Book Free Measurement'}
+                  </button>
+                </form>
+              </div>
+            )}
+            </div>
+          </div>
+        )}
+
+    </div>
+  );
+}

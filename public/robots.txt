@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://starbalconysafetynetschennai.com/sitemap.xml
+Sitemap: https://starbalconysafetynetschennai.com/sitemap-index.xml
