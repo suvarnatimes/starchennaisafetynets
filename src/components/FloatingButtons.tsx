@@ -33,19 +33,20 @@ export default function FloatingButtons() {
         </span>
       </a>
 
-      {/* Call Now Button */}
-      <a
-        href={`tel:${phoneNumber}`}
-        aria-label="Call Now"
-        className="group relative flex h-12 w-12 items-center justify-center rounded-full bg-[#16A34A] text-white shadow-lg transition-all duration-300 hover:scale-115 hover:bg-[#15803d] active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#16A34A] focus:ring-offset-2 md:h-14 md:w-14"
-      >
-        {/* Attention pulse ring */}
-        <span aria-hidden="true" className="pointer-events-none absolute inset-0 animate-ping rounded-full bg-[#16A34A]/60" />
-        <Phone className="relative h-5 w-5 group-hover:scale-110 group-hover:-rotate-12 transition-transform duration-300" />
-        <span className="pointer-events-none absolute right-14 scale-0 rounded bg-gray-900 px-2 py-1 text-xs font-medium text-white shadow transition-all group-hover:scale-100 whitespace-nowrap">
-          Call Us (+91 90437 17064)
-        </span>
-      </a>
+      {/* Call Now Button with Attention-Grabbing Animation */}
+      <div className="relative flex items-center justify-center">
+        <span aria-hidden="true" className="pointer-events-none absolute inset-0 animate-ping rounded-full bg-[#16A34A]/70" />
+        <a
+          href={`tel:${phoneNumber}`}
+          aria-label="Call Now"
+          className="group relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-[#16A34A] text-white shadow-xl transition-all duration-300 hover:scale-115 hover:bg-[#15803d] active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#16A34A] focus:ring-offset-2 md:h-14 md:w-14"
+        >
+          <Phone className="h-5 w-5 group-hover:scale-110 group-hover:-rotate-12 transition-transform duration-300 animate-phone-ring" />
+          <span className="pointer-events-none absolute right-14 scale-0 rounded bg-gray-900 px-2 py-1 text-xs font-medium text-white shadow transition-all group-hover:scale-100 whitespace-nowrap">
+            Call Us (+91 90437 17064)
+          </span>
+        </a>
+      </div>
     </div>
   );
 }

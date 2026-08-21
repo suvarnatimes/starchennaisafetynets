@@ -615,10 +615,10 @@ export default function Home({ onChangePage, onOpenQuoteModal }: HomeProps) {
           <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-transparent/40 z-10 pointer-events-none" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16 md:py-24 grid grid-cols-1 lg:grid-cols-[minmax(0,42rem)_1fr] gap-y-12 lg:gap-y-6 lg:gap-x-16 justify-items-center lg:justify-items-stretch items-center">
-          {/* Hero title (mobile: shown first) */}
-          <div className="order-1 lg:col-start-1 lg:row-start-1 w-full text-center lg:text-left space-y-6 max-w-2xl">
-            <div className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent/15 border border-accent/25 text-xs text-accent font-semibold font-mono animate-pulse uppercase tracking-wider">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16 md:py-24 grid grid-cols-1 lg:grid-cols-[minmax(0,42rem)_1fr] gap-y-8 lg:gap-y-6 lg:gap-x-16 justify-items-center lg:justify-items-stretch items-center">
+          {/* 1. Hero title (mobile: shown first) */}
+          <div className="order-1 lg:col-start-1 lg:row-start-1 w-full text-center lg:text-left space-y-4 lg:space-y-6 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent/15 border border-accent/25 text-xs text-accent font-semibold font-mono animate-pulse uppercase tracking-wider">
               <ShieldCheck className="h-4 w-4" /> ISO 9001:2015 Certified Service
             </div>
 
@@ -627,9 +627,28 @@ export default function Home({ onChangePage, onOpenQuoteModal }: HomeProps) {
               <span className="text-accent">Pigeon Netting Chennai</span> <br />
               Tamil Nadu Services
             </h1>
+          </div>
 
-            {/* Mobile CTA buttons (mobile only: two small buttons on one line) */}
-            <div className="flex sm:hidden items-stretch justify-center gap-2 w-full">
+          {/* 2. 3D Vertical Wheel Carousel (mobile: shown second right after the title) */}
+          <div className="order-2 lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:self-center w-full flex items-center justify-center lg:justify-end py-4 lg:py-6">
+            <Vertical3DWheel />
+          </div>
+
+          {/* 3. Text paragraphs, buttons & subtexts (mobile: shown after the carousel) */}
+          <div className="order-3 lg:col-start-1 lg:row-start-2 w-full text-center lg:text-left space-y-6 max-w-2xl">
+            <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-sans">
+              Secure your home with Chennai's trusted safety net dealers. We install premium, UV-resistant balcony safety nets, pigeon safety nets, and rust-proof invisible grills with same-day measurement and a written warranty for homes, apartments, builders, and commercial sites across Tamil Nadu.
+            </p>
+
+            <div className="rounded-2xl border border-white/15 bg-white/10 p-4 text-left max-w-xl mx-auto lg:mx-0">
+              <p className="text-[11px] font-mono font-bold uppercase tracking-[0.25em] text-accent">Quick answer</p>
+              <p className="mt-2 text-sm text-slate-200 leading-relaxed">
+                If you need a balcony safety net in Chennai, pigeon netting for apartments, or invisible grills that preserve your view, we provide free site inspection, custom sizing, and professional installation with stainless steel anchors.
+              </p>
+            </div>
+
+            {/* Mobile CTA buttons */}
+            <div className="flex sm:hidden items-stretch justify-center gap-2 w-full pt-2">
               <a 
                 href="tel:+919043717064"
                 className="flex-1 flex items-center justify-center gap-1.5 bg-accent hover:bg-accent-light text-white font-bold text-sm px-3 py-2.5 rounded-lg shadow-lg shadow-accent/20 transition-all duration-300 active:scale-95"
@@ -648,15 +667,13 @@ export default function Home({ onChangePage, onOpenQuoteModal }: HomeProps) {
               </a>
             </div>
 
-            {/* Desktop CTA buttons (unchanged, shown from sm up) */}
-            <div className="hidden sm:flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4">
+            {/* Desktop CTA buttons */}
+            <div className="hidden sm:flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-2">
               <a 
                 href="tel:+919043717064"
                 className="group relative overflow-hidden flex items-center gap-2 bg-accent hover:bg-accent-light text-white font-bold text-sm sm:text-base px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl shadow-xl shadow-accent/20 hover:shadow-accent/40 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] active:scale-95"
               >
-                {/* Premium Shimmer element */}
                 <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 ease-out pointer-events-none" />
-                
                 <Phone className="h-4 w-4 sm:h-5 sm:w-5 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300 relative z-10" />
                 <span className="relative z-10">Call Now (+91 90437 17064)</span>
               </a>
@@ -666,9 +683,7 @@ export default function Home({ onChangePage, onOpenQuoteModal }: HomeProps) {
                 rel="noopener noreferrer"
                 className="group relative overflow-hidden flex items-center gap-2 bg-[#25D366] hover:bg-[#20ba56] text-white font-bold text-sm sm:text-base px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl shadow-xl shadow-green-500/10 hover:shadow-green-500/30 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] active:scale-95"
               >
-                {/* Premium Shimmer element */}
                 <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 ease-out pointer-events-none" />
-                
                 <MessageSquare className="h-4 w-4 sm:h-5 sm:w-5 group-hover:scale-110 group-hover:-rotate-12 transition-transform duration-300 relative z-10" />
                 <span className="relative z-10">WhatsApp Chat</span>
               </a>
@@ -682,28 +697,9 @@ export default function Home({ onChangePage, onOpenQuoteModal }: HomeProps) {
                 </span>
               </button>
             </div>
-          </div>
-
-          {/* 3D Vertical Wheel Carousel (mobile: shown right after the title) */}
-          <div className="order-2 lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:self-center w-full flex items-center justify-center lg:justify-end py-6">
-            <Vertical3DWheel />
-          </div>
-
-          {/* Remaining hero text (mobile: shown after the carousel) */}
-          <div className="order-3 lg:col-start-1 lg:row-start-2 w-full text-center lg:text-left space-y-6 max-w-2xl">
-            <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-sans">
-              Secure your home with Chennai's trusted safety net dealers. We install premium, UV-resistant balcony safety nets, pigeon safety nets, and rust-proof invisible grills with same-day measurement and a written warranty for homes, apartments, builders, and commercial sites across Tamil Nadu.
-            </p>
-
-            <div className="rounded-2xl border border-white/15 bg-white/10 p-4 text-left max-w-xl">
-              <p className="text-[11px] font-mono font-bold uppercase tracking-[0.25em] text-accent">Quick answer</p>
-              <p className="mt-2 text-sm text-slate-200 leading-relaxed">
-                If you need a balcony safety net in Chennai, pigeon netting for apartments, or invisible grills that preserve your view, we provide free site inspection, custom sizing, and professional installation with stainless steel anchors.
-              </p>
-            </div>
 
             {/* Quick trust metrics */}
-            <div className="grid grid-cols-3 gap-8 pt-10 max-w-md mx-auto lg:mx-0 border-t border-white/10 mt-8">
+            <div className="grid grid-cols-3 gap-8 pt-6 max-w-md mx-auto lg:mx-0 border-t border-white/10 mt-6">
               <div>
                 <p className="font-display font-black text-2xl sm:text-3xl text-accent">15,000+</p>
                 <p className="text-[10px] sm:text-xs text-slate-400 font-mono font-semibold uppercase tracking-wider">Homes Secured</p>

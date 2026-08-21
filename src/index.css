@@ -19,6 +19,17 @@
   }
 }
 
+@keyframes phone-ring {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  10%, 25%, 40% { transform: rotate(-14deg) scale(1.15); }
+  17.5%, 32.5%, 47.5% { transform: rotate(14deg) scale(1.15); }
+  55% { transform: rotate(0deg) scale(1); }
+}
+
+.animate-phone-ring {
+  animation: phone-ring 2.5s ease-in-out infinite;
+}
+
 /* Base modifications */
 html {
   scroll-behavior: smooth;

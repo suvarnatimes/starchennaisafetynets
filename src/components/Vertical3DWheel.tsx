@@ -12,39 +12,33 @@ interface WheelItem {
 const CAROUSEL_IMAGES: WheelItem[] = [
   {
     id: 1,
-    url: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938511/starchennaisafetynets/chennai_balcony_safety_net.jpg',
-    title: 'Balcony Safety Nets',
-    desc: 'Heavy-duty 100% UV treated transparent co-polymer safety nets.'
+    url: '/hero/hero_invisible_grill_balcony.jpg',
+    title: 'Balcony Invisible Grills',
+    desc: 'Premium 316-grade stainless steel wire grills for unobstructed views & safety.'
   },
   {
     id: 2,
-    url: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938508/starchennaisafetynets/chennai_hero_backdrop.jpg',
-    title: 'Apartment Safety Nets',
-    desc: 'Indian high-rise safety nets customized to withstand strong winds.'
+    url: '/hero/hero_balcony_safety_net.jpg',
+    title: 'Balcony Safety Nets',
+    desc: '100% UV-treated high-tensile HDPE balcony nets built for apartment protection.'
   },
   {
     id: 3,
-    url: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938515/starchennaisafetynets/chennai_pigeon_safety_net.jpg',
-    title: 'Pigeon Safety Nets',
-    desc: 'Effective and humane wire-reinforced nylon mesh to keep birds away.'
+    url: '/hero/hero_happy_customers_invisible_grill.jpg',
+    title: 'Trusted Installation',
+    desc: 'Over 15,000+ satisfied homeowners secured with certified written warranty.'
   },
   {
     id: 4,
-    url: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938515/starchennaisafetynets/chennai_pigeon_safety_net.jpg',
-    title: 'Anti-Bird Grills',
-    desc: 'Durable nylon bird control barriers for balconies and duct areas.'
+    url: '/hero/hero_cricket_practice_net.jpg',
+    title: 'Cricket Practice Nets',
+    desc: 'High-density sports containment netting for grounds, schools, and terraces.'
   },
   {
     id: 5,
-    url: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938532/starchennaisafetynets/chennai_construction_net.jpg',
-    title: 'Construction Safety Nets',
-    desc: 'Debris collection and fallback protection nets for industrial sites.'
-  },
-  {
-    id: 6,
-    url: 'https://res.cloudinary.com/dovm8ucqv/image/upload/v1783938521/starchennaisafetynets/chennai_child_safety_net.jpg',
-    title: 'Child Protection Nets',
-    desc: 'Maximum strength anchorage ensuring total safety for children and pets.'
+    url: '/hero/hero_staircase_invisible_grill.jpg',
+    title: 'Staircase Invisible Grills',
+    desc: 'Modern interior child safety barriers for open staircases & railing gaps.'
   }
 ];
 
