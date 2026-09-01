@@ -7,6 +7,7 @@ import crypto from 'crypto';
 import { v2 as cloudinary } from 'cloudinary';
 import { db } from './db.js';
 import { Blog, Category, Tag, Inquiry } from '../types.js';
+import { blogArticlesData } from '../data/blogArticlesData.js';
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME || process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -943,11 +944,20 @@ app.get('/sitemap.xml', (req: Request, res: Response): void => {
     xml += `  </url>\n`;
   });
 
+  // Merge all blogs from blogArticlesData and db.json
+  const allBlogSlugs = new Map<string, string>();
+  Object.values(blogArticlesData).forEach(b => {
+    allBlogSlugs.set(b.slug, b.publishDate || today);
+  });
   const publishedBlogs = data.blogs.filter(b => b.status === 'published');
   publishedBlogs.forEach(blog => {
     const lastmod = blog.publishDate ? blog.publishDate.split('T')[0] : today;
+    allBlogSlugs.set(blog.slug, lastmod);
+  });
+
+  allBlogSlugs.forEach((lastmod, slug) => {
     xml += `  <url>\n`;
-    xml += `    <loc>${baseUrl}/blog/${blog.slug}</loc>\n`;
+    xml += `    <loc>${baseUrl}/blog/${slug}</loc>\n`;
     xml += `    <lastmod>${lastmod}</lastmod>\n`;
     xml += `    <changefreq>monthly</changefreq>\n`;
     xml += `    <priority>0.7</priority>\n`;
