@@ -61,9 +61,9 @@ export function renderFullHtmlForRoute(reqPath: string, baseTemplate: string): {
           <div style="background-color: #1e293b; padding: 24px; border-radius: 12px; margin-bottom: 24px;">
             <h2 style="font-size: 20px; color: #fbbf24; margin-bottom: 12px;">Service Specifications & Features</h2>
             <ul style="line-height: 1.8;">
-              <li><strong>Material Grade:</strong> ${sData.materialGrade}</li>
-              <li><strong>Warranty:</strong> ${sData.warranty} Official Written Warranty</li>
-              <li><strong>Price per Sq Ft:</strong> ${sData.pricePerSqFt}</li>
+              <li><strong>Materials Spec:</strong> ${sData.materialsSpec}</li>
+              <li><strong>Warranty:</strong> ${sData.warranty}</li>
+              <li><strong>Pricing Approach:</strong> ${sData.pricingApproach}</li>
               <li><strong>Primary Focus:</strong> ${sData.shortDesc}</li>
             </ul>
           </div>
@@ -119,6 +119,31 @@ export function renderFullHtmlForRoute(reqPath: string, baseTemplate: string): {
               <p style="line-height: 1.6;">${s.content}</p>
             </div>
           `).join('')}
+          ${bData.comparisonTable ? `
+            <div style="margin-bottom: 24px; overflow-x: auto;">
+              <h2 style="font-size: 22px; color: #ffffff; margin-bottom: 12px;">Detailed Comparison Table</h2>
+              <table style="width: 100%; border-collapse: collapse; text-align: left; background-color: #1e293b; color: #cbd5e1; border-radius: 8px;">
+                <thead>
+                  <tr style="background-color: #0f172a; color: #fbbf24;">
+                    ${bData.comparisonTable.headers.map(h => `<th style="padding: 12px; border: 1px solid #334155;">${h}</th>`).join('')}
+                  </tr>
+                </thead>
+                <tbody>
+                  ${bData.comparisonTable.rows.map(row => `
+                    <tr>
+                      ${row.map(cell => `<td style="padding: 10px 12px; border: 1px solid #334155;">${cell}</td>`).join('')}
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          ` : ''}
+          ${bData.faqs && bData.faqs.length > 0 ? `
+            <div style="margin-bottom: 24px;">
+              <h2 style="font-size: 22px; color: #ffffff; margin-bottom: 12px;">Frequently Asked Questions</h2>
+              ${bData.faqs.map(f => `<div style="margin-bottom: 12px;"><strong>Q: ${f.q}</strong><p style="margin-top: 4px;">A: ${f.a}</p></div>`).join('')}
+            </div>
+          ` : ''}
           <a href="tel:+919043717064" style="background-color: #f59e0b; color: #0f172a; padding: 12px 24px; border-radius: 8px; font-weight: bold; text-decoration: none; display: inline-block;">Contact Tech Support (+91 90437 17064)</a>
         </main>
       `;

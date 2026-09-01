@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Blog } from '../types.js';
 import { servicesData } from '../data/servicesData.js';
 import { localitiesData } from '../data/localitiesData.js';
+import { blogArticlesData } from '../data/blogArticlesData.js';
 import { Shield, MapPin, FileText } from 'lucide-react';
 
 const mainRoutes = [
@@ -16,21 +17,28 @@ const mainRoutes = [
 ];
 
 export default function SitemapPage() {
-  const [blogs, setBlogs] = useState<Blog[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [blogs, setBlogs] = useState<{ slug: string; title: string }[]>(
+    Object.values(blogArticlesData).map(a => ({ slug: a.slug, title: a.title }))
+  );
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const loadBlogs = async () => {
       try {
         const res = await fetch('/api/blogs?status=published');
         if (res.ok) {
-          const data = await res.json();
-          setBlogs(data);
+          const data: Blog[] = await res.json();
+          // Merge dynamic API blogs with local articles
+          const combined = [...Object.values(blogArticlesData).map(a => ({ slug: a.slug, title: a.title }))];
+          data.forEach(dbBlog => {
+            if (!combined.some(c => c.slug === dbBlog.slug)) {
+              combined.push({ slug: dbBlog.slug, title: dbBlog.title });
+            }
+          });
+          setBlogs(combined);
         }
       } catch (error) {
         console.error('Failed to load sitemap blog list', error);
-      } finally {
-        setLoading(false);
       }
     };
 
