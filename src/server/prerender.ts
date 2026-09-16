@@ -46,6 +46,28 @@ export function renderFullHtmlForRoute(reqPath: string, baseTemplate: string): {
           <a href="https://wa.me/919043717064" style="background-color: #25d366; color: #ffffff; padding: 14px 28px; border-radius: 8px; font-weight: bold; text-decoration: none;">WhatsApp Inspection</a>
         </div>
       </main>
+      <footer style="max-width: 1200px; margin: 0 auto; padding: 24px; border-top: 1px solid #334155; color: #94a3b8; font-size: 13px;">
+        <h3 style="font-size: 16px; color: #fbbf24; margin-bottom: 8px;">Our Regional Partner Network</h3>
+        <p style="margin-bottom: 12px; font-size: 12px; color: #94a3b8;">Trusted regional partner associates providing specialized safety netting, bird control, and invisible grill installations across South India:</p>
+        <ul style="list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;">
+          <li>
+            <a href="https://tamizhabalconypigeonsafetynets.in/" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none; font-weight: 600;">Tamizha Balcony Pigeon Safety Nets Chennai</a>
+            <div style="font-size: 11px; color: #64748b;">Chennai, Tamil Nadu</div>
+          </li>
+          <li>
+            <a href="https://www.pigeonsafetycricketnets.in/" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none; font-weight: 600;">Pigeon Safety &amp; Cricket Nets Andhra Pradesh</a>
+            <div style="font-size: 11px; color: #64748b;">Andhra Pradesh</div>
+          </li>
+          <li>
+            <a href="https://www.kovaisafetynets.in/" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none; font-weight: 600;">Kovai Safety Nets Coimbatore</a>
+            <div style="font-size: 11px; color: #64748b;">Coimbatore, Tamil Nadu</div>
+          </li>
+          <li>
+            <a href="https://www.chennaiinvisiblegrills.in/" target="_blank" rel="noopener" style="color: #cbd5e1; text-decoration: none; font-weight: 600;">Chennai Invisible Grills</a>
+            <div style="font-size: 11px; color: #64748b;">Chennai, Tamil Nadu</div>
+          </li>
+        </ul>
+      </footer>
     `;
   } else if (cleanPath.startsWith('/services/')) {
     const slug = cleanPath.replace('/services/', '');
