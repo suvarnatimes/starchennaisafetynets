@@ -18,6 +18,10 @@
       "destination": "/api/index"
     },
     {
+      "source": "/googlee564e5bc7cf4698f.html",
+      "destination": "/api/index"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

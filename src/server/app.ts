@@ -876,6 +876,12 @@ app.delete('/api/gallery/:id', authMiddleware, async (req: Request, res: Respons
   res.json({ success: true });
 });
 
+// ================= GOOGLE SEARCH CONSOLE VERIFICATION =================
+app.get('/googlee564e5bc7cf4698f.html', (req: Request, res: Response): void => {
+  res.header('Content-Type', 'text/html');
+  res.status(200).send('google-site-verification: googlee564e5bc7cf4698f.html');
+});
+
 // ================= SEO SITEMAP ROUTES =================
 
 function getBaseUrl(req: Request): string {
